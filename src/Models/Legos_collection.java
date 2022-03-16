@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class Legos_collection {
 	
-	public static  HashMap<String, Lego> legos = new HashMap<String, Lego>();
+	public  HashMap<String, Lego> legos = new HashMap<String, Lego>();
 	
-	public static String selected_bloc = "BASE";
+	public  String selected_bloc = "BASE";
 	
 
 	public Legos_collection() {
@@ -18,7 +18,7 @@ public class Legos_collection {
 		legos.put("BASE",new Lego(1000,1,1000,"BASE",null));
 	}
 	
-	public static Lego new_selectedBlock() {
+	public  Lego new_selectedBlock() {
 		
 		return legos.get(selected_bloc);
 	}

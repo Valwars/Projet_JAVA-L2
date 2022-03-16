@@ -40,21 +40,28 @@ public class Controller_3D_Environnement extends Application {
 	
 	public  SmartGroup group;
 	
-	private Legos_collection leg = new Legos_collection();
-
+	private Legos_collection leg;
 	
+	public Controller_3D_Environnement(Legos_collection leg) {
+		this.leg = leg;
+	}
+	
+
 	@Override
 	public void start(Stage primaryStage) {
 		
-        
 	    group = new SmartGroup();
+	    
 	    
 	    Lego.group = group;
 	   
-	    
-		Lego pateforme_de_construction =  Legos_collection.new_selectedBlock();
+		Lego pateforme_de_construction =  leg.new_selectedBlock();
 		
-		Legos_collection.selected_bloc = "CUBE";
+		pateforme_de_construction.setLegos(leg);
+			
+		
+		
+		leg.selected_bloc = "CUBE";
 
 		group.getChildren().add(pateforme_de_construction);
 		
@@ -80,14 +87,14 @@ public class Controller_3D_Environnement extends Application {
 			switch(event.getCode()) {
 			
 			case W:
-				Legos_collection.selected_bloc = "RECTANGLE";
+				leg.selected_bloc = "RECTANGLE";
 				System.out.println("RECTANGLE");
 				break;
 			case E:
-				Legos_collection.selected_bloc = "CUBE";
+				leg.selected_bloc = "CUBE";
 				break;
 			case P:
-				Legos_collection.selected_bloc = "PILLIER";
+				leg.selected_bloc = "PILLIER";
 				break;
 			}
 			
@@ -151,6 +158,8 @@ public class Controller_3D_Environnement extends Application {
 		return new Node[]{pointLight, sphere};
 		
 	}
+
+
 	
 
 }

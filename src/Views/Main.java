@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import Controllers.Controller_3D_Environnement;
+import Models.Legos_collection;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,9 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("interface.fxml"));
 			
-			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement();
+			Legos_collection legos_collection = new Legos_collection();
+			
+			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement(legos_collection);
 			
 			environnement_Controller.start(primaryStage);
 			

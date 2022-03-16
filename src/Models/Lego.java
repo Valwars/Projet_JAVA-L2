@@ -22,9 +22,9 @@ public class Lego extends Box  {
 	public static SmartGroup group;
 	
 	
-	private HashMap<String, Lego> legos = Legos_collection.legos;
+	private static Legos_collection Legos_collection;
 
-	
+
 	public Lego(int width, int height , int depth,String type, Lego parent) {
 		
 		this.width = width;
@@ -71,6 +71,10 @@ public class Lego extends Box  {
 			
 		});
 		
+	}
+	
+	public void setLegos(Legos_collection l ) {
+		Legos_collection = l ;
 	}
 	
 	public void addChild(Lego child) {
