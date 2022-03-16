@@ -33,7 +33,13 @@ public class Lego extends Box  {
 		this.parent =parent;
 		this.type = type;
 		PhongMaterial material = new PhongMaterial();
-		material.setDiffuseColor(Color.ROYALBLUE);
+		
+		if(parent == null) {
+			material.setDiffuseColor(Color.valueOf("#6B6E74"));
+		}else {
+			material.setDiffuseColor(Color.ROYALBLUE);
+
+		}
 		material.setSpecularColor(Color.valueOf("#424242"));
 		this.setMaterial(material);
 		this.setWidth(width);
@@ -47,9 +53,10 @@ public class Lego extends Box  {
 			if(this.type.equals("BASE")) {
 				Lego new_lego = new Lego( Legos_collection.new_selectedBlock().width,  Legos_collection.new_selectedBlock().height,  Legos_collection.new_selectedBlock().depth,Legos_collection.selected_bloc, this);
 				
-				new_lego.setTranslateX( event.getX());
+				new_lego.setTranslateX(  this.getTranslateX());
 				new_lego.setTranslateY( -1 * (Legos_collection.new_selectedBlock().height / 2));
-				new_lego.setTranslateZ( event.getZ());
+				new_lego.setTranslateZ( this.getTranslateZ());
+
 				
 				System.out.println(new_lego.parent);
 				

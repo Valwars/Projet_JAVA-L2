@@ -11,16 +11,18 @@ public class Legos_collection {
 	
 
 	public Legos_collection() {
-		legos.put("CUBE",new Lego(100,100,100,"CUBE",null));
+		legos.put("CUBE",new Lego(50,50,50,"CUBE",null));
 		
 		legos.put("RECTANGLE",new Lego(200,50, 50,"RECTANGLE",null));
 		legos.put("PILLIER",new Lego(50,200, 50,"PILLIER",null));
-		legos.put("BASE",new Lego(1000,1,1000,"BASE",null));
+		legos.put("RECTANGLE_GAUCHE",new Lego(50,50, 200,"RECTANGLE_GAUCHE",null));
+		legos.put("BASE",new Lego(50,1,50,"BASE",null));
+
 	}
 	
 	public  Lego new_selectedBlock() {
 		
-		return legos.get(selected_bloc);
+		return new Lego(legos.get(selected_bloc).width, legos.get(selected_bloc).height, legos.get(selected_bloc).depth, selected_bloc, legos.get(selected_bloc).parent);
 	}
 	
 	

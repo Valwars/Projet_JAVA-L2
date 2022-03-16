@@ -55,22 +55,41 @@ public class Controller_3D_Environnement extends Application {
 	    
 	    Lego.group = group;
 	   
-		Lego pateforme_de_construction =  leg.new_selectedBlock();
+
+		int x = 0;
+		int y = 0;
 		
-		pateforme_de_construction.setLegos(leg);
+		Lego pateforme_de_construction;
+		for(int i = 0; i < 20;i ++) {
 			
+			for(int j = 0; j <  20;j++) {
+				
+				pateforme_de_construction =  leg.new_selectedBlock();
+				pateforme_de_construction.setTranslateX(x);
+				pateforme_de_construction.setTranslateZ(y);
+				pateforme_de_construction.setLegos(leg);
+				
+				group.getChildren().add(pateforme_de_construction);
+				
+				x += 60;
+			}
+			
+			y += 60;
+			x = 0;
+		}
 		
 		
 		leg.selected_bloc = "CUBE";
 
-		group.getChildren().add(pateforme_de_construction);
 		
+	
 		
 		group.getChildren().addAll(prepareLight());
 
 		Camera camera = new PerspectiveCamera();
 		Scene scene = new Scene(group, 1200, 800, true);
-		scene.setFill(Color.SILVER);
+		
+		scene.setFill(Color.valueOf("#2C2D32"));
 		
 		scene.setCamera(camera);
 		group.translateXProperty().set(1200/2);
@@ -84,6 +103,7 @@ public class Controller_3D_Environnement extends Application {
 		primaryStage.show();
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			
 			switch(event.getCode()) {
 			
 			case W:
@@ -95,6 +115,10 @@ public class Controller_3D_Environnement extends Application {
 				break;
 			case P:
 				leg.selected_bloc = "PILLIER";
+				break;
+				
+			case C:
+				leg.selected_bloc = "RECTANGLE_GAUCHE";
 				break;
 			}
 			
@@ -144,13 +168,13 @@ public class Controller_3D_Environnement extends Application {
 	private Node[] prepareLight(){
 		PointLight pointLight = new PointLight();
 		
-		pointLight.getTransforms().add(new Translate(50,-150, -150 ));
+		pointLight.getTransforms().add(new Translate(0,-400, -150 ));
 		
 		
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(Color.YELLOW);
 		
-		Sphere sphere = new Sphere(2);
+		Sphere sphere = new Sphere(10);
 
 		sphere.getTransforms().setAll(pointLight.getTransforms());
 		sphere.setMaterial(material);
