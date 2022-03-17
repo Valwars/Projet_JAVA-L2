@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.Rotate;
 
 public class Lego extends Box {
 
@@ -50,7 +51,13 @@ public class Lego extends Box {
 
 		this.setOnMouseClicked(event -> {
 			
-			String rotate = "LEFT";
+			String[] rot = structure.selected_bloc.split("_");
+			
+			String rotate = "";
+			if(rot.length > 1) {
+				rotate = rot[1];
+				System.out.println(rotate);
+			}
 			
 			Group group = new Group();
 
@@ -114,11 +121,10 @@ public class Lego extends Box {
 				group.getChildren().add(new_lego);
 			}
 			
-			if(rotate == "LEFT") {
-				System.out.println("ROTATE");
-				group.setRotationAxis(new Point3D(90, 90, 90));
-				
+			if(rotate.equals("GAUCHE")) {
+				group.setTranslateX(-1 * (model.width - (model.width/50))+ this.getTranslateX() );
 			}
+			
 			structure.getChildren().addAll(group);
 
 		});
@@ -127,21 +133,19 @@ public class Lego extends Box {
 
 	public int getTotalHeight() {
 
-		int height = this.height;
-
+		int height =  this.height/2;
+		
+		
 		Lego curr = this;
 
 		while (curr.parent != null) {
 
-			if (curr.parent.type != "BASE") {
-				height += curr.parent.height;
-				System.out.println("HAUTEUR PAPA :" + curr.parent.height);
-
-			}
+			height += curr.height;
 
 			curr = curr.parent;
 
 		}
+		
 
 		System.out.println("HAUTEUR TOTALE :" + height);
 		return height;

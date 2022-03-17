@@ -93,6 +93,7 @@ public class Controller_3D_Environnement extends Application {
 			case N:
 				structure.recupDeletedBloc();
 				break;
+			
 			}
 			
 		

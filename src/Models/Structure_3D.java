@@ -32,6 +32,8 @@ public class Structure_3D extends Group {
 		
 	}
 	
+	
+	
 	public void recupDeletedBloc() {
 		try {
 			
