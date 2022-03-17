@@ -37,7 +37,7 @@ public class Controller_3D_Environnement extends Application {
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
 	public Structure_3D structure;
- 
+
 	private Legos_collection leg;
 
 	public Controller_3D_Environnement(Structure_3D structure) {
@@ -85,9 +85,21 @@ public class Controller_3D_Environnement extends Application {
 			case C:
 				structure.selected_bloc = "RECTANGLE_DROITE";
 				break;
+				
+			case B:
+				structure.deleteLastBloc();
+				break;
+				
+			case N:
+				structure.recupDeletedBloc();
+				break;
 			}
+			
+		
+		
 
 		});
+
 	}
 
 	private void initMouseControl(Structure_3D group, Scene scene, Stage stage) {
