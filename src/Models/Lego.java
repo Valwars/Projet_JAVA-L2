@@ -2,6 +2,8 @@ package Models;
 
 import java.util.HashMap;
 
+import javafx.geometry.Point3D;
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -47,6 +49,10 @@ public class Lego extends Box {
 		this.setMaterial(material);
 
 		this.setOnMouseClicked(event -> {
+			
+			String rotate = "LEFT";
+			
+			Group group = new Group();
 
 			Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 
@@ -60,7 +66,7 @@ public class Lego extends Box {
 
 				System.out.println(new_lego.parent);
 
-				structure.getChildren().add(new_lego);
+				group.getChildren().add(new_lego);
 
 				if (model.width > 50) {
 
@@ -69,11 +75,11 @@ public class Lego extends Box {
 
 						Lego child = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
 
-						child.setTranslateX(this.getTranslateX() + i * 50);
+						child.setTranslateX(this.getTranslateX() + i * 51);
 						child.setTranslateY(-1 * (model.height / 2));
 						child.setTranslateZ(this.getTranslateZ());
 
-						structure.getChildren().add(child);
+						group.getChildren().add(child);
 
 					}
 				}
@@ -90,11 +96,11 @@ public class Lego extends Box {
 
 						Lego child = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
 
-						child.setTranslateX(this.getTranslateX() + i * 50);
+						child.setTranslateX(this.getTranslateX() + i * 51);
 						child.setTranslateY(-1 * (this.getTotalHeight()));
 						child.setTranslateZ(this.getTranslateZ());
 
-						structure.getChildren().add(child);
+						group.getChildren().add(child);
 
 					}
 				}
@@ -105,8 +111,15 @@ public class Lego extends Box {
 
 				System.out.println(new_lego.parent);
 
-				structure.getChildren().add(new_lego);
+				group.getChildren().add(new_lego);
 			}
+			
+			if(rotate == "LEFT") {
+				System.out.println("ROTATE");
+				group.setRotationAxis(new Point3D(90, 90, 90));
+				
+			}
+			structure.getChildren().addAll(group);
 
 		});
 

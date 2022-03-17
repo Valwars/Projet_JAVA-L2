@@ -12,7 +12,7 @@ public class Structure_3D extends Group {
 
 		
 	}
-	
+	 
 	public void setCollec(Legos_collection leg) {
 		this.legos_collections = leg;
 	}

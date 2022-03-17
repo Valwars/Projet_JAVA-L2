@@ -71,8 +71,8 @@ public class Controller_3D_Environnement extends Application {
 
 			switch (event.getCode()) {
 
-			case W:
-				structure.selected_bloc = "RECTANGLE";
+			case D:
+				structure.selected_bloc = "RECTANGLE_GAUCHE";
 				System.out.println("RECTANGLE");
 				break;
 			case E:
@@ -125,7 +125,7 @@ public class Controller_3D_Environnement extends Application {
 	private Node[] prepareLight() {
 		PointLight pointLight = new PointLight();
 
-		pointLight.getTransforms().add(new Translate(0, -400, -150));
+		pointLight.getTransforms().add(new Translate(0, -1000, -1000));
 
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(Color.YELLOW);
