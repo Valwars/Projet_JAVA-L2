@@ -6,7 +6,6 @@ public class Legos_collection {
 
 	public HashMap<String, Lego> legos;
 
-	public String selected_bloc = "BASE";
 
 	public Legos_collection(Structure_3D structure) {
 		
@@ -16,7 +15,6 @@ public class Legos_collection {
 
 		legos.put("RECTANGLE", new Lego(150, 50, 50, "RECTANGLE", null,structure));
 		legos.put("PILLIER", new Lego(50, 200, 50, "PILLIER", null,structure));
-		legos.put("RECTANGLE_DROITE", new Lego(50, 50, 150, "RECTANGLE_DROITE", null,structure));
 		legos.put("BASE", new Lego(50, 1, 50, "BASE", null,structure));
 	}
 
