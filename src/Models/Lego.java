@@ -18,18 +18,17 @@ public class Lego extends Box {
 
 	public String type;
 	public Color color = Color.AQUAMARINE;
+	
+	public Structure_3D structure;
 
-	public static SmartGroup group;
-
-	private static Legos_collection legos;
-
-	public Lego(int width, int height, int depth, String type, Lego parent) {
+	public Lego(int width, int height, int depth, String type, Lego parent, Structure_3D structure) {
 
 		this.width = width;
 		this.height = height;
 		this.depth = depth;
 		this.parent = parent;
 		
+		this.structure = structure;
 		this.type = type;
 		PhongMaterial material = new PhongMaterial();
 
@@ -37,7 +36,7 @@ public class Lego extends Box {
 			material.setDiffuseColor(Color.valueOf("#6B6E74"));
 		} else {
 			material.setDiffuseColor(Color.ROYALBLUE);
-
+ 
 		}
 		material.setSpecularColor(Color.valueOf("#424242"));
 		
@@ -48,24 +47,28 @@ public class Lego extends Box {
 		
 		this.setMaterial(material);
 		
+		
+		
 		this.setOnMouseClicked(event -> {
+			
+			Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 
 			if (this.type.equals("BASE")) {
-				Lego new_lego = new Lego(legos.new_selectedBlock().width,
-						legos.new_selectedBlock().height, legos.new_selectedBlock().depth,
-						legos.selected_bloc, this);
+				Lego new_lego = new Lego(model.width,
+						model.height, model.depth,
+						structure.selected_bloc, this, structure);
 
 				new_lego.setTranslateX(this.getTranslateX());
-				new_lego.setTranslateY(-1 * (legos.new_selectedBlock().height / 2));
+				new_lego.setTranslateY(-1 * (model.height / 2));
 				new_lego.setTranslateZ(this.getTranslateZ());
 
 				System.out.println(new_lego.parent);
 
-				group.getChildren().add(new_lego);
+				structure.getChildren().add(new_lego);
 			} else {
-				Lego new_lego = new Lego(legos.new_selectedBlock().width,
-						legos.new_selectedBlock().height, legos.new_selectedBlock().depth,
-						legos.selected_bloc, this);
+				Lego new_lego = new Lego(model.width,
+						model.height, model.depth,
+						structure.selected_bloc, this, structure);
 
 				new_lego.setTranslateX(this.getTranslateX());
 				new_lego.setTranslateY(-1 * (this.getTotalHeight()));
@@ -73,21 +76,14 @@ public class Lego extends Box {
 
 				System.out.println(new_lego.parent);
 
-				group.getChildren().add(new_lego);
+				structure.getChildren().add(new_lego);
 			}
 
 		});
+		
 
 	}
-
-	public void setLegos(Legos_collection l) {
-		legos = l;
-	}
-
-	public void addChild(Lego child) {
-		this.enfant = child;
-	}
-
+	
 	public int getTotalHeight() {
 
 		int height = this.height;

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import Models.Lego;
 import Models.Legos_collection;
 import Models.SmartGroup;
+import Models.Structure_3D;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -35,126 +36,32 @@ public class Controller_3D_Environnement extends Application {
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
-	public SmartGroup group;
-
+	public Structure_3D structure;
+ 
 	private Legos_collection leg;
 
-	public Controller_3D_Environnement(Legos_collection leg) {
-		this.leg = leg;
+	public Controller_3D_Environnement(Structure_3D structure) {
+		this.structure = structure;
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 
-		group = new SmartGroup();
-
-		Lego.group = group;
-
-		int x = 0;
-		int y = 0;
-
-		Lego pateforme_de_construction;
-
-		for (int i = 0; i < 15; i++) {
-
-			for (int j = 0; j < 15; j++) {
-
-				pateforme_de_construction = leg.new_selectedBlock();
-				pateforme_de_construction.setTranslateX(x);
-				pateforme_de_construction.setTranslateZ(y);
-				pateforme_de_construction.setLegos(leg);
-
-				group.getChildren().add(pateforme_de_construction);
-
-				x += 51;
-			}
-
-			y += 51;
-			x = 0;
-		}
-		
-		x = 0;
-		y = 0;
-
-
-		for (int i = 0; i < 15; i++) {
-
-			for (int j = 0; j < 15; j++) {
-
-				pateforme_de_construction = leg.new_selectedBlock();
-				pateforme_de_construction.setTranslateX(x);
-				pateforme_de_construction.setTranslateZ(y);
-				pateforme_de_construction.setLegos(leg);
-
-				group.getChildren().add(pateforme_de_construction);
-
-				x -= 51;
-			}
-
-			y -= 51;
-			x = 0;
-		}
-		
-		x = 0;
-		y = 0;
-
-
-		for (int i = 0; i < 15; i++) {
-
-			for (int j = 0; j < 15; j++) {
-
-				pateforme_de_construction = leg.new_selectedBlock();
-				pateforme_de_construction.setTranslateX(x);
-				pateforme_de_construction.setTranslateZ(y);
-				pateforme_de_construction.setLegos(leg);
-
-				group.getChildren().add(pateforme_de_construction);
-
-				x += 51;
-			}
-
-			y -= 51;
-			x = 0;
-		}
-		
-		x = 0;
-		y = 0;
-
-
-		for (int i = 0; i < 15; i++) {
-
-			for (int j = 0; j < 15; j++) {
-
-				pateforme_de_construction = leg.new_selectedBlock();
-				pateforme_de_construction.setTranslateX(x);
-				pateforme_de_construction.setTranslateZ(y);
-				pateforme_de_construction.setLegos(leg);
-
-				group.getChildren().add(pateforme_de_construction);
-
-				x -= 51;
-			}
-
-			y += 51;
-			x = 0;
-		}
-
-		leg.selected_bloc = "CUBE";
-
-		group.getChildren().addAll(prepareLight());
+		structure.createBase();
+		structure.getChildren().addAll(prepareLight());
 
 		Camera camera = new PerspectiveCamera();
 		
-		Scene scene = new Scene(group, 1200, 800, true);
+		Scene scene = new Scene(structure, 1200, 800, true);
 
 		scene.setFill(Color.valueOf("#2C2D32"));
 
 		scene.setCamera(camera);
-		group.translateXProperty().set(1200/2);
-		group.translateYProperty().set(1000 / 2);
-		group.translateZProperty().set(0);
+		structure.translateXProperty().set(1200/2);
+		structure.translateYProperty().set(1000 / 2);
+		structure.translateZProperty().set(0);
 
-		initMouseControl(group, scene, primaryStage);
+		initMouseControl(structure, scene, primaryStage);
 
 		primaryStage.setTitle("gerogr");
 		primaryStage.setScene(scene);
@@ -165,25 +72,25 @@ public class Controller_3D_Environnement extends Application {
 			switch (event.getCode()) {
 
 			case W:
-				leg.selected_bloc = "RECTANGLE";
+				structure.selected_bloc = "RECTANGLE";
 				System.out.println("RECTANGLE");
 				break;
 			case E:
-				leg.selected_bloc = "CUBE";
+				structure.selected_bloc = "CUBE";
 				break;
 			case P:
-				leg.selected_bloc = "PILLIER";
+				structure.selected_bloc = "PILLIER";
 				break;
 
 			case C:
-				leg.selected_bloc = "RECTANGLE_DROITE";
+				structure.selected_bloc = "RECTANGLE_DROITE";
 				break;
 			}
 
 		});
 	}
 
-	private void initMouseControl(SmartGroup group, Scene scene, Stage stage) {
+	private void initMouseControl(Structure_3D group, Scene scene, Stage stage) {
 		Rotate xRotate;
 		Rotate yRotate;
 

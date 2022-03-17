@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import Controllers.Controller_3D_Environnement;
 import Models.Legos_collection;
+import Models.Structure_3D;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +26,13 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("interface.fxml"));
 			
-			Legos_collection legos_collection = new Legos_collection();
+			Structure_3D structure = new Structure_3D();
 			
-			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement(legos_collection);
+			Legos_collection legos_collection = new Legos_collection(structure);
+			
+			structure.setCollec(legos_collection);
+			
+			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement(structure);
 			
 			environnement_Controller.start(primaryStage);
 			
