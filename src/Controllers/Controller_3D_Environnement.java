@@ -70,9 +70,19 @@ public class Controller_3D_Environnement extends Application {
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
-
-			case D:
-				structure.selected_bloc = "RECTANGLE_GAUCHE";
+			
+			case T:
+				structure.selected_bloc = "RECTANGLE2_DROITE";
+				System.out.println("RECTANGLE");
+				break;
+				
+			case Y:
+				structure.selected_bloc = "RECTANGLE2_GAUCHE";
+				System.out.println("RECTANGLE");
+				break;
+				
+			case A:
+				structure.selected_bloc = "RECTANGLE4_DROITE";
 				System.out.println("RECTANGLE");
 				break;
 			case E:
@@ -83,7 +93,7 @@ public class Controller_3D_Environnement extends Application {
 				break;
 
 			case C:
-				structure.selected_bloc = "RECTANGLE_DROITE";
+				structure.selected_bloc = "RECTANGLE4_GAUCHE";
 				break;
 				
 			case B:
@@ -97,8 +107,6 @@ public class Controller_3D_Environnement extends Application {
 			}
 			
 		
-		
-
 		});
 
 	}

@@ -1,13 +1,13 @@
 package Models;
 
-import java.util.HashMap;
 
-import javafx.geometry.Point3D;
+import javafx.animation.RotateTransition;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 public class Lego extends Box {
 
@@ -50,23 +50,22 @@ public class Lego extends Box {
 		this.setMaterial(material);
 
 		this.setOnMouseClicked(event -> {
-			
+
 			String[] rot = structure.selected_bloc.split("_");
-			
+
 			String rotate = "";
-			if(rot.length > 1) {
+			if (rot.length > 1) {
 				rotate = rot[1];
 				System.out.println(rotate);
 			}
-			
+
 			Group group = new Group();
 
 			Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 
 			if (this.type.equals("BASE")) {
-				Lego new_lego = new Lego(50, model.height, model.depth, structure.selected_bloc, this,
-						structure);
-				
+				Lego new_lego = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
+
 				new_lego.setTranslateX(this.getTranslateX());
 				new_lego.setTranslateY(-1 * (model.height / 2));
 				new_lego.setTranslateZ(this.getTranslateZ());
@@ -75,14 +74,20 @@ public class Lego extends Box {
 
 				group.getChildren().add(new_lego);
 
-				if (model.width > 50) {
+				if (Math.abs(model.width) > 50) {
 
-					for (int i = 1; i < (model.width / 50); i++) {
+					for (int i = 1; i < (Math.abs(model.width) / 50); i++) {
 						System.out.println("JE DOIS AJOUTER UN BLOC");
 
 						Lego child = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
-
-						child.setTranslateX(this.getTranslateX() + i * 51);
+						
+						if(rotate.equals("GAUCHE")){
+							System.out.println("GAUCHE CHILD");
+							System.out.println(i);
+							child.setTranslateX(this.getTranslateX() + i * (-51));
+						}else {
+							child.setTranslateX(this.getTranslateX() + i * 51);
+						}
 						child.setTranslateY(-1 * (model.height / 2));
 						child.setTranslateZ(this.getTranslateZ());
 
@@ -91,19 +96,24 @@ public class Lego extends Box {
 					}
 				}
 
-				
 			} else {
 				Lego new_lego = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
 
 				System.out.println(model.width);
-				if (model.width > 50) {
+				if (Math.abs(model.width) > 50) {
 
-					for (int i = 0; i < (model.width / 50); i++) {
+					for (int i = 0; i < (Math.abs(model.width)/ 50); i++) {
 						System.out.println("JE DOIS AJOUTER UN BLOC");
 
 						Lego child = new Lego(50, model.height, model.depth, structure.selected_bloc, this, structure);
 
-						child.setTranslateX(this.getTranslateX() + i * 51);
+						if(rotate.equals("GAUCHE")){
+							System.out.println("GAUCHE CHILD");
+							System.out.println(i);
+							child.setTranslateX(this.getTranslateX() + i * (-51));
+						}else {
+							child.setTranslateX(this.getTranslateX() + i * 51);
+						}
 						child.setTranslateY(-1 * (this.getTotalHeight()));
 						child.setTranslateZ(this.getTranslateZ());
 
@@ -120,11 +130,12 @@ public class Lego extends Box {
 
 				group.getChildren().add(new_lego);
 			}
-			
-			if(rotate.equals("GAUCHE")) {
-				group.setTranslateX(-1 * (model.width - (model.width/50))+ this.getTranslateX() );
+
+			if (rotate.equals("GAUCHE")) {
+				
+				
 			}
-			
+
 			structure.getChildren().addAll(group);
 
 		});
@@ -133,9 +144,8 @@ public class Lego extends Box {
 
 	public int getTotalHeight() {
 
-		int height =  this.height/2;
-		
-		
+		int height = this.height / 2;
+
 		Lego curr = this;
 
 		while (curr.parent != null) {
@@ -145,7 +155,6 @@ public class Lego extends Box {
 			curr = curr.parent;
 
 		}
-		
 
 		System.out.println("HAUTEUR TOTALE :" + height);
 		return height;
