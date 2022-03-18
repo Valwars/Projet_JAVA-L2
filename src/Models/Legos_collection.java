@@ -18,8 +18,8 @@ public class Legos_collection {
 
 		legos.put("RECTANGLE4_DROITE", new Lego(200, 50, 50, "RECTANGLE4_DROITE", null,structure));
 		legos.put("RECTANGLE4_GAUCHE", new Lego(-200, 50, 50, "RECTANGLE4_GAUCHE", null,structure));
-		legos.put("RECTANGLE4_ARRIERE", new Lego(50, 200, 50, "RECTANGLE4_ARRIERE", null,structure));
-		legos.put("RECTANGLE4_AVANT", new Lego(50, -200, 50, "RECTANGLE4_AVANT", null,structure));
+		legos.put("RECTANGLE4_ARRIERE", new Lego(50,  50, 200, "RECTANGLE4_ARRIERE", null,structure));
+		legos.put("RECTANGLE4_AVANT", new Lego(50, 50,-200, "RECTANGLE4_AVANT", null,structure));
 
 		legos.put("RECTANGLE3_DROITE", new Lego(150, 50, 50, "RECTANGLE3_DROITE", null,structure));
 		legos.put("RECTANGLE3_GAUCHE", new Lego(-150, 50, 50, "RECTANGLE3_GAUCHE", null,structure));

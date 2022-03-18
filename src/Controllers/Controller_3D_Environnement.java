@@ -75,7 +75,10 @@ public class Controller_3D_Environnement extends Application {
 				structure.selected_bloc = "RECTANGLE2_DROITE";
 				System.out.println("RECTANGLE");
 				break;
-				
+			case I:
+				structure.selected_bloc = "RECTANGLE4_AVANT";
+				System.out.println("RECTANGLE");
+				break;
 			case Y:
 				structure.selected_bloc = "RECTANGLE2_GAUCHE";
 				System.out.println("RECTANGLE");
