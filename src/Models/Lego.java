@@ -19,7 +19,6 @@ public class Lego extends Box {
 	public int depth;
 
 	public String type;
-	public Color color = Color.AQUAMARINE;
 
 	public Structure_3D structure;
 
@@ -37,7 +36,7 @@ public class Lego extends Box {
 		if (parent == null) {
 			material.setDiffuseColor(Color.valueOf("#6B6E74"));
 		} else {
-			material.setDiffuseColor(Color.ROYALBLUE);
+			material.setDiffuseColor(structure.selected_color);
 
 		}
 		material.setSpecularColor(Color.valueOf("#424242"));
@@ -201,6 +200,8 @@ public class Lego extends Box {
 		this.setRotate(angle);
 
 	}
+	
+	
 
 	public void translate(int translate) {
 		this.setTranslateX(translate);

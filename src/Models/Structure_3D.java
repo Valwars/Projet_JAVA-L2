@@ -1,9 +1,11 @@
 package Models;
 
+
 import java.util.Stack;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 
 public class Structure_3D extends Group {
 
@@ -12,6 +14,8 @@ public class Structure_3D extends Group {
 	public Stack<Node> deleted_blocs;
 	
 	public String selected_bloc = "BASE";
+	
+	public Color selected_color = Color.ROYALBLUE;
 
 	public Structure_3D() {
 
