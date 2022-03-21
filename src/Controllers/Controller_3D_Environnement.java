@@ -73,40 +73,31 @@ public class Controller_3D_Environnement extends Application {
 			
 			case L:
 				structure.selected_color = Color.GREEN;
-				System.out.println("RECTANGLE");
 				break;
 			case J:
 				structure.selected_color = Color.SANDYBROWN;
-				System.out.println("RECTANGLE");
 				break;
 			case K:
 				structure.selected_color = Color.IVORY;
-				System.out.println("RECTANGLE");
 				break;
 			case S:
 				structure.selected_color = Color.AQUA;
-				System.out.println("RECTANGLE");
 				break;
 			case T:
 				structure.selected_bloc = "RECTANGLE2_DROITE";
-				System.out.println("RECTANGLE");
 				break;
 			case I:
 				structure.selected_bloc = "RECTANGLE4_AVANT";
-				System.out.println("RECTANGLE");
 				break;
 			case O:
 				structure.selected_bloc = "RECTANGLE4_ARRIERE";
-				System.out.println("RECTANGLE");
 				break;
 			case Y:
 				structure.selected_bloc = "RECTANGLE2_GAUCHE";
-				System.out.println("RECTANGLE");
 				break;
 				
 			case A:
 				structure.selected_bloc = "RECTANGLE4_DROITE";
-				System.out.println("RECTANGLE");
 				break;
 			case E:
 				structure.selected_bloc = "CUBE";
