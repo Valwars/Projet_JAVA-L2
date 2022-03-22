@@ -43,7 +43,7 @@ public class Controller_3D_Environnement extends Application {
 
 	int couleur = 0;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA };
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA,new Color(1,1,1,0.6) };
 
 	int rota = 0;
 
@@ -126,7 +126,7 @@ public class Controller_3D_Environnement extends Application {
 			case R:
 
 				if (r == false) {
-
+					
 					structure.setRotationAxis(Rotate.Y_AXIS);
 					r = true;
 					spinAnimation();

@@ -51,7 +51,7 @@ public class Lego extends Box {
 		
 		this.setOnMousePressed(event -> {
 			
-			if(event.isSecondaryButtonDown()) {
+			if(event.isSecondaryButtonDown() && this.enfant == null) {
 
 			String[] rot = structure.selected_bloc.split("_");
 
@@ -65,8 +65,6 @@ public class Lego extends Box {
 
 			Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 			
-			create3DAsset(group,model,this);
-
 			if (this.type.equals("BASE")) {
 				Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
 
@@ -75,7 +73,7 @@ public class Lego extends Box {
 				new_lego.setTranslateZ(this.getTranslateZ());
 
 				System.out.println(new_lego.parent);
-
+				
 				group.getChildren().add(new_lego);
 				
 				if (Math.abs(model.width) > 50) {
@@ -124,7 +122,7 @@ public class Lego extends Box {
 					}
 				}
 
-			} else {
+			} else  {
 				Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
 
 				System.out.println(model.width);
@@ -176,6 +174,7 @@ public class Lego extends Box {
 				new_lego.setTranslateZ(this.getTranslateZ());
 
 				System.out.println(new_lego.parent);
+				this.enfant = new_lego;
 
 				group.getChildren().add(new_lego);
 			}
@@ -189,7 +188,8 @@ public class Lego extends Box {
 			cylinder7.setRadius(7);
 */
 
-	
+			create3DAsset(group,model,this);
+
 			structure.getChildren().addAll(group);
 			}
 		});
