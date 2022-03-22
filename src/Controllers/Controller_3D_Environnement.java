@@ -1,5 +1,8 @@
 package Controllers;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import Models.Legos_collection;
 import Models.Structure_3D;
 import javafx.application.Application;
@@ -33,6 +36,16 @@ public class Controller_3D_Environnement extends Application {
 	public Structure_3D structure;
 
 	private Legos_collection leg;
+	
+	int couleur = 0;
+	
+	
+	Color[] tab_couleur = {Color.ROYALBLUE,Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA};
+	
+	int lego = 0;
+	
+	String[] tab_lego = {"CUBE","RECTANGLE2_DROITE","RECTANGLE2_GAUCHE", "RECTANGLE2_ARRIERE", "RECTANGLE2_AVANT","RECTANGLE4_DROITE","RECTANGLE4_GAUCHE","RECTANGLE4_ARRIERE", "RECTANGLE4_AVANT","RECTANGLE3_DROITE", "RECTANGLE3_GAUCHE", "RECTANGLE3_ARRIERE", "RECTANGLE3_AVANT"}; 
+	
 
 	public Controller_3D_Environnement(Structure_3D structure) {
 		this.structure = structure;
@@ -96,11 +109,8 @@ public class Controller_3D_Environnement extends Application {
 			case E:
 				structure.selected_bloc = "CUBE";
 				break;
-			case P:
-				structure.selected_bloc = "PILLIER";
-				break;
-
-			case C:
+		
+			case M:
 				structure.selected_bloc = "RECTANGLE4_GAUCHE";
 				break;
 				
@@ -111,8 +121,33 @@ public class Controller_3D_Environnement extends Application {
 			case N:
 				structure.recupDeletedBloc();
 				break;
+				
+			case C:
 			
+				if(this.couleur == this.tab_couleur.length-1) {
+					this.couleur = 0;
+				}else {
+					this.couleur += 1;
+					
+				}
+				
+				structure.selected_color = this.tab_couleur[this.couleur];
+				break;
+			case V:
+
+
+				if(this.lego == this.tab_lego.length-1) {
+					this.lego = 0;
+				}else {
+					this.lego += 1;
+					
+				}
+				
+				structure.selected_bloc = this.tab_lego[this.lego];
+				break;
 			}
+			
+			
 			
 		
 		});
