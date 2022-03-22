@@ -39,14 +39,14 @@ public class Controller_3D_Environnement extends Application {
 	
 	int couleur = 0;
 	
-	
 	Color[] tab_couleur = {Color.ROYALBLUE,Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA};
 	
-	int lego = 0;
+	int rota = 0;
+		
+	String[] rotations = {"DROITE", "GAUCHE", "AVANT", "ARRIERE"};
 	
-	String[] tab_lego = {"CUBE","RECTANGLE2_DROITE","RECTANGLE2_GAUCHE", "RECTANGLE2_ARRIERE", "RECTANGLE2_AVANT","RECTANGLE4_DROITE","RECTANGLE4_GAUCHE","RECTANGLE4_ARRIERE", "RECTANGLE4_AVANT","RECTANGLE3_DROITE", "RECTANGLE3_GAUCHE", "RECTANGLE3_ARRIERE", "RECTANGLE3_AVANT"}; 
+	String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 	
-
 	public Controller_3D_Environnement(Structure_3D structure) {
 		this.structure = structure;
 	}
@@ -77,7 +77,7 @@ public class Controller_3D_Environnement extends Application {
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
-			
+			/*
 			case L:
 				structure.selected_color = Color.GREEN;
 				break;
@@ -113,6 +113,24 @@ public class Controller_3D_Environnement extends Application {
 			case M:
 				structure.selected_bloc = "RECTANGLE4_GAUCHE";
 				break;
+			*/
+			
+			case U:
+				structure.selected_bloc = "CUBE";
+				break;
+			case I:
+				String bloc = "RECTANGLE2_" + this.rotations[this.rota];
+				System.out.println(rota);
+				structure.selected_bloc = bloc;
+				break;
+			case O:
+				String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
+				structure.selected_bloc = bloc2;
+				break;
+			case P:
+				String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
+				structure.selected_bloc = bloc3;
+				break;
 				
 			case B:
 				structure.deleteLastBloc();
@@ -133,18 +151,23 @@ public class Controller_3D_Environnement extends Application {
 				
 				structure.selected_color = this.tab_couleur[this.couleur];
 				break;
+				
 			case V:
-
-
-				if(this.lego == this.tab_lego.length-1) {
-					this.lego = 0;
-				}else {
-					this.lego += 1;
+				
+				if(structure.selected_bloc != "CUBE") {
+					if(this.rota == this.rotations.length-1) {
+						this.rota = 0;
+					}else {
+						this.rota += 1;
+						
+					}
+					String[] blocs = structure.selected_bloc.split("_");
 					
+					structure.selected_bloc = blocs[0] + "_" +this.rotations[rota];
 				}
 				
-				structure.selected_bloc = this.tab_lego[this.lego];
 				break;
+			
 			}
 			
 			
