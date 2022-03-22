@@ -1,29 +1,23 @@
 package Controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import Models.Lego;
 import Models.Legos_collection;
-import Models.SmartGroup;
 import Models.Structure_3D;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Camera;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
@@ -156,6 +150,8 @@ public class Controller_3D_Environnement extends Application {
 		});
 
 	}
+	
+	
 
 	private Node[] prepareLight() {
 		PointLight pointLight = new PointLight();
