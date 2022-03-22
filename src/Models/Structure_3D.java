@@ -25,7 +25,13 @@ public class Structure_3D extends Group {
 	public void deleteLastBloc() {
 		
 		if(this.getChildren().size() > 901) {
+		
 			try {
+				Group g =  (Group) this.getChildren().get(this.getChildren().size() - 1);
+				
+				Lego l = (Lego) g.getChildren().get(0);
+				l.parent.enfant = null;
+			
 				deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
 				this.getChildren().remove(this.getChildren().size() - 1);
 			}catch(Exception e){
