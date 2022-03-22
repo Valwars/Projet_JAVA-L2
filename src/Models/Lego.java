@@ -49,7 +49,9 @@ public class Lego extends Box {
 		this.setMaterial(material);
 		
 		
-		this.setOnMouseClicked(event -> {
+		this.setOnMousePressed(event -> {
+			
+			if(event.isSecondaryButtonDown()) {
 
 			String[] rot = structure.selected_bloc.split("_");
 
@@ -189,9 +191,9 @@ public class Lego extends Box {
 
 	
 			structure.getChildren().addAll(group);
-
+			}
 		});
-
+		
 	}
 	
 	public void create3DAsset(Group group, Lego model, Lego cube) {
@@ -222,10 +224,10 @@ public class Lego extends Box {
 
 		cylinder5.setHeight(height);
 		cylinder5.setRadius(7);
+		
 		cylinder5.setTranslateX(cube.getTranslateX()+10);
 
 		cylinder5.setTranslateZ(cube.getTranslateZ()-10);
-		
 		
 	
 		Cylinder cylinder10 = new Cylinder();

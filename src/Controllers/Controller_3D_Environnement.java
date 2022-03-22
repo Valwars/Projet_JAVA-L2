@@ -129,8 +129,9 @@ public class Controller_3D_Environnement extends Application {
 
 		xRotate.angleProperty().bind(angleX);
 		yRotate.angleProperty().bind(angleY);
-
+		
 		scene.setOnMousePressed(event -> {
+			
 			anchorX = event.getSceneX();
 			anchorY = event.getSceneY();
 			anchorAngleX = angleX.get();
@@ -139,8 +140,11 @@ public class Controller_3D_Environnement extends Application {
 		});
 
 		scene.setOnMouseDragged(event -> {
-			angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-			angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
+			if(event.isPrimaryButtonDown()) {
+				angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+				angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
+			}
+			
 
 		});
 
