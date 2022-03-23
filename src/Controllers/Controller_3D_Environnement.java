@@ -43,7 +43,8 @@ public class Controller_3D_Environnement extends Application {
 
 	int couleur = 0;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA,new Color(0.6,0.6,0.6,0.6) };
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA,
+			new Color(0.6, 0.6, 0.6, 0.6) };
 
 	int rota = 0;
 
@@ -108,25 +109,31 @@ public class Controller_3D_Environnement extends Application {
 			 * case M: structure.selected_bloc = "RECTANGLE4_GAUCHE"; break;
 			 */
 
-			/*
-			 * touche minecraft case Z: System.out.println("AVANT");
-			 * firstPersoncamera.setTranslateY(firstPersoncamera.getTranslateY() - 20);
-			 * 
-			 * break; case S: System.out.println("arriere");
-			 * firstPersoncamera.setTranslateY(firstPersoncamera.getTranslateY() + 20);
-			 * 
-			 * break; case A: System.out.println("gauche");
-			 * firstPersoncamera.setTranslateX(firstPersoncamera.getTranslateX() - 20);
-			 * 
-			 * break; case D: System.out.println("droite");
-			 * firstPersoncamera.setTranslateX(firstPersoncamera.getTranslateX() + 20);
-			 * 
-			 * break;
-			 */
+			case Z:
+				System.out.println("AVANT");
+				camera.setTranslateZ(camera.getTranslateZ() + 50);
+
+				break;
+			case S:
+				System.out.println("arriere");
+				camera.setTranslateZ(camera.getTranslateZ() - 50);
+
+				break;
+			case A:
+				System.out.println("gauche");
+				camera.setTranslateX(camera.getTranslateX() - 50);
+
+				break;
+			case D:
+				System.out.println("droite");
+				camera.setTranslateX(camera.getTranslateX() + 50);
+
+				break;
+
 			case R:
 
 				if (r == false) {
-					
+
 					structure.setRotationAxis(Rotate.Y_AXIS);
 					r = true;
 					spinAnimation();
@@ -254,7 +261,8 @@ public class Controller_3D_Environnement extends Application {
 			timer.start();
 
 		} else {
-			timer.stop();;
+			timer.stop();
+			;
 		}
 
 	}
