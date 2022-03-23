@@ -116,12 +116,12 @@ public class Controller_3D_Environnement extends Application {
 				structure.getChildren().addAll(prepareLight());
 			case Z:
 				System.out.println("AVANT");
-				camera.setTranslateZ(camera.getTranslateZ() + 50);
+				camera.setTranslateY(camera.getTranslateY() - 50);
 
 				break;
 			case S:
 				System.out.println("arriere");
-				camera.setTranslateZ(camera.getTranslateZ() - 50);
+				camera.setTranslateY(camera.getTranslateY() + 50);
 
 				break;
 			case Q:
