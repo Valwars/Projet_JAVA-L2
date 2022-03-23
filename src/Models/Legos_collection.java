@@ -28,6 +28,11 @@ public class Legos_collection {
 		legos.put("RECTANGLE3_GAUCHE", new Lego(-150, 50, 50, "RECTANGLE3_GAUCHE", null,structure));
 		legos.put("RECTANGLE3_ARRIERE", new Lego(50, 50, 150, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE3_AVANT", new Lego(50, 50, -150, "RECTANGLE2_GAUCHE", null,structure));
+		
+		legos.put("RECTANGLE5_DROITE", new Lego(250, 50, 50, "RECTANGLE5_DROITE", null,structure));
+		legos.put("RECTANGLE5_GAUCHE", new Lego(-250, 50, 50, "RECTANGLE5_GAUCHE", null,structure));
+		legos.put("RECTANGLE5_ARRIERE", new Lego(50,  50, 250, "RECTANGLE5_ARRIERE", null,structure));
+		legos.put("RECTANGLE5_AVANT", new Lego(50, 50,-250, "RECTANGLE5_AVANT", null,structure));
 
 		legos.put("BASE", new Lego(50, 1, 50, "BASE", null,structure));
 	}

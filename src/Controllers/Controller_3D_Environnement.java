@@ -45,8 +45,8 @@ public class Controller_3D_Environnement extends Application {
 	
 	public String type;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA,
-			new Color(0.6, 0.6, 0.6, 0.6) };
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.AQUA,
+			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.YELLOW, Color.DARKGRAY, Color.FIREBRICK};
 
 	int rota = 0;
 
@@ -168,6 +168,12 @@ public class Controller_3D_Environnement extends Application {
 				String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
 				structure.selected_bloc = bloc3;
 				break;
+				
+			case M:
+				String bloc4 = "RECTANGLE5_" + this.rotations[this.rota];
+				structure.selected_bloc = bloc4;
+				break;
+				
 
 			case B:
 				structure.deleteLastBloc();
