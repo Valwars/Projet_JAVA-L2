@@ -121,7 +121,7 @@ public class Controller_3D_Environnement extends Application {
 				camera.setTranslateZ(camera.getTranslateZ() - 50);
 
 				break;
-			case A:
+			case Q:
 				System.out.println("gauche");
 				camera.setTranslateX(camera.getTranslateX() - 50);
 
