@@ -111,6 +111,9 @@ public class Controller_3D_Environnement extends Application {
 			 * case M: structure.selected_bloc = "RECTANGLE4_GAUCHE"; break;
 			 */
 
+			case L:
+				structure.resetStructure();
+				structure.getChildren().addAll(prepareLight());
 			case Z:
 				System.out.println("AVANT");
 				camera.setTranslateZ(camera.getTranslateZ() + 50);

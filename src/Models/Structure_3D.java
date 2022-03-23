@@ -22,6 +22,13 @@ public class Structure_3D extends Group {
 		deleted_blocs = new Stack<Node>();
 	}
 	
+	public void resetStructure() {
+		System.out.println("RESET STRUCTURE");
+		this.selected_bloc = "BASE";
+		this.getChildren().clear();
+		createBase();
+	}
+	
 	public void deleteLastBloc() {
 		
 		if(this.getChildren().size() > 901) {

@@ -68,13 +68,6 @@ public class Lego extends Box {
 			if (this.type.equals("BASE")) {
 				Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
 
-				new_lego.setTranslateX(this.getTranslateX());
-				new_lego.setTranslateY(-1 * (model.height / 2));
-				new_lego.setTranslateZ(this.getTranslateZ());
-
-				System.out.println(new_lego.parent);
-				
-				group.getChildren().add(new_lego);
 				
 				if (Math.abs(model.width) > 50) {
 
@@ -121,6 +114,14 @@ public class Lego extends Box {
 
 					}
 				}
+				new_lego.setTranslateX(this.getTranslateX());
+				new_lego.setTranslateY(-1 * (model.height / 2));
+				new_lego.setTranslateZ(this.getTranslateZ());
+
+				System.out.println(new_lego.parent);
+				
+				group.getChildren().add(new_lego);
+				
 
 			} else  {
 				Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
