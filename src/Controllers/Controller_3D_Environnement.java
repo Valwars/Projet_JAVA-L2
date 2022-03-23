@@ -42,6 +42,8 @@ public class Controller_3D_Environnement extends Application {
 	private Legos_collection leg;
 
 	int couleur = 0;
+	
+	public String type;
 
 	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.SANDYBROWN, Color.IVORY, Color.AQUA,
 			new Color(0.6, 0.6, 0.6, 0.6) };

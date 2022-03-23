@@ -29,13 +29,28 @@ public class Structure_3D extends Group {
 			try {
 				Group g =  (Group) this.getChildren().get(this.getChildren().size() - 1);
 				
-				Lego l = (Lego) g.getChildren().get(0);
-				l.parent.enfant = null;
+			
+				System.out.println(g.getChildren().size());
+				if(g.getChildren().size() > 5) {
+					
+					Lego l = (Lego) g.getChildren().get(4);
+					
+					l.parent.enfant = null;
+				
+				}else{
+					
+					System.out.println(g.getChildren().get(0));
+					Lego l = (Lego) g.getChildren().get(0);
+					
+					l.parent.enfant = null;
+				}
+				
 			
 				deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
 				this.getChildren().remove(this.getChildren().size() - 1);
+				
 			}catch(Exception e){
-				System.out.println("Aucun élément a supprmimer");
+				System.out.println(e);
 			}
 		}
 		
