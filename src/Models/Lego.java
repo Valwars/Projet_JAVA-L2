@@ -49,10 +49,12 @@ public class Lego extends Box {
 		this.setMaterial(material);
 
 		this.setOnMousePressed(event -> {
-
+			
+			
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
-
+				
 				create_blocs();
+				
 			}
 		});
 
@@ -70,6 +72,9 @@ public class Lego extends Box {
 		Group group = new Group();
 
 		Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
+		
+		if(!this.type.equals("TAPIS")) {
+			
 		
 		
 		if (this.type.equals("BASE")) {
@@ -178,7 +183,14 @@ public class Lego extends Box {
 			}
 			
 			new_lego.setTranslateX(this.getTranslateX());
-			new_lego.setTranslateY(-1 * (this.getTotalHeight()));
+			if(new_lego.height == 5) {
+				
+				new_lego.setTranslateY(-1 * (this.getTotalHeight())+22);
+
+			}else {
+				new_lego.setTranslateY(-1 * (this.getTotalHeight()));
+			}
+			
 			new_lego.setTranslateZ(this.getTranslateZ());
 
 			System.out.println(new_lego.parent);
@@ -187,9 +199,9 @@ public class Lego extends Box {
 			group.getChildren().add(new_lego);
 		}
 
-		
-
 		structure.getChildren().add(group);
+	}
+		
 	}
 
 	public void create3DAsset(Group group, Lego model, Lego cube) {
@@ -207,8 +219,6 @@ public class Lego extends Box {
 
 			if (event.isSecondaryButtonDown()) {
 				searshAndCreate(cylinder7);
-				
-
 			}
 
 		});
@@ -286,14 +296,21 @@ public class Lego extends Box {
 
 			cylinder5.setTranslateY(-1 * (model.height));
 
-		} else {
+		} else if(model.height == 5){
+			cylinder7.setTranslateY(-1 * (this.getTotalHeight() -20));
+			cylinder9.setTranslateY(-1 * (this.getTotalHeight() -20));
+
+			cylinder10.setTranslateY(-1 * (this.getTotalHeight() -20));
+
+			cylinder5.setTranslateY(-1 * (this.getTotalHeight() -20));
+
+		}else {
 			cylinder7.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
 			cylinder9.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
 
 			cylinder10.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
 
 			cylinder5.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
-
 		}
 
 		group.getChildren().add(cylinder9);

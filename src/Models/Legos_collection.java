@@ -13,7 +13,10 @@ public class Legos_collection {
 		legos = new HashMap<String, Lego>();
 	
 		legos.put("CUBE", new Lego(50, 50, 50, "CUBE", null,structure));
-		
+		//legos.put("DALLE", new Lego(50, 20, 50, "DALLE", null,structure));
+		legos.put("TAPIS", new Lego(50, 5, 50, "TAPIS", null,structure));
+
+
 		legos.put("RECTANGLE2_DROITE", new Lego(100, 50, 50, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_GAUCHE", new Lego(-100, 50, 50, "RECTANGLE2_GAUCHE", null,structure));
 		legos.put("RECTANGLE2_ARRIERE", new Lego(50, 50, 100, "RECTANGLE2_DROITE", null,structure));

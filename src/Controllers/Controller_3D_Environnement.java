@@ -152,7 +152,10 @@ public class Controller_3D_Environnement extends Application {
 				}
 
 				break;
-
+				
+			case Y:
+				structure.selected_bloc = "TAPIS";
+				break;
 			case U:
 				structure.selected_bloc = "CUBE";
 				break;
@@ -274,7 +277,7 @@ public class Controller_3D_Environnement extends Application {
 
 		} else {
 			timer.stop();
-			;
+			
 		}
 
 	}
