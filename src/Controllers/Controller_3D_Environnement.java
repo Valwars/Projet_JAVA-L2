@@ -111,6 +111,7 @@ public class Controller_3D_Environnement extends Application {
 			 * case M: structure.selected_bloc = "RECTANGLE4_GAUCHE"; break;
 			 */
 
+			
 			case L:
 				structure.resetStructure();
 				structure.getChildren().addAll(prepareLight());

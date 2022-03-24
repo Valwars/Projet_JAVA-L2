@@ -27,6 +27,8 @@ public class Structure_3D extends Group {
 		this.selected_bloc = "BASE";
 		this.getChildren().clear();
 		createBase();
+		
+	
 	}
 	
 	public void deleteLastBloc() {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Legos_collection {
 
 	public HashMap<String, Lego> legos;
+	// public HashMap<String, Decoration> decorations;
 
 
 	public Legos_collection(Structure_3D structure) {
