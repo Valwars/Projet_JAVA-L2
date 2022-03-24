@@ -48,8 +48,8 @@ public class Structure_3D extends Group {
 				
 				}else{
 					
-					System.out.println(g.getChildren().get(0));
-					Lego l = (Lego) g.getChildren().get(0);
+					System.out.println(g.getChildren().get(4));
+					Lego l = (Lego) g.getChildren().get(4);
 					
 					l.parent.enfant = null;
 				}
