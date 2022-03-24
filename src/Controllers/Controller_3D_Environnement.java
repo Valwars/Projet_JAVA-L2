@@ -45,8 +45,8 @@ public class Controller_3D_Environnement extends Application {
 	
 	public String type;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.AQUA,
-			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.YELLOW, Color.DARKGRAY, Color.FIREBRICK};
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
+			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED};
 
 	int rota = 0;
 
