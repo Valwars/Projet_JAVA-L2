@@ -70,10 +70,29 @@ public class Structure_3D extends Group {
 	
 	public void recupDeletedBloc() {
 		try {
+			Group g =  (Group) deleted_blocs.pop();
 			
-			this.getChildren().add(deleted_blocs.pop());
+			
+			if(g.getChildren().size() > 5) {
+				
+				Lego l = (Lego) g.getChildren().get(4);
+				
+				l.parent.enfant = l;
+			
+			}else{
+				
+				System.out.println(g.getChildren().get(4));
+				Lego l = (Lego) g.getChildren().get(4);
+				
+				l.parent.enfant = l;
+			}
+			
+			System.out.println(g.getChildren());
+			
+			this.getChildren().add(g);
+
 		}catch(Exception e){
-			System.out.println("Aucun élément récupérer.");
+			System.out.println(e);
 		}
 		
 	}

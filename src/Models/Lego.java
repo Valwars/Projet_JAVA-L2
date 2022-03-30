@@ -73,6 +73,7 @@ public class Lego extends Box {
 
 		Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 		
+		if(this.enfant == null) {
 		if(!this.type.equals("TAPIS")) {
 			
 		
@@ -196,12 +197,14 @@ public class Lego extends Box {
 			System.out.println(new_lego.parent);
 			this.enfant = new_lego;
 			create3DAsset(group, model, new_lego);
+			this.enfant = new_lego;
+			
 			group.getChildren().add(new_lego);
 		}
 
 		structure.getChildren().add(group);
 	}
-		
+		}
 	}
 
 	public void create3DAsset(Group group, Lego model, Lego cube) {
