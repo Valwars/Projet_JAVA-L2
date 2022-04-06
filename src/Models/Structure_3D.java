@@ -16,6 +16,10 @@ public class Structure_3D extends Group {
 	public String selected_bloc = "BASE";
 	
 	public Color selected_color = Color.ROYALBLUE;
+	
+	public String selected_matiere = null;
+	
+	public int taille = 1;
 
 	public Structure_3D() {
 
