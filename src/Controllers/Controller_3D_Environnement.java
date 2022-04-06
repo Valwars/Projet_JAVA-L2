@@ -9,6 +9,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Camera;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
@@ -24,6 +25,7 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Controller_3D_Environnement extends Application {
 
@@ -90,7 +92,19 @@ public class Controller_3D_Environnement extends Application {
 		primaryStage.setTitle("LEGOLAND");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
+			@Override
+			public void handle(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+			structure.enregistrer();
+			System.exit(0);
+				
+			}
+			
+		});
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
@@ -181,6 +195,7 @@ public class Controller_3D_Environnement extends Application {
 
 			case B:
 				structure.deleteLastBloc();
+				System.out.println(structure.getChildren());
 				break;
 
 			case N:

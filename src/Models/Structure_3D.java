@@ -1,14 +1,24 @@
 package Models;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class Structure_3D extends Group {
+public class Structure_3D extends Group implements Serializable {
 
+	private static final long serialVersionUID =1L;
+	
 	Legos_collection legos_collections;
 	
 	public Stack<Node> deleted_blocs;
@@ -16,7 +26,28 @@ public class Structure_3D extends Group {
 	public String selected_bloc = "BASE";
 	
 	public Color selected_color = Color.ROYALBLUE;
-
+	
+	public void enregistrer() {
+		try {
+			FileOutputStream fos =  new FileOutputStream(new File("Sauvegarde.dat"));;
+			ObjectOutputStream oos= new ObjectOutputStream(fos);
+			oos.writeObject(this.getChildren());
+			oos.close();
+			fos.close();
+		} catch (IOException e) {
+			throw new RuntimeException("Impossible d'écrire les données");
+		}
+	}
+	
+	public void charger() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(new File("Sauvegarde.dat"));
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		this.getChildren().addAll((ArrayList<Group>) ois.readObject());
+		ois.close();
+		fis.close();
+	}
+	
+	
 	public Structure_3D() {
 
 		deleted_blocs = new Stack<Node>();
@@ -30,6 +61,7 @@ public class Structure_3D extends Group {
 		
 	
 	}
+	
 	
 	public void deleteLastBloc() {
 		
