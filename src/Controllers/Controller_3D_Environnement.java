@@ -44,12 +44,15 @@ public class Controller_3D_Environnement extends Application {
 	private Legos_collection leg;
 
 	int couleur = 0;
+	int matiere = 0;
 	
 	public String type;
 
 	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
 			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED, Color.SNOW};
-
+	
+	String[] tab_matiere = {"cobble.jpeg", "dirt.png" ,"lave.jpeg", "wood.jpeg", "feuille.png"};
+	
 	int rota = 0;
 
 	boolean r = false;
@@ -108,24 +111,7 @@ public class Controller_3D_Environnement extends Application {
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
-
-			/*
-			 * case L: structure.selected_color = Color.GREEN; break; case J:
-			 * structure.selected_color = Color.SANDYBROWN; break; case K:
-			 * structure.selected_color = Color.IVORY; break; case S:
-			 * structure.selected_color = Color.AQUA; break; case T: structure.selected_bloc
-			 * = "RECTANGLE2_DROITE"; break; case I: structure.selected_bloc =
-			 * "RECTANGLE4_AVANT"; break; case O: structure.selected_bloc =
-			 * "RECTANGLE4_ARRIERE"; break; case Y: structure.selected_bloc =
-			 * "RECTANGLE2_GAUCHE"; break;
-			 * 
-			 * case A: structure.selected_bloc = "RECTANGLE4_DROITE"; break; case E:
-			 * structure.selected_bloc = "CUBE"; break;
-			 * 
-			 * case M: structure.selected_bloc = "RECTANGLE4_GAUCHE"; break;
-			 */
-
-			
+		
 			case L:
 				structure.resetStructure();
 				structure.getChildren().addAll(prepareLight());
@@ -167,6 +153,9 @@ public class Controller_3D_Environnement extends Application {
 
 				break;
 				
+			case T:
+				structure.selected_matiere = "cobble";
+				break;
 			case Y:
 				structure.selected_bloc = "TAPIS";
 				break;
@@ -187,12 +176,27 @@ public class Controller_3D_Environnement extends Application {
 				structure.selected_bloc = bloc3;
 				break;
 				
-			case M:
-				String bloc4 = "RECTANGLE5_" + this.rotations[this.rota];
+			case K:
+				String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
+				structure.selected_bloc = bloc5;
+				break;
+			case J:
+				String bloc4= "DALLE";
 				structure.selected_bloc = bloc4;
 				break;
+			case H:
 				
-
+				structure.taille += 1;
+				break;
+			case G:
+				
+				structure.taille -= 1;
+				break;
+			
+			case F:
+				String bloc6 = "ANGLE_" + this.rotations[this.rota];
+				structure.selected_bloc = bloc6;
+				break;
 			case B:
 				structure.deleteLastBloc();
 				System.out.println(structure.getChildren());
@@ -201,9 +205,22 @@ public class Controller_3D_Environnement extends Application {
 			case N:
 				structure.recupDeletedBloc();
 				break;
+				
+			case X:
+				
+				if (this.matiere == this.tab_matiere.length - 1) {
+					this.matiere = 0;
+				} else {
+					this.matiere += 1;
 
+				}
+				structure.selected_matiere = this.tab_matiere[this.matiere];
+				break;
+				
 			case C:
-
+				
+				structure.selected_matiere = null;
+				
 				if (this.couleur == this.tab_couleur.length - 1) {
 					this.couleur = 0;
 				} else {

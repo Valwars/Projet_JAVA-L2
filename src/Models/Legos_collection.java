@@ -13,15 +13,16 @@ public class Legos_collection {
 		legos = new HashMap<String, Lego>();
 	
 		legos.put("CUBE", new Lego(50, 50, 50, "CUBE", null,structure));
-		//legos.put("DALLE", new Lego(50, 20, 50, "DALLE", null,structure));
 		legos.put("TAPIS", new Lego(50, 5, 50, "TAPIS", null,structure));
+		
+		legos.put("PLATEAU_4", new Lego(200, 50, 200, "PLATEAU4X4", null,structure));
+
 
 
 		legos.put("RECTANGLE2_DROITE", new Lego(100, 50, 50, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_GAUCHE", new Lego(-100, 50, 50, "RECTANGLE2_GAUCHE", null,structure));
 		legos.put("RECTANGLE2_ARRIERE", new Lego(50, 50, 100, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_AVANT", new Lego(50, 50, -100, "RECTANGLE2_GAUCHE", null,structure));
-		
 		
 		legos.put("RECTANGLE4_DROITE", new Lego(200, 50, 50, "RECTANGLE4_DROITE", null,structure));
 		legos.put("RECTANGLE4_GAUCHE", new Lego(-200, 50, 50, "RECTANGLE4_GAUCHE", null,structure));
@@ -37,6 +38,14 @@ public class Legos_collection {
 		legos.put("RECTANGLE5_GAUCHE", new Lego(-250, 50, 50, "RECTANGLE5_GAUCHE", null,structure));
 		legos.put("RECTANGLE5_ARRIERE", new Lego(50,  50, 250, "RECTANGLE5_ARRIERE", null,structure));
 		legos.put("RECTANGLE5_AVANT", new Lego(50, 50,-250, "RECTANGLE5_AVANT", null,structure));
+		
+		legos.put("ANGLE_DROITE", new Lego(100, 50,100, "ANGLE", null,structure));
+		legos.put("ANGLE_GAUCHE", new Lego(100, 50,-100, "ANGLE", null,structure));
+		legos.put("ANGLE_ARRIERE", new Lego(-100, 50,100, "ANGLE", null,structure));
+		legos.put("ANGLE_AVANT", new Lego(-100, 50,-100, "ANGLE", null,structure));
+		
+		
+
 
 		legos.put("BASE", new Lego(50, 1, 50, "BASE", null,structure));
 	}

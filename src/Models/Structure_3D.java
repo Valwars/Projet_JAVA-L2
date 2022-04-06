@@ -27,6 +27,10 @@ public class Structure_3D extends Group implements Serializable {
 	
 	public Color selected_color = Color.ROYALBLUE;
 	
+	public String selected_matiere = null;
+	
+	public int taille = 1;
+	
 	public void enregistrer() {
 		try {
 			FileOutputStream fos =  new FileOutputStream(new File("Sauvegarde.dat"));;
@@ -46,7 +50,6 @@ public class Structure_3D extends Group implements Serializable {
 		ois.close();
 		fis.close();
 	}
-	
 	
 	public Structure_3D() {
 
