@@ -11,9 +11,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Sphere;
+import javafx.scene.transform.Transform;
+import javafx.scene.transform.Translate;
 
 public class Structure_3D extends Group implements Serializable {
 
@@ -30,6 +35,7 @@ public class Structure_3D extends Group implements Serializable {
 	public String selected_matiere = null;
 	
 	public int taille = 1;
+
 	
 	public void enregistrer() {
 		try {
@@ -39,7 +45,7 @@ public class Structure_3D extends Group implements Serializable {
 			oos.close();
 			fos.close();
 		} catch (IOException e) {
-			throw new RuntimeException("Impossible d'écrire les données");
+			throw new RuntimeException("Impossible d'ï¿½crire les donnï¿½es");
 		}
 	}
 	
@@ -51,6 +57,25 @@ public class Structure_3D extends Group implements Serializable {
 		fis.close();
 	}
 	
+
+
+	
+	public int sun_orientation = 0;
+	
+	
+	public PointLight pointLight;
+	
+	public PausableAnimationTimer timer = new PausableAnimationTimer() {
+	        @Override
+	        public void tick(long animationTime) {
+	    		pointLight.setRotate(pointLight.getRotate() - 2);
+	        }
+	    };
+	
+
+	    
+	    
+
 	public Structure_3D() {
 
 		deleted_blocs = new Stack<Node>();
@@ -102,6 +127,35 @@ public class Structure_3D extends Group implements Serializable {
 	}
 	
 	
+	
+	public void move_sun(Node[] points) {
+		
+		this.pointLight = (PointLight) points[0];
+		
+		Sphere sphere = (Sphere) points[1];
+		
+		System.out.println(pointLight);
+		System.out.println(sphere);
+
+		
+		pointLight.setRotate(pointLight.getRotate() - 25);
+		System.out.println(pointLight.getRotate());
+		
+		
+	}
+	
+	public void time_laps(Node[] points) {
+		
+		 this.pointLight = (PointLight) points[0];
+		 
+		 if(!timer.isActive || timer.isPaused) {
+			 timer.start();
+		 }else {
+			 timer.pause();
+		 }
+		 
+		
+	}
 	
 	public void recupDeletedBloc() {
 		try {

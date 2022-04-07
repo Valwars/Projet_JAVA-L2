@@ -18,7 +18,6 @@ public class Legos_collection {
 		legos.put("PLATEAU_4", new Lego(200, 50, 200, "PLATEAU4X4", null,structure));
 
 
-
 		legos.put("RECTANGLE2_DROITE", new Lego(100, 50, 50, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_GAUCHE", new Lego(-100, 50, 50, "RECTANGLE2_GAUCHE", null,structure));
 		legos.put("RECTANGLE2_ARRIERE", new Lego(50, 50, 100, "RECTANGLE2_DROITE", null,structure));
@@ -39,10 +38,10 @@ public class Legos_collection {
 		legos.put("RECTANGLE5_ARRIERE", new Lego(50,  50, 250, "RECTANGLE5_ARRIERE", null,structure));
 		legos.put("RECTANGLE5_AVANT", new Lego(50, 50,-250, "RECTANGLE5_AVANT", null,structure));
 		
-		legos.put("ANGLE_DROITE", new Lego(100, 50,100, "ANGLE", null,structure));
-		legos.put("ANGLE_GAUCHE", new Lego(100, 50,-100, "ANGLE", null,structure));
-		legos.put("ANGLE_ARRIERE", new Lego(-100, 50,100, "ANGLE", null,structure));
-		legos.put("ANGLE_AVANT", new Lego(-100, 50,-100, "ANGLE", null,structure));
+		legos.put("ANGLE_DROITE", new Lego(100, 50,100, "ANGLE_DROITE", null,structure));
+		legos.put("ANGLE_GAUCHE", new Lego(100, 50,-100, "ANGLE_GAUCHE", null,structure));
+		legos.put("ANGLE_ARRIERE", new Lego(-100, 50,100, "ANGLE_ARRIERE", null,structure));
+		legos.put("ANGLE_AVANT", new Lego(-100, 50,-100, "ANGLE_AVANT", null,structure));
 		
 		
 

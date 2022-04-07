@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import Models.Legos_collection;
+import Models.PausableAnimationTimer;
 import Models.Structure_3D;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -28,7 +29,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Controller_3D_Environnement extends Application {
-
+	
 	private double anchorX, anchorY;
 	private double anchorAngleX = 0;
 	private double anchorAngleY = 0;
@@ -59,6 +60,19 @@ public class Controller_3D_Environnement extends Application {
 	String[] rotations = { "DROITE", "GAUCHE", "AVANT", "ARRIERE" };
 
 	String bloc = "RECTANGLE2_" + this.rotations[this.rota];
+	
+	Node[] pointLight ;
+	
+	public boolean isRotating = false;
+	
+	public PausableAnimationTimer timer = new PausableAnimationTimer() {
+        @Override
+        public void tick(long animationTime) {
+        	
+			structure.rotateProperty().set(structure.getRotate() + 0.2);
+
+        }
+    };
 
 	public Controller_3D_Environnement(Structure_3D structure) {
 		this.structure = structure;
@@ -68,28 +82,22 @@ public class Controller_3D_Environnement extends Application {
 	public void start(Stage primaryStage) {
 
 		structure.createBase();
-		structure.getChildren().addAll(prepareLight());
+		this.pointLight = prepareLight();
+		structure.getChildren().addAll(this.pointLight);
 
 		camera = new PerspectiveCamera();
-
-		/*
-		 * firstPersoncamera = new PerspectiveCamera(true);
-		 * firstPersoncamera.getTransforms().addAll(new Translate(0,800, -100), new
-		 * Rotate(90, Rotate.X_AXIS)); firstPersoncamera.setFarClip(10);
-		 * firstPersoncamera.setNearClip(0);
-		 * 
-		 * Camera pour minecraft MODE
-		 * 
-		 */
+		
 		Scene scene = new Scene(structure, 1200, 800, true);
 
 		scene.setFill(Color.valueOf("#2C2D32"));
 
 		scene.setCamera(camera);
 		structure.translateXProperty().set(1200 / 2);
-		structure.translateYProperty().set(1000 / 2);
-		structure.translateZProperty().set(0);
-
+		structure.translateYProperty().set(800 / 2);
+		structure.translateZProperty().set(0);		
+		
+		camera.translateZProperty().set(-1000);
+		
 		initMouseControl(structure, scene, primaryStage);
 
 		primaryStage.setTitle("LEGOLAND");
@@ -137,24 +145,18 @@ public class Controller_3D_Environnement extends Application {
 				break;
 
 			case R:
-
-				if (r == false) {
-
-					structure.setRotationAxis(Rotate.Y_AXIS);
-					r = true;
-					spinAnimation();
-				} else {
-					structure.getTransforms().addAll(new Rotate(0, Rotate.X_AXIS), new Rotate(0, Rotate.Y_AXIS)
-
-					);
-					r = false;
-					spinAnimation();
-				}
-
+				structure.setRotationAxis(Rotate.Y_AXIS);
+				spinAnimation();
 				break;
 				
+			case W:
+				if(isRotating == false) {
+					structure.time_laps(this.pointLight);
+
+				}
+				break;
 			case T:
-				structure.selected_matiere = "cobble";
+				structure.move_sun(this.pointLight);
 				break;
 			case Y:
 				structure.selected_bloc = "TAPIS";
@@ -180,10 +182,7 @@ public class Controller_3D_Environnement extends Application {
 				String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
 				structure.selected_bloc = bloc5;
 				break;
-			case J:
-				String bloc4= "DALLE";
-				structure.selected_bloc = bloc4;
-				break;
+			
 			case H:
 				
 				structure.taille += 1;
@@ -263,18 +262,23 @@ public class Controller_3D_Environnement extends Application {
 
 		xRotate.angleProperty().bind(angleX);
 		yRotate.angleProperty().bind(angleY);
+		
+	
 
 		scene.setOnMousePressed(event -> {
+			
+			if(this.isRotating == false) {
+				anchorX = event.getSceneX();
+				anchorY = event.getSceneY();
+				anchorAngleX = angleX.get();
+				anchorAngleY = angleY.get();
 
-			anchorX = event.getSceneX();
-			anchorY = event.getSceneY();
-			anchorAngleX = angleX.get();
-			anchorAngleY = angleY.get();
-
+			}
+			
 		});
 
 		scene.setOnMouseDragged(event -> {
-			if (event.isPrimaryButtonDown()) {
+			if (event.isPrimaryButtonDown() && this.isRotating == false) {
 				angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
 				angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
 			}
@@ -290,45 +294,43 @@ public class Controller_3D_Environnement extends Application {
 
 	private void spinAnimation() {
 
-		AnimationTimer timer = new AnimationTimer() {
-
-			@Override
-			public void handle(long arg0) {
-				if (r == true) {
-
-					structure.rotateProperty().set(structure.getRotate() + 0.2);
-				} else {
-					structure.rotateProperty().set(structure.getRotate());
-
-				}
-			}
-
-		};
-		if (r == true) {
-			timer.start();
-
-		} else {
-			timer.stop();
+		if(!timer.isActive || timer.isPaused) {
+			 timer.start();
+			 isRotating = true;
+			 structure.translateYProperty().set(700);
+			 structure.translateXProperty().set(1200 / 2);
 			
-		}
+			 structure.translateZProperty().set(0);	
+
+		 }else {
+			 timer.pause();
+			 isRotating = false;
+			 structure.setRotate(0);
+			 structure.translateYProperty().set(800 / 2);
+		 }
 
 	}
 
 	private Node[] prepareLight() {
+		
 		PointLight pointLight = new PointLight();
-
-		pointLight.getTransforms().add(new Translate(0, -1000, -1000));
-
+		
+		pointLight.getTransforms().add(new Translate(0, -500, -1000));
+		pointLight.setRotationAxis(Rotate.X_AXIS);
 		PhongMaterial material = new PhongMaterial();
-		material.setDiffuseColor(Color.YELLOW);
+		material.setDiffuseColor(Color.RED);
 
 		Sphere sphere = new Sphere(10);
 
 		sphere.getTransforms().setAll(pointLight.getTransforms());
-		sphere.setMaterial(material);
+	    sphere.rotateProperty().bind(pointLight.rotateProperty());
+	    sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
 
 		return new Node[] { pointLight, sphere };
 
 	}
+	
+	
+	
 
 }
