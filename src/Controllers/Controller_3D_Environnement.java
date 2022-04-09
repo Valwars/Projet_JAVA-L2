@@ -152,37 +152,56 @@ public class Controller_3D_Environnement{
 				structure.move_sun();
 				break;
 			case Y:
+				structure.taille = 0;
+
+
 				structure.selected_bloc = "TAPIS";
 				break;
 			case U:
+				structure.taille = 0;
+
+
 				structure.selected_bloc = "CUBE";
 				break;
 			case I:
+				structure.taille = 0;
+
+
 				String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 				System.out.println(rota);
 				structure.selected_bloc = bloc;
 				break;
 			case O:
+				structure.taille = 0;
+
+
 				String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
 				structure.selected_bloc = bloc2;
 				break;
 			case P:
+			
+				structure.taille = 0;
+
 				String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
 				structure.selected_bloc = bloc3;
 				break;
 				
 			case K:
+				
+				structure.taille = 0;
+
 				String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
 				structure.selected_bloc = bloc5;
 				break;
 			
 			case H:
-				
 				structure.taille += 1;
 				break;
 			case G:
-				
-				structure.taille -= 1;
+				if(structure.taille >0) {
+					structure.taille -= 1;
+
+				}
 				break;
 			
 			case F:

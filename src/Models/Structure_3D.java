@@ -36,7 +36,7 @@ public class Structure_3D extends Group implements Serializable {
 	
 	public String selected_matiere = null;
 	
-	public int taille = 1;
+	public int taille = 0;
 	
 	public int BLOC_SIZE;
 	

@@ -77,7 +77,6 @@ public class Lego extends Box {
 
 		Group group = new Group();
 		
-		
 		Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
 
 		if (this.enfant == null) {
@@ -87,10 +86,11 @@ public class Lego extends Box {
 				if (this.type.equals("BASE")) {
 					Lego new_lego = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this, structure);
 					
-					if (Math.abs(model.width) > 50) {
+					if (Math.abs(model.width) > structure.BLOC_SIZE) {
 
 						for (int i = 1; i < ((Math.abs(model.width)+(structure.BLOC_SIZE*structure.taille)) / structure.BLOC_SIZE); i++) {
 							System.out.println("JE DOIS AJOUTER UN BLOC");
+							System.out.println(i);		
 
 							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
 									structure);
