@@ -41,13 +41,11 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("interface.fxml"));
 			
-			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("Environnement_3D.fxml"));
-			
 			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement();
 			
 			BorderPane root = (BorderPane) loader.load();
 			
-			loader2.setController(environnement_Controller);
+			loader.setController(environnement_Controller);
 				
 			SubScene subscene = new SubScene(structure, 800, 600, true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene);
