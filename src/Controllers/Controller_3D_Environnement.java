@@ -1,7 +1,9 @@
 package Controllers;
 
+import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.ResourceBundle;
 
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
@@ -11,11 +13,13 @@ import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
 import javafx.scene.Camera;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -28,7 +32,7 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class Controller_3D_Environnement extends Application {
+public class Controller_3D_Environnement{
 	
 	private double anchorX, anchorY;
 	private double anchorAngleX = 0;
@@ -74,37 +78,28 @@ public class Controller_3D_Environnement extends Application {
         }
     };
 
-	public Controller_3D_Environnement(Structure_3D structure) {
-		this.structure = structure;
-	}
+	
 
-	@Override
-	public void start(Stage primaryStage) {
-
+	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) {
+		
+		this.structure = st;
+		
 		structure.createBase();
 		this.pointLight = prepareLight();
 		structure.getChildren().addAll(this.pointLight);
 
 		camera = new PerspectiveCamera();
-		
-		Scene scene = new Scene(structure, 1200, 800, true);
-
-		scene.setFill(Color.valueOf("#2C2D32"));
-
-		scene.setCamera(camera);
+	
+		subscene.setCamera(camera);
 		structure.translateXProperty().set(1200 / 2);
 		structure.translateYProperty().set(800 / 2);
 		structure.translateZProperty().set(0);		
 		
 		camera.translateZProperty().set(-1000);
 		
-		initMouseControl(structure, scene, primaryStage);
-
-		primaryStage.setTitle("LEGOLAND");
-		primaryStage.setScene(scene);
-		primaryStage.show();
 		
-		
+        initMouseControl(st,subscene,primaryStage);
+		/*
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
 			@Override
@@ -116,7 +111,9 @@ public class Controller_3D_Environnement extends Application {
 			}
 			
 		});
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+		
+		*/
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
 		
@@ -252,7 +249,7 @@ public class Controller_3D_Environnement extends Application {
 
 	}
 
-	private void initMouseControl(Structure_3D group, Scene scene, Stage stage) {
+	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
 		Rotate yRotate;
 
@@ -329,7 +326,7 @@ public class Controller_3D_Environnement extends Application {
 		return new Node[] { pointLight, sphere };
 
 	}
-	
+
 	
 	
 
