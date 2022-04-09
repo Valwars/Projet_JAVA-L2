@@ -26,16 +26,17 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
-
+	
+	private int BLOC_SIZE = 50;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		
 		try {
 		
+			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			
-			Structure_3D structure = new Structure_3D();
-			
-			Legos_collection legos_collection = new Legos_collection(structure);
+			Legos_collection legos_collection = new Legos_collection(structure,BLOC_SIZE);
 			
 			structure.setCollec(legos_collection);
 			

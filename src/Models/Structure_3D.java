@@ -16,7 +16,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 
@@ -35,6 +37,16 @@ public class Structure_3D extends Group implements Serializable {
 	public String selected_matiere = null;
 	
 	public int taille = 1;
+	
+	public int BLOC_SIZE;
+	
+	public int PLATEAU_TAILLE = 20;
+		
+	public int sun_orientation = 0;
+	
+	
+	public PointLight pointLight;
+	Sphere sphere;
 
 	
 	public void enregistrer() {
@@ -58,12 +70,26 @@ public class Structure_3D extends Group implements Serializable {
 	}
 	
 
+	private void prepareLight() {
+		
+		PointLight pointLight = new PointLight();
+		
+		pointLight.getTransforms().add(new Translate(0, -500, -1000));
+		pointLight.setRotationAxis(Rotate.X_AXIS);
+		PhongMaterial material = new PhongMaterial();
+		material.setDiffuseColor(Color.RED);
 
-	
-	public int sun_orientation = 0;
-	
-	
-	public PointLight pointLight;
+		Sphere sphere = new Sphere(10);
+
+		sphere.getTransforms().setAll(pointLight.getTransforms());
+	    sphere.rotateProperty().bind(pointLight.rotateProperty());
+	    sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
+	    
+	    this.pointLight = pointLight;
+	    this.sphere = sphere;
+
+	}
+
 	
 	public PausableAnimationTimer timer = new PausableAnimationTimer() {
 	        @Override
@@ -73,16 +99,12 @@ public class Structure_3D extends Group implements Serializable {
 	    };
 	
 
-	    
-	    
-
-	public Structure_3D() {
-
+	public Structure_3D(int bs) {
+		this.BLOC_SIZE = bs;
 		deleted_blocs = new Stack<Node>();
 	}
 	
 	public void resetStructure() {
-		System.out.println("RESET STRUCTURE");
 		this.selected_bloc = "BASE";
 		this.getChildren().clear();
 		createBase();
@@ -90,10 +112,9 @@ public class Structure_3D extends Group implements Serializable {
 	
 	}
 	
-	
 	public void deleteLastBloc() {
 		
-		if(this.getChildren().size() > 901) {
+		if(this.getChildren().size() > (PLATEAU_TAILLE*4 +1)) {
 		
 			try {
 				Group g =  (Group) this.getChildren().get(this.getChildren().size() - 1);
@@ -128,25 +149,12 @@ public class Structure_3D extends Group implements Serializable {
 	
 	
 	
-	public void move_sun(Node[] points) {
-		
-		this.pointLight = (PointLight) points[0];
-		
-		Sphere sphere = (Sphere) points[1];
-		
-		System.out.println(pointLight);
-		System.out.println(sphere);
-
-		
-		pointLight.setRotate(pointLight.getRotate() - 25);
-		System.out.println(pointLight.getRotate());
-		
+	public void move_sun() {
+		this.pointLight.setRotate(pointLight.getRotate() - 25);		
 		
 	}
 	
-	public void time_laps(Node[] points) {
-		
-		 this.pointLight = (PointLight) points[0];
+	public void time_laps() {
 		 
 		 if(!timer.isActive || timer.isPaused) {
 			 timer.start();
@@ -199,9 +207,9 @@ public class Structure_3D extends Group implements Serializable {
 		
 		for(int k = 0 ; k < 4; k ++) {
 			
-			for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < PLATEAU_TAILLE; i++) {
 
-				for (int j = 0; j < 15; j++) {
+				for (int j = 0; j < PLATEAU_TAILLE; j++) {
 
 					pateforme_de_construction = create_selectedBlock();
 					pateforme_de_construction.setTranslateX(x);
@@ -210,17 +218,17 @@ public class Structure_3D extends Group implements Serializable {
 					this.getChildren().add(pateforme_de_construction);
 					
 					if(k == 0 || k == 2) {
-						x += 51;
+						x += (this.BLOC_SIZE +1);
 					}else if(k == 1  || k == 3){
-						x -= 51;
+						x -= (this.BLOC_SIZE +1);
 					}
 					 
 				}
 
 				if(k == 0 || k == 3) {
-					y -= 51;
+					y -= (this.BLOC_SIZE +1);
 				} else if(k == 1 || k == 2){
-					y += 51;
+					y += (this.BLOC_SIZE +1);
 				}
 				
 				x = 0;
@@ -230,8 +238,10 @@ public class Structure_3D extends Group implements Serializable {
 			y = 0;
 		}
 		
+		prepareLight();
+		this.getChildren().add(this.pointLight);
+		this.getChildren().add(this.sphere);
 		this.selected_bloc = "CUBE";
-		System.out.println(this.getChildren().size());
 	}
 
 	public Lego create_selectedBlock() {

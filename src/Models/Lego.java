@@ -85,22 +85,22 @@ public class Lego extends Box {
 			if (!this.type.equals("TAPIS")) {
 
 				if (this.type.equals("BASE")) {
-					Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
+					Lego new_lego = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this, structure);
 					
 					if (Math.abs(model.width) > 50) {
 
-						for (int i = 1; i < ((Math.abs(model.width)+(50*structure.taille)) / 50); i++) {
+						for (int i = 1; i < ((Math.abs(model.width)+(structure.BLOC_SIZE*structure.taille)) / structure.BLOC_SIZE); i++) {
 							System.out.println("JE DOIS AJOUTER UN BLOC");
 
-							Lego child = new Lego(50, model.height, 50, structure.selected_bloc, this,
+							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
 									structure);
 
 							if (rotate.equals("GAUCHE")) {
 								System.out.println("GAUCHE CHILD");
 								System.out.println(i);
-								child.setTranslateX(this.getTranslateX() + i * (-51));
+								child.setTranslateX(this.getTranslateX() + i * (-structure.BLOC_SIZE - 1));
 							} else {
-								child.setTranslateX(this.getTranslateX() + i * 51);
+								child.setTranslateX(this.getTranslateX() + i * (structure.BLOC_SIZE +1));
 							}
 							child.setTranslateY(-1 * (model.height / 2));
 							child.setTranslateZ(this.getTranslateZ());
@@ -111,20 +111,20 @@ public class Lego extends Box {
 
 						}
 
-					} if (Math.abs(model.depth) > 50) {
+					} if (Math.abs(model.depth) > structure.BLOC_SIZE) {
 
-						for (int i = 1; i < ((Math.abs(model.depth)+(50*structure.taille))/ 50); i++) {
+						for (int i = 1; i < ((Math.abs(model.depth)+(structure.BLOC_SIZE*structure.taille))/ structure.BLOC_SIZE); i++) {
 							System.out.println("JE DOIS AJOUTER UN BLOC");
 
-							Lego child = new Lego(50, model.height, 50, structure.selected_bloc, this,
+							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
 									structure);
 
 							if (rotate.equals("AVANT")) {
-								child.setTranslateZ(this.getTranslateZ() + i * (-51));
+								child.setTranslateZ(this.getTranslateZ() + i * (-structure.BLOC_SIZE - 1));
 							} else {
 								System.out.println("ARRIERE : " + i);
 
-								child.setTranslateZ(this.getTranslateZ() + (i * 51));
+								child.setTranslateZ(this.getTranslateZ() + (i * (structure.BLOC_SIZE +1)));
 							}
 							child.setTranslateY(-1 * (model.height / 2));
 							child.setTranslateX(this.getTranslateX());
@@ -144,23 +144,23 @@ public class Lego extends Box {
 					group.getChildren().add(new_lego);
 
 				} else {
-					Lego new_lego = new Lego(50, model.height, 50, structure.selected_bloc, this, structure);
+					Lego new_lego = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this, structure);
 
 					System.out.println(model.width);
-					if (Math.abs(model.width) > 50) {
+					if (Math.abs(model.width) > structure.BLOC_SIZE) {
 
-						for (int i = 1; i < ((Math.abs(model.width)+(50*structure.taille))/ 50); i++) {
+						for (int i = 1; i < ((Math.abs(model.width)+(structure.BLOC_SIZE*structure.taille))/ structure.BLOC_SIZE); i++) {
 							System.out.println("JE DOIS AJOUTER UN BLOC");
 
-							Lego child = new Lego(50, model.height, 50, structure.selected_bloc, this,
+							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
 									structure);
 
 							if (rotate.equals("GAUCHE")) {
 								System.out.println("GAUCHE CHILD");
 								System.out.println(i);
-								child.setTranslateX(this.getTranslateX() + i * (-51));
+								child.setTranslateX(this.getTranslateX() + i * (-structure.BLOC_SIZE - 1));
 							} else {
-								child.setTranslateX(this.getTranslateX() + i * 51);
+								child.setTranslateX(this.getTranslateX() + i * (structure.BLOC_SIZE +1));
 							}
 							child.setTranslateY(-1 * (this.getTotalHeight()));
 							child.setTranslateZ(this.getTranslateZ());
@@ -169,18 +169,18 @@ public class Lego extends Box {
 							group.getChildren().add(child);
 
 						}
-					} if (Math.abs(model.depth) > 50) {
+					} if (Math.abs(model.depth) > structure.BLOC_SIZE) {
 
-						for (int i = 1; i < ((Math.abs(model.depth)+(50*structure.taille)) / 50); i++) {
+						for (int i = 1; i < ((Math.abs(model.depth)+(structure.BLOC_SIZE*structure.taille)) / structure.BLOC_SIZE); i++) {
 							System.out.println("JE DOIS AJOUTER UN BLOC");
 
-							Lego child = new Lego(50, model.height, 50, structure.selected_bloc, this,
+							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
 									structure);
 
 							if (rotate.equals("AVANT")) {
-								child.setTranslateZ(this.getTranslateZ() + i * (-51));
+								child.setTranslateZ(this.getTranslateZ() + i * (-structure.BLOC_SIZE - 1));
 							} else {
-								child.setTranslateZ(this.getTranslateZ() + (i * 51));
+								child.setTranslateZ(this.getTranslateZ() + i * (structure.BLOC_SIZE +1));
 							}
 
 							child.setTranslateY(-1 * (this.getTotalHeight()));

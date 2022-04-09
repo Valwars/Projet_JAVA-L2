@@ -65,7 +65,6 @@ public class Controller_3D_Environnement{
 
 	String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 	
-	Node[] pointLight ;
 	
 	public boolean isRotating = false;
 	
@@ -85,8 +84,6 @@ public class Controller_3D_Environnement{
 		this.structure = st;
 		
 		structure.createBase();
-		this.pointLight = prepareLight();
-		structure.getChildren().addAll(this.pointLight);
 
 		camera = new PerspectiveCamera();
 	
@@ -119,7 +116,6 @@ public class Controller_3D_Environnement{
 		
 			case L:
 				structure.resetStructure();
-				structure.getChildren().addAll(prepareLight());
 			case Z:
 				System.out.println("AVANT");
 				camera.setTranslateY(camera.getTranslateY() - 5);
@@ -148,12 +144,12 @@ public class Controller_3D_Environnement{
 				
 			case W:
 				if(isRotating == false) {
-					structure.time_laps(this.pointLight);
+					structure.time_laps();
 
 				}
 				break;
 			case T:
-				structure.move_sun(this.pointLight);
+				structure.move_sun();
 				break;
 			case Y:
 				structure.selected_bloc = "TAPIS";
@@ -308,26 +304,6 @@ public class Controller_3D_Environnement{
 
 	}
 
-	private Node[] prepareLight() {
-		
-		PointLight pointLight = new PointLight();
-		
-		pointLight.getTransforms().add(new Translate(0, -500, -1000));
-		pointLight.setRotationAxis(Rotate.X_AXIS);
-		PhongMaterial material = new PhongMaterial();
-		material.setDiffuseColor(Color.RED);
-
-		Sphere sphere = new Sphere(10);
-
-		sphere.getTransforms().setAll(pointLight.getTransforms());
-	    sphere.rotateProperty().bind(pointLight.rotateProperty());
-	    sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
-
-		return new Node[] { pointLight, sphere };
-
-	}
-
-	
 	
 
 }
