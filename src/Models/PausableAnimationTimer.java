@@ -4,11 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-/**
- * @author Ed Eden-Rump
- * @created 27/07/2020 - 07:34
- * @project EdenCoding JavaFX Animation
- **/
 public abstract class PausableAnimationTimer extends AnimationTimer {
 
     long pauseStart;

@@ -15,7 +15,7 @@ public class Legos_collection {
 		
 		legos = new HashMap<String, Lego>();
 		
-		// deco :
+		// DECORATION :
 		legos.put("TAPIS", new Lego(bloc_size, 5, bloc_size, "TAPIS", null,structure));
 		legos.put("SPHERE1", new Lego(bloc_size, bloc_size, bloc_size, "SPHERE1", null,structure));
 		
