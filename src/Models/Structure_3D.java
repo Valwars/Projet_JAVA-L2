@@ -74,7 +74,7 @@ public class Structure_3D extends Group implements Serializable {
 		
 		PointLight pointLight = new PointLight();
 		
-		pointLight.getTransforms().add(new Translate(0, -500, -1000));
+		pointLight.getTransforms().add(new Translate(0, -500, -1500));
 		pointLight.setRotationAxis(Rotate.X_AXIS);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(Color.RED);

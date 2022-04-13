@@ -14,13 +14,16 @@ public class Legos_collection {
 		this.bloc_size = bs;
 		
 		legos = new HashMap<String, Lego>();
-	
-		legos.put("CUBE", new Lego(bloc_size, bloc_size, bloc_size, "CUBE", null,structure));
-		legos.put("TAPIS", new Lego(bloc_size, 5, bloc_size, "TAPIS", null,structure));
 		
-		legos.put("PLATEAU_4", new Lego(bloc_size*4, bloc_size, bloc_size*4, "PLATEAU4X4", null,structure));
-
-
+		// deco :
+		legos.put("TAPIS", new Lego(bloc_size, 5, bloc_size, "TAPIS", null,structure));
+		legos.put("SPHERE1", new Lego(bloc_size, bloc_size, bloc_size, "SPHERE1", null,structure));
+		
+		// BLOCS : 
+		legos.put("CUBE", new Lego(bloc_size, bloc_size, bloc_size, "CUBE", null,structure));
+			
+		legos.put("PLATEAU_4", new Lego(bloc_size*4, bloc_size, bloc_size*4, "PLATEAU_4", null,structure));
+		
 		legos.put("RECTANGLE2_DROITE", new Lego(bloc_size*2, bloc_size, bloc_size, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_GAUCHE", new Lego(-bloc_size*2, bloc_size, bloc_size, "RECTANGLE2_GAUCHE", null,structure));
 		legos.put("RECTANGLE2_ARRIERE", new Lego(bloc_size, bloc_size, bloc_size*2, "RECTANGLE2_DROITE", null,structure));
@@ -47,8 +50,6 @@ public class Legos_collection {
 		legos.put("ANGLE_AVANT", new Lego(-bloc_size*2, bloc_size,-bloc_size*2, "ANGLE_AVANT", null,structure));
 		
 		
-
-
 		legos.put("BASE", new Lego(bloc_size, 1, bloc_size, "BASE", null,structure));
 	}
 

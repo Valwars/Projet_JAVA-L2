@@ -210,12 +210,11 @@ public class Lego extends Box {
 					group.getChildren().add(new_lego);
 				}
 				
-				
-
 				structure.getChildren().add(group);
 			}
 		}
 	}
+	
 
 	public void create3DAsset(Group group, Lego model, Lego cube) {
 
@@ -379,8 +378,6 @@ public class Lego extends Box {
 			curr = curr.parent;
 
 		}
-
-		System.out.println("HAUTEUR TOTALE :" + height);
 		return height;
 	}
 
