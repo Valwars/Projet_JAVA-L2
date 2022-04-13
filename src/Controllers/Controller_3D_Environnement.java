@@ -1,36 +1,26 @@
 package Controllers;
 
-import java.net.URL;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.ResourceBundle;
-
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
 import Models.Structure_3D;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
 import javafx.scene.Camera;
-import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class Controller_3D_Environnement{
 	
@@ -40,7 +30,13 @@ public class Controller_3D_Environnement{
 
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-
+	
+	@FXML private ScrollPane Coulscrollpane;
+	@FXML private ScrollPane cat;
+	
+	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C","-fx-Base: #FFFFF0", "-fx-Base: #40E0D0","-fx-Base: #8B4513","-fx-Base: #FF8C00", "-fx-Base: #A9A9A9","-fx-Base: #8b4513" ,"-fx-Base: #FF0000" , "-fx-Base: #FFFAFA"};
+	String[] tab_categorie = {"Cube","Angle","Rectangle","Tapis"};
+	
 	private Camera camera;
 	private Camera firstPersoncamera;
 
@@ -81,8 +77,10 @@ public class Controller_3D_Environnement{
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) {
 		
+
 		this.structure = st;
 		
+
 		structure.createBase();
 
 		camera = new PerspectiveCamera();
@@ -113,9 +111,10 @@ public class Controller_3D_Environnement{
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
-		
+			
 			case L:
 				structure.resetStructure();
+				resetCamera();
 			case Z:
 				System.out.println("AVANT");
 				camera.setTranslateY(camera.getTranslateY() - 5);
@@ -263,6 +262,11 @@ public class Controller_3D_Environnement{
 		});
 
 	}
+	
+	private void resetCamera() {
+		
+	
+	}
 
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
@@ -323,6 +327,51 @@ public class Controller_3D_Environnement{
 
 	}
 
+	public void ajout_couleur() {
+        GridPane container = new GridPane();
+        for(int i = 0; i<tab_couleur.length-1;i++) {
+            container.getColumnConstraints().add(new ColumnConstraints(30));
+            Button  bt1 = new Button(); 
+            bt1.setPrefSize(25,25);
+            bt1.setStyle(tab_couleur1[i]);
+            bt1.setId("bt"+String.valueOf(i)+"color");
+            container.add(bt1,i,0);
+
+
+
+
+
+        }
+        this.Coulscrollpane.setContent(container);
+
+    }
+	
+    public void ajout_categorie(){
+        GridPane container=new GridPane();
+        Label lbl1= new Label("Categorie :");
+        container.add(lbl1,0,0);
+        for (int i = 0;i<tab_categorie.length;i++){
+            container.getColumnConstraints().add(new ColumnConstraints(150));
+            container.getRowConstraints().add(new RowConstraints(20));
+            Label lbl= new Label(tab_categorie[i]);
+            CheckBox cbx= new CheckBox();
+            lbl.setTextFill(Color.GREY);
+            container.add(lbl,0,i+1);
+            container.add(cbx,1,i+1);
+
+        }
+        this.cat.setContent(container);
+
+    }
+    
+	@FXML
+	private void initialize() {
+		
+		ajout_categorie();
+		ajout_couleur();
+		
+		
+	}
 	
 
 }

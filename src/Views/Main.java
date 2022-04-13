@@ -44,10 +44,12 @@ public class Main extends Application {
 			
 			Controller_3D_Environnement environnement_Controller = new Controller_3D_Environnement();
 			
+			loader.setController(environnement_Controller);
+			
+			
 			BorderPane root = (BorderPane) loader.load();
 			
-			loader.setController(environnement_Controller);
-				
+			
 			SubScene subscene = new SubScene(structure, 800, 600, true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene);
 			subscene.setFill(Color.valueOf("#2C2D32"));
