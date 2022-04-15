@@ -5,6 +5,8 @@ import Models.PausableAnimationTimer;
 import Models.Structure_3D;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
@@ -35,7 +37,7 @@ public class Controller_3D_Environnement{
 	@FXML private ScrollPane cat;
 	
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C","-fx-Base: #FFFFF0", "-fx-Base: #40E0D0","-fx-Base: #8B4513","-fx-Base: #FF8C00", "-fx-Base: #A9A9A9","-fx-Base: #8b4513" ,"-fx-Base: #FF0000" , "-fx-Base: #FFFAFA"};
-	String[] tab_categorie = {"Cube","Angle","Rectangle","Tapis"};
+	Label[] tab_categorie = {new Label("Cube"),new Label("Angle"),new Label("Rectangle"),new Label("Tapis")};
 	
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -329,12 +331,20 @@ public class Controller_3D_Environnement{
 
 	public void ajout_couleur() {
         GridPane container = new GridPane();
-        for(int i = 0; i<tab_couleur.length-1;i++) {
+        for(int i = 0; i<tab_couleur1.length-1;i++) {
             container.getColumnConstraints().add(new ColumnConstraints(30));
             Button  bt1 = new Button(); 
             bt1.setPrefSize(25,25);
             bt1.setStyle(tab_couleur1[i]);
             bt1.setId("bt"+String.valueOf(i)+"color");
+            EventHandler<ActionEvent> event = new EventHandler<ActionEvent>(){
+            	
+            	@Override
+            	public void handle(ActionEvent evt) {
+            		changer_couleur(bt1);
+            	}
+            };
+            bt1.setOnAction(event);
             container.add(bt1,i,0);
 
 
@@ -345,7 +355,17 @@ public class Controller_3D_Environnement{
         this.Coulscrollpane.setContent(container);
 
     }
-	
+	public void changer_couleur(Button bt) {
+		structure.selected_matiere = null;
+		int clr=0;
+		for (int i =0;i<this.tab_couleur1.length;i++) {
+			if (this.tab_couleur1[i]==bt.getStyle()) {
+				clr = i;
+			}
+		}
+		structure.selected_color=this.tab_couleur[clr];
+	}
+
     public void ajout_categorie(){
         GridPane container=new GridPane();
         Label lbl1= new Label("Categorie :");
@@ -353,9 +373,17 @@ public class Controller_3D_Environnement{
         for (int i = 0;i<tab_categorie.length;i++){
             container.getColumnConstraints().add(new ColumnConstraints(150));
             container.getRowConstraints().add(new RowConstraints(20));
-            Label lbl= new Label(tab_categorie[i]);
+            Label lbl= tab_categorie[i];
             CheckBox cbx= new CheckBox();
             lbl.setTextFill(Color.GREY);
+            EventHandler<ActionEvent> event = new EventHandler<ActionEvent>(){
+            	
+            	@Override
+            	public void handle(ActionEvent evt) {
+            		changer_categorie(cbx,lbl);
+            	}
+            };
+            cbx.setOnAction(event);
             container.add(lbl,0,i+1);
             container.add(cbx,1,i+1);
 
@@ -363,6 +391,17 @@ public class Controller_3D_Environnement{
         this.cat.setContent(container);
 
     }
+	public void changer_categorie(CheckBox cb, Label lbl) {
+		structure.taille = 0;
+		String blc="";
+		String label = lbl.getText();
+		if (cb.isSelected()) {
+			blc = label.toString().toUpperCase()+"_"+ this.rotations[this.rota];
+			System.out.println(blc);
+			structure.selected_bloc=blc;
+		}
+		
+	}
     
 	@FXML
 	private void initialize() {
