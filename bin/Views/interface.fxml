@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1067.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   
    <top>
       <AnchorPane prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </top>
    <left>
       <AnchorPane prefHeight="298.0" prefWidth="211.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutY="66.0" prefHeight="25.0" prefWidth="213.0" promptText="Rechercher" />
-            <ScrollPane layoutX="-2.0" layoutY="131.0" prefHeight="414.0" prefWidth="215.0">
+            <TextField layoutX="-1.0" layoutY="212.0" prefHeight="25.0" prefWidth="213.0" promptText="Rechercher" />
+            <ScrollPane layoutX="-2.0" layoutY="237.0" prefHeight="345.0" prefWidth="215.0">
                <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="197.0" />
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="197.0">
+                     <children>
+                        <Label layoutX="7.0" layoutY="5.0" text="Blocks :" />
+                     </children></AnchorPane>
                </content>
             </ScrollPane>
-            <ScrollPane fx:id="scrollpane" layoutX="1.0" layoutY="91.0" prefHeight="40.0" prefWidth="212.0">
-              <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="24.0" prefWidth="432.0" />
-              </content>
-            </ScrollPane>
+            <ScrollPane fx:id="Coulscrollpane" layoutX="1.0" layoutY="172.0" prefHeight="40.0" prefWidth="212.0" />
+            <ScrollPane fx:id="cat" layoutY="-1.0" prefHeight="173.0" prefWidth="213.0" />
          </children>
       </AnchorPane>
    </left>
-   <bottom>
-      <AnchorPane prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <center>
-      <AnchorPane fx:id="app" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="app" prefHeight="200.0" prefWidth="200.0" styleClass="jeu" stylesheets="@application.css" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

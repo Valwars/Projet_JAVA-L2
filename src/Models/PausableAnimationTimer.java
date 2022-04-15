@@ -93,3 +93,4 @@ public abstract class PausableAnimationTimer extends AnimationTimer {
 
     public abstract void tick(long relativeNow);
 }
+
