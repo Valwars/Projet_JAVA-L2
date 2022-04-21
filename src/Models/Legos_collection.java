@@ -53,6 +53,6 @@ public class Legos_collection {
 		legos.put("BASE", new Lego(bloc_size, 1, bloc_size, "BASE", null,structure));
 	}
 
-
+	
 
 }

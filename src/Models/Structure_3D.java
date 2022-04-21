@@ -49,26 +49,6 @@ public class Structure_3D extends Group implements Serializable {
 	Sphere sphere;
 
 	
-	public void enregistrer() {
-		try {
-			FileOutputStream fos =  new FileOutputStream(new File("Sauvegarde.dat"));;
-			ObjectOutputStream oos= new ObjectOutputStream(fos);
-			oos.writeObject(this.getChildren());
-			oos.close();
-			fos.close();
-		} catch (IOException e) {
-			throw new RuntimeException("Impossible d'�crire les donn�es");
-		}
-	}
-	
-	public void charger() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(new File("Sauvegarde.dat"));
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		this.getChildren().addAll((ArrayList<Group>) ois.readObject());
-		ois.close();
-		fis.close();
-	}
-	
 
 	private void prepareLight() {
 		
