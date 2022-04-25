@@ -97,13 +97,13 @@ public class Controller_3D_Environnement {
 		this.structure = st;
 		
 
-		File f = new File("sauvegardes/sauvegarde.xml");
+		File f = new File("sauvegardes/sauvegarde0.xml");
 		
 		if(f.exists() && !f.isDirectory())
 		{
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/sauvegarde.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/sauvegarde0.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -153,13 +153,14 @@ public class Controller_3D_Environnement {
 				
 
 				shape.setMaterial(material);
-					
+		
 				structure.getChildren().add(l.get(i));
 			
 			
 			}
 			structure.setSelected_bloc("CUBE");
 			structure.prepareLight();
+			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
 
 					
 		}else {

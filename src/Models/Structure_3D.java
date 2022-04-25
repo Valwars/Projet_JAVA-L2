@@ -46,6 +46,16 @@ public class Structure_3D extends Group implements Serializable {
 
 	private PointLight pointLight;
 	private Sphere sphere;
+	
+	private String nom_structure;
+	
+	public String getNom_structure() {
+		return nom_structure;
+	}
+
+	public void setNom_structure(String nom_structure) {
+		this.nom_structure = nom_structure;
+	}
 
 	public Structure_3D() {
 
@@ -149,13 +159,26 @@ public class Structure_3D extends Group implements Serializable {
 
 	public void enregistrer() {
 
-		File fichier = new File("sauvegardes/sauvegarde.xml");
+		File fichier;
 		
-		int j = 0;
-		
-		while (fichier.exists()) {
-			fichier = new File("sauvegardes/sauvegarde"+j+".xml");
-			j += 1;
+		if(this.nom_structure != null ) {
+			System.out.println("le fichier existe déjà, on l'écrase");
+			fichier = new File(this.nom_structure);
+		}else {
+			System.out.println("Aucune sauvergarde de cette structure, on en créer une");
+
+			fichier = new File("sauvegardes/sauvegarde0.xml");
+			
+			int j = 0;
+			
+			while (fichier.exists()) {
+				fichier = new File("sauvegardes/sauvegarde"+j+".xml");
+				j += 1;
+			}
+			
+			this.nom_structure = "sauvegardes/sauvegarde"+j+".xml";
+
+
 		}
 		
 		this.getChildren().remove(1600);
@@ -164,6 +187,12 @@ public class Structure_3D extends Group implements Serializable {
 		ArrayList<Shape3D> array = new ArrayList<Shape3D>();
 
 		for (int i = 0; i < this.getChildren().size(); i++) {
+			
+			if(this.getChildren().get(i).getClass() == Lego.class) {
+				 Lego l = (Lego) this.getChildren().get(i);
+				 l.setParent_name(this.nom_structure);
+			}
+			
 			array.add((Shape3D) this.getChildren().get(i));
 		}
 
@@ -182,7 +211,7 @@ public class Structure_3D extends Group implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(this.nom_structure);
 	}
 
 	public void prepareLight() {

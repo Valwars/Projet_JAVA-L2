@@ -27,6 +27,16 @@ public class Lego extends Box implements Serializable{
 	
 	private int taille;
 	
+	private String parent_name;
+	
+	public String getParent_name() {
+		return parent_name;
+	}
+
+	public void setParent_name(String parent_name) {
+		this.parent_name = parent_name;
+	}
+
 	public int getTaille() {
 		return taille;
 	}
@@ -60,6 +70,7 @@ public class Lego extends Box implements Serializable{
 		this.structure = structure;
 		this.type = type;
 		this.taille = structure.getTaille();
+		this.parent_name = structure.getNom_structure();
 		
 		PhongMaterial material = new PhongMaterial();
 
