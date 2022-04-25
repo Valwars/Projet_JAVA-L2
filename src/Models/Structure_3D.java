@@ -149,8 +149,15 @@ public class Structure_3D extends Group implements Serializable {
 
 	public void enregistrer() {
 
-		File fichier = new File("sauvegarde.xml");
-
+		File fichier = new File("sauvegardes/sauvegarde.xml");
+		
+		int j = 0;
+		
+		while (fichier.exists()) {
+			fichier = new File("sauvegardes/sauvegarde"+j+".xml");
+			j += 1;
+		}
+		
 		this.getChildren().remove(1600);
 		this.getChildren().remove(1600);
 

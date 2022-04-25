@@ -603,9 +603,8 @@
        <double>400.0</double>
       </void>
       <void property="translateZ">
-       <double>1905.0000023841858</double>
+       <double>1510.0000149011612</double>
       </void>
-      <void id="Color0" property="selected_color"/>
      </object>
     </void>
     <void property="type">
@@ -80043,11 +80042,7 @@
      <double>10.0</double>
     </void>
     <void property="material">
-     <object class="javafx.scene.paint.PhongMaterial" id="PhongMaterial280">
-      <void property="diffuseColor">
-       <object idref="Color0"/>
-      </void>
-     </object>
+     <object class="javafx.scene.paint.PhongMaterial" id="PhongMaterial280"/>
     </void>
     <void property="radius">
      <double>7.0</double>
@@ -80144,11 +80139,7 @@
      <object idref="Lego3"/>
     </void>
     <void property="material">
-     <object class="javafx.scene.paint.PhongMaterial">
-      <void property="diffuseColor">
-       <object idref="Color0"/>
-      </void>
-     </object>
+     <object idref="PhongMaterial280"/>
     </void>
     <void property="structure">
      <object idref="Structure_3D0"/>

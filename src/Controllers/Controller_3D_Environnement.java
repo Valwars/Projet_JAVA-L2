@@ -97,13 +97,13 @@ public class Controller_3D_Environnement {
 		this.structure = st;
 		
 
-		File f = new File("sauvegarde.xml");
+		File f = new File("sauvegardes/sauvegarde.xml");
 		
 		if(f.exists() && !f.isDirectory())
 		{
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegarde.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/sauvegarde.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
