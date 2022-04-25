@@ -23,33 +23,7 @@ import javafx.scene.transform.Translate;
 
 public class Structure_3D extends Group implements Serializable {
 
-<<<<<<< Updated upstream
-	private static final long serialVersionUID =1L;
 	
-	Legos_collection legos_collections;
-	
-	public Stack<Node> deleted_blocs;
-	
-	public String selected_bloc = "BASE";
-	
-	public Color selected_color = Color.ROYALBLUE;
-	
-	public String selected_matiere = null;
-	
-	public int taille = 0;
-	
-	public int BLOC_SIZE;
-	
-	public int PLATEAU_TAILLE = 20;
-		
-	public int sun_orientation = 0;
-	
-	
-	public PointLight pointLight;
-	Sphere sphere;
-
-	
-=======
 	private static final long serialVersionUID = 1L;
 
 	private Legos_collection legos_collections;
@@ -203,7 +177,6 @@ public class Structure_3D extends Group implements Serializable {
 		}
 
 	}
->>>>>>> Stashed changes
 
 	public void prepareLight() {
 
