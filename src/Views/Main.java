@@ -4,25 +4,21 @@ import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 
 import Controllers.Controller_3D_Environnement;
+import Models.Lego;
 import Models.Legos_collection;
 import Models.Structure_3D;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -35,6 +31,7 @@ public class Main extends Application {
 		try {
 		
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
+			
 			
 			Legos_collection legos_collection = new Legos_collection(structure,BLOC_SIZE);
 			
@@ -59,7 +56,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			
 
-			primaryStage.setTitle("LEGOLAND");
+			primaryStage.setTitle("L'ego World !");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
