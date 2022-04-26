@@ -98,12 +98,12 @@ public class Controller_3D_Environnement {
 
 		this.structure = st;
 
-		File f = new File("sauvegardes/Structure0.xml");
+		File f = new File("sauvegardes/Le Saint Arbre.xml");
 
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Structure0.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Saint Arbre.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
