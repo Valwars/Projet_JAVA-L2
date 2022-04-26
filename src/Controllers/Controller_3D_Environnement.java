@@ -5,8 +5,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import Models.Lego;
 import Models.Legos_collection;
@@ -18,13 +18,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Camera;
-import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
@@ -35,7 +35,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -97,13 +96,13 @@ public class Controller_3D_Environnement {
 		this.structure = st;
 		
 
-		File f = new File("sauvegardes/sauvegarde0.xml");
+		File f = new File("sauvegardes/Test_structure.xml");
 		
 		if(f.exists() && !f.isDirectory())
 		{
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/sauvegarde0.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Test_structure.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -183,9 +182,27 @@ public class Controller_3D_Environnement {
 
 			case L:
 				if (structure.getChildren().size() > 1065) {
+					if(structure.getNom_structure() == null) {
+						TextInputDialog td = new TextInputDialog("Structure0");
+				        td.setTitle("Sauvegarde");
+				        td.setContentText("Choisir un nom : ");
+				        
+				        td.setHeaderText("Sauvegarde...");
+				        
+				        Optional<String> result = td.showAndWait();
+				        
+				        result.ifPresent(name_structure ->{
+				        	structure.setNom_structure("sauvegardes/"+name_structure+".xml");
+							structure.enregistrer();
 
-					structure.enregistrer();
+				        });
+					}else {
+						structure.enregistrer();
+
+					}
+			                            
 				}
+				break;
 
 			case Z:
 				System.out.println("AVANT");
@@ -331,9 +348,7 @@ public class Controller_3D_Environnement {
 
 	}
 
-	private void resetCamera() {
 
-	}
 
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
