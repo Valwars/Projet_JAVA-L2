@@ -3,6 +3,7 @@ package Models;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -28,6 +29,8 @@ public class Lego extends Box implements Serializable{
 	private int taille;
 	
 	private String parent_name;
+	
+	private ArrayList<Lego> childs;
 	
 	public String getParent_name() {
 		return parent_name;
@@ -66,6 +69,7 @@ public class Lego extends Box implements Serializable{
 	}
 
 	public Lego(double width, double height, double depth, String type, Lego parent, Structure_3D structure) {
+		childs = new ArrayList<Lego>();
 		this.legoParent = parent;
 		this.structure = structure;
 		this.type = type;
@@ -155,8 +159,11 @@ public class Lego extends Box implements Serializable{
 							child.setTranslateZ(this.getTranslateZ());
 
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
 							structure.getChildren().add(child);
+							
+							new_lego.childs.add(child);
 
 						}
 
@@ -178,8 +185,10 @@ public class Lego extends Box implements Serializable{
 							child.setTranslateY(-1 * (model.getHeight() / 2));
 							child.setTranslateX(this.getTranslateX());
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
 							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
 					}
@@ -189,6 +198,10 @@ public class Lego extends Box implements Serializable{
 					new_lego.setTranslateX(this.getTranslateX());
 					new_lego.setTranslateY(-1 * (model.getHeight() / 2));
 					new_lego.setTranslateZ(this.getTranslateZ());
+					
+					for(int i = 0; i < this.childs.size();i++) {
+						this.childs.get(i).enfant =  new_lego;
+					}
 					
 					create3DAsset(group, model, new_lego);
 					structure.getChildren().add(new_lego);
@@ -212,8 +225,10 @@ public class Lego extends Box implements Serializable{
 							child.setTranslateY(-1 * (this.getTotalHeight()));
 							child.setTranslateZ(this.getTranslateZ());
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
 							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
 					} if (Math.abs(model.getDepth()) > structure.getBLOC_SIZE()) {
@@ -231,9 +246,11 @@ public class Lego extends Box implements Serializable{
 
 							child.setTranslateY(-1 * (this.getTotalHeight()));
 							child.setTranslateX(this.getTranslateX());
+							child.getLegoParent().enfant = child;
 							create3DAsset(group, model, child);
 
 							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
 					}
@@ -249,8 +266,12 @@ public class Lego extends Box implements Serializable{
 					}
 
 					new_lego.setTranslateZ(this.getTranslateZ());
+					
 
 					this.enfant = new_lego;
+					for(int i = 0; i < this.childs.size();i++) {
+						this.childs.get(i).enfant =  new_lego;
+					}
 					create3DAsset(group, model, new_lego);
 
 					structure.getChildren().add(new_lego);
