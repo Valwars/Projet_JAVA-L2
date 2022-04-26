@@ -5,6 +5,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -69,12 +70,11 @@ public class Controller_3D_Environnement {
 
 	public String type;
 
-	
 	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
 			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED,
 			Color.SNOW };
 
-	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png"};
+	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
 	int rota = 0;
 
@@ -85,122 +85,145 @@ public class Controller_3D_Environnement {
 
 	public boolean isRotating = false;
 
-	public PausableAnimationTimer timer=new PausableAnimationTimer(){@Override public void tick(long animationTime){
+	public PausableAnimationTimer timer = new PausableAnimationTimer() {
+		@Override
+		public void tick(long animationTime) {
 
-	structure.rotateProperty().set(structure.getRotate()+0.2);
+			structure.rotateProperty().set(structure.getRotate() + 0.2);
 
-	}};
+		}
+	};
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) throws FileNotFoundException {
 
 		this.structure = st;
-		
 
-		File f = new File("sauvegardes/Test_structure.xml");
-		
-		if(f.exists() && !f.isDirectory())
-		{
+		File f = new File("sauvegardes/Structure0.xml");
+
+		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Test_structure.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Structure0.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
-			
+
 			ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
-			
-			
+
 			for (int i = 0; i < l.size(); i++) {
-				
+
 				Shape3D shape = l.get(i);
-				
-			
+
 				PhongMaterial material = new PhongMaterial();
-				
-				if(i<1602 && shape.getClass() != Cylinder.class) {
+
+				if (i < 1602 && shape.getClass() != Cylinder.class) {
 					((Lego) shape).setStructure(structure);
 
 					material.setDiffuseColor(Color.GREY);
-				}else {
-					if(shape.getClass() == Lego.class) {
-						
+				} else {
+					if (shape.getClass() == Lego.class) {
+
 						((Lego) shape).setStructure(structure);
 
+						if (((Lego) shape).getCoul() != null) {
+							String color = "#" + ((Lego) shape).getCoul().split("x")[1];
 
-						if(((Lego) shape).getCoul() != null) {
-							String color = "#" +((Lego) shape).getCoul().split("x")[1];
-							
 							Color c = Color.valueOf(color);
 							material.setDiffuseColor(c);
-						}else {
+						} else {
 							String texture = ((Lego) shape).getTexture();
-						
-							material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/"+texture)));
+
+							material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
 						}
-					
-						
-						for(int j = 1; j <5 ; j ++) {
-							Shape3D shape2 = l.get(i-j);
+
+						for (int j = 1; j < 5; j++) {
+							Shape3D shape2 = l.get(i - j);
 							shape2.setMaterial(material);
 
 						}
-						
 
 					}
 
 				}
-				
 
 				shape.setMaterial(material);
-		
+
 				structure.getChildren().add(l.get(i));
-			
-			
+
 			}
 			structure.setSelected_bloc("CUBE");
 			structure.prepareLight();
 			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
 
-					
-		}else {
+		} else {
 
 			structure.createBase();
 		}
 
-	camera=new PerspectiveCamera();
+		camera = new PerspectiveCamera();
 
-	subscene.setCamera(camera);structure.translateXProperty().set(1200/2);structure.translateYProperty().set(800/2);structure.translateZProperty().set(0);
+		subscene.setCamera(camera);
+		structure.translateXProperty().set(1200 / 2);
+		structure.translateYProperty().set(800 / 2);
+		structure.translateZProperty().set(0);
 
-	camera.translateZProperty().set(-1000);
+		camera.translateZProperty().set(-1000);
 
-	initMouseControl(st, subscene, primaryStage);
+		initMouseControl(st, subscene, primaryStage);
 
-	
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 
 			switch (event.getCode()) {
 
 			case L:
 				if (structure.getChildren().size() > 1065) {
-					if(structure.getNom_structure() == null) {
-						TextInputDialog td = new TextInputDialog("Structure0");
-				        td.setTitle("Sauvegarde");
-				        td.setContentText("Choisir un nom : ");
-				        
-				        td.setHeaderText("Sauvegarde...");
-				        
-				        Optional<String> result = td.showAndWait();
-				        
-				        result.ifPresent(name_structure ->{
-				        	structure.setNom_structure("sauvegardes/"+name_structure+".xml");
-							structure.enregistrer();
 
-				        });
-					}else {
+					if (structure.getNom_structure() == null) {
+
+						TextInputDialog td = new TextInputDialog("Structure0");
+						td.setTitle("Sauvegarde");
+						td.setContentText("Choisir un nom : ");
+
+						td.setHeaderText("Sauvegarde...");
+
+						boolean drap = false;
+
+						while (drap == false) {
+							
+							
+							Optional<String> result = td.showAndWait();
+
+							File file = new File("sauvegardes/" + result.get() + ".xml");
+
+									
+							if (!file.exists()) {
+								
+								drap = true;
+
+							}
+							
+							result.ifPresent(name_structure -> {
+								
+
+								if (!file.exists()) {
+									structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
+									structure.enregistrer();
+									td.close();
+								}else {
+									td.setHeaderText("Ce nom est déjà pris !");
+								}
+
+							});
+							
+							
+							
+						}
+
+					} else {
 						structure.enregistrer();
 
 					}
-			                            
+
 				}
 				break;
 
@@ -347,8 +370,6 @@ public class Controller_3D_Environnement {
 		});
 
 	}
-
-
 
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
