@@ -202,7 +202,7 @@ public class Lego extends Box implements Serializable{
 					for(int i = 0; i < this.childs.size();i++) {
 						this.childs.get(i).enfant =  new_lego;
 					}
-					
+					this.enfant = new_lego;
 					create3DAsset(group, model, new_lego);
 					structure.getChildren().add(new_lego);
 
