@@ -401,6 +401,7 @@ public class Structure_3D extends Group implements Serializable {
 						/ this.getBLOC_SIZE()) * 2 - 1; i++) {
 
 					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
 					for (int j = 0; j < 4; j++) {
 
 						Cylinder child = (Cylinder) deleted_blocs.pop();
@@ -418,6 +419,8 @@ public class Structure_3D extends Group implements Serializable {
 						/ this.getBLOC_SIZE()); i++) {
 
 					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
+
 					for (int j = 0; j < 4; j++) {
 
 						Cylinder child = (Cylinder) deleted_blocs.pop();
@@ -433,6 +436,8 @@ public class Structure_3D extends Group implements Serializable {
 				for (int i = 0; i < ((Math.abs(model.getDepth()) + (this.getBLOC_SIZE() * l.getTaille()))
 						/ this.getBLOC_SIZE()); i++) {
 					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
+
 
 					for (int j = 0; j < 4; j++) {
 
@@ -446,6 +451,8 @@ public class Structure_3D extends Group implements Serializable {
 
 			}else if (Math.abs(model.getDepth()) <= this.BLOC_SIZE && Math.abs(model.getWidth()) <= this.BLOC_SIZE) {
 				Lego lego = (Lego) deleted_blocs.pop();
+				lego.setEnfant(null);
+
 
 				for (int j = 0; j < 4; j++) {
 

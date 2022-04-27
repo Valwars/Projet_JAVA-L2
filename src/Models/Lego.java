@@ -30,6 +30,15 @@ public class Lego extends Box implements Serializable{
 	
 	private String parent_name;
 	
+	public ArrayList<Lego> getChilds() {
+		return childs;
+	}
+
+	public void setChilds(ArrayList<Lego> childs) {
+		this.childs = childs;
+	}
+
+
 	private ArrayList<Lego> childs;
 	
 	public String getParent_name() {
@@ -269,9 +278,21 @@ public class Lego extends Box implements Serializable{
 					
 
 					this.enfant = new_lego;
-					for(int i = 0; i < this.childs.size();i++) {
-						this.childs.get(i).enfant =  new_lego;
+					
+					if(!new_lego.getType().equals("CUBE")) {
+						if(this.childs.size() > new_lego.getChilds().size()) {
+							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
+								this.childs.get(i).enfant =  new_lego;
+							}
+						}else {
+							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
+								this.childs.get(i).enfant =  new_lego;
+							}
+						}
 					}
+					
+					
+					
 					create3DAsset(group, model, new_lego);
 
 					structure.getChildren().add(new_lego);

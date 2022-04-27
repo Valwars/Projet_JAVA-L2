@@ -98,12 +98,12 @@ public class Controller_3D_Environnement {
 
 		this.structure = st;
 
-		File f = new File("sauvegardes/Le tapis rouge.xml");
+		File f = new File("sauvegardes/Le Pont sur l'eau.xml");
 
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le tapis rouge.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -263,11 +263,11 @@ public class Controller_3D_Environnement {
 				structure.move_sun2();
 				break;
 			case Y:
-				structure.move_sun();
+				//structure.move_sun();
 				
-				//structure.setTaille(0);
+				structure.setTaille(0);
 
-				//structure.setSelected_bloc("TAPIS");
+				structure.setSelected_bloc("TAPIS");
 				break;
 			case U:
 				structure.setTaille(0);
