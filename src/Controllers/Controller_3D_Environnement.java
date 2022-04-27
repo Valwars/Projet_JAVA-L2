@@ -98,12 +98,12 @@ public class Controller_3D_Environnement {
 
 		this.structure = st;
 
-		File f = new File("sauvegardes/La Douce maison.xml");
+		File f = new File("sauvegardes/Le tapis rouge.xml");
 
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/La Douce maison.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le tapis rouge.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -260,12 +260,14 @@ public class Controller_3D_Environnement {
 				}
 				break;
 			case T:
-				structure.move_sun();
+				structure.move_sun2();
 				break;
 			case Y:
-				structure.setTaille(0);
+				structure.move_sun();
+				
+				//structure.setTaille(0);
 
-				structure.setSelected_bloc("TAPIS");
+				//structure.setSelected_bloc("TAPIS");
 				break;
 			case U:
 				structure.setTaille(0);
@@ -506,6 +508,71 @@ public class Controller_3D_Environnement {
 		ajout_categorie();
 		ajout_couleur();
 
+	}
+	
+	private void loadStructure(String name) throws FileNotFoundException {
+		
+		File f = new File(name);
+
+		if (f.exists() && !f.isDirectory()) {
+			XMLDecoder decoder = null;
+
+			FileInputStream fis = new FileInputStream(name);
+			BufferedInputStream bos = new BufferedInputStream(fis);
+
+			decoder = new XMLDecoder(bos);
+
+			ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
+
+			for (int i = 0; i < l.size(); i++) {
+
+				Shape3D shape = l.get(i);
+
+				PhongMaterial material = new PhongMaterial();
+
+				if (i < 1602 && shape.getClass() != Cylinder.class) {
+					((Lego) shape).setStructure(structure);
+
+					material.setDiffuseColor(Color.GREY);
+				} else {
+					if (shape.getClass() == Lego.class) {
+
+						((Lego) shape).setStructure(structure);
+
+						if (((Lego) shape).getCoul() != null) {
+							String color = "#" + ((Lego) shape).getCoul().split("x")[1];
+
+							Color c = Color.valueOf(color);
+							material.setDiffuseColor(c);
+						} else {
+							String texture = ((Lego) shape).getTexture();
+
+							material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
+						}
+
+						for (int j = 1; j < 5; j++) {
+							Shape3D shape2 = l.get(i - j);
+							shape2.setMaterial(material);
+
+						}
+
+					}
+
+				}
+
+				shape.setMaterial(material);
+
+				structure.getChildren().add(l.get(i));
+
+			}
+			structure.setSelected_bloc("CUBE");
+			structure.prepareLight();
+			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
+
+		}else {
+			System.out.println("Cette sauvegarde n'existe pas");
+		}
+		
 	}
 
 }

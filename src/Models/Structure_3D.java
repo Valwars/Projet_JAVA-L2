@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PointLight;
@@ -242,6 +243,8 @@ public class Structure_3D extends Group implements Serializable {
 			pointLight.setRotate(pointLight.getRotate() - 2);
 		}
 	};
+	
+
 
 	public Structure_3D(int bs) {
 		this.BLOC_SIZE = bs;
@@ -357,10 +360,23 @@ public class Structure_3D extends Group implements Serializable {
 
 	}
 
-	public void move_sun() {
-		this.pointLight.setRotate(pointLight.getRotate() - 25);
+	public void move_sun2() {
+	      this.pointLight.setRotationAxis(new Point3D(200,0,0));
+
+	      this.pointLight.setRotate(pointLight.getRotate() - 25);
 
 	}
+	
+	
+	public void move_sun() {
+	
+	      //Setting pivot points for the rotation
+	      this.pointLight.setRotationAxis(new Point3D(0,200,0));
+
+		  this.pointLight.setRotate(pointLight.getRotate() - 25);
+
+	}
+
 
 	public void time_laps() {
 
