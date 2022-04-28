@@ -14,7 +14,7 @@
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="213.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="-1.0" layoutY="212.0" prefHeight="25.0" prefWidth="213.0" promptText="Rechercher" />
+            <TextField fx:id="searsh_bar" layoutX="-1.0" layoutY="212.0" prefHeight="25.0" prefWidth="213.0" promptText="Rechercher" />
             <ScrollPane layoutX="-2.0" layoutY="237.0" prefHeight="345.0" prefWidth="215.0">
                <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="197.0">

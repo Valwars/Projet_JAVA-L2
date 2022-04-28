@@ -27,6 +27,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -55,6 +56,9 @@ public class Controller_3D_Environnement {
 	private ScrollPane Coulscrollpane;
 	@FXML
 	private ScrollPane cat;
+	
+	@FXML
+	private TextField searsh_bar;
 
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
@@ -520,6 +524,7 @@ public class Controller_3D_Environnement {
 
 		ajout_categorie();
 		ajout_couleur();
+	    searsh_bar.setFocusTraversable(false);
 
 	}
 	
