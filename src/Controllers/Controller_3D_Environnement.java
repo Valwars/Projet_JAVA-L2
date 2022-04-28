@@ -5,7 +5,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -25,10 +24,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -176,6 +179,9 @@ public class Controller_3D_Environnement {
 			switch (event.getCode()) {
 
 			case L:
+				BorderPane parent = (BorderPane) structure.getScene().getRoot();
+				TabPane pane = (TabPane) parent.getChildren().get(2);
+						
 				if (structure.getChildren().size() > 1065) {
 
 					if (structure.getNom_structure() == null) {
@@ -209,6 +215,7 @@ public class Controller_3D_Environnement {
 									structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
 									structure.enregistrer();
 									td.close();
+									
 								}else {
 									td.setHeaderText("Ce nom est déjà pris !");
 								}
@@ -218,6 +225,12 @@ public class Controller_3D_Environnement {
 							
 							
 						}
+						
+
+						SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
+	                	
+						selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0, structure.getNom_structure().split("/")[1].length()-4));
+	                	selectionModel.clearSelection(); //clear your selection
 
 					} else {
 						structure.enregistrer();
