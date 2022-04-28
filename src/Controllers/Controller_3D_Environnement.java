@@ -34,6 +34,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -125,7 +126,8 @@ public class Controller_3D_Environnement {
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) throws FileNotFoundException {
 		this.structure = st;
-
+		
+		System.out.println(structure);
 
 		File f = new File("sauvegardes/Le Pont sur l'eau00.xml");
 
@@ -204,219 +206,236 @@ public class Controller_3D_Environnement {
 		camera.translateZProperty().set(-1000);
 
 		initMouseControl(st, subscene, primaryStage);
+		
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+       
 
-			switch (event.getCode()) {
+	
 
-			case L:
-				BorderPane parent = (BorderPane) structure.getScene().getRoot();
-				TabPane pane = (TabPane) parent.getChildren().get(2);
+	}
+	
+	public void setEvent(Stage primaryStage) {
+		 
+		EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() { 
+			   @Override 
+			   public void handle(KeyEvent e) { 
+				   System.out.println("event handler");
+				   listenerKeyboard(e);
+			   } 
+			}; 
+			
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED,eventHandler);
+		
+	}
+	
+	private void listenerKeyboard(KeyEvent event) {
+		System.out.println("je clique");
+		switch (event.getCode()) {
+
+		case L:
+			BorderPane parent = (BorderPane) structure.getScene().getRoot();
+			TabPane pane = (TabPane) parent.getChildren().get(2);
+					
+			if (structure.getChildren().size() > 1065) {
+
+				if (structure.getNom_structure() == null) {
+
+					TextInputDialog td = new TextInputDialog("Structure0");
+					td.setTitle("Sauvegarde");
+					td.setContentText("Choisir un nom : ");
+
+					td.setHeaderText("Sauvegarde...");
+
+					boolean drap = false;
+
+					while (drap == false) {
 						
-				if (structure.getChildren().size() > 1065) {
+						
+						Optional<String> result = td.showAndWait();
 
-					if (structure.getNom_structure() == null) {
+						File file = new File("sauvegardes/" + result.get() + ".xml");
 
-						TextInputDialog td = new TextInputDialog("Structure0");
-						td.setTitle("Sauvegarde");
-						td.setContentText("Choisir un nom : ");
-
-						td.setHeaderText("Sauvegarde...");
-
-						boolean drap = false;
-
-						while (drap == false) {
-							
-							
-							Optional<String> result = td.showAndWait();
-
-							File file = new File("sauvegardes/" + result.get() + ".xml");
-
-									
-							if (!file.exists()) {
 								
-								drap = true;
+						if (!file.exists()) {
+							
+							drap = true;
 
-							}
-							
-							result.ifPresent(name_structure -> {
-								
-
-								if (!file.exists()) {
-									structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
-									structure.enregistrer();
-									td.close();
-									
-								}else {
-									td.setHeaderText("Ce nom est déjà pris !");
-								}
-
-							});
-							
-							
-							
 						}
 						
+						result.ifPresent(name_structure -> {
+							
 
-						SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
-	                	
-						selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0, structure.getNom_structure().split("/")[1].length()-4));
-	                	selectionModel.clearSelection(); //clear your selection
+							if (!file.exists()) {
+								structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
+								structure.enregistrer();
+								td.close();
+								
+							}else {
+								td.setHeaderText("Ce nom est déjà pris !");
+							}
 
-					} else {
-						structure.enregistrer();
-
+						});
+						
+						
+						
 					}
+					
 
-				}
-				break;
+					SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
+                	
+					selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0, structure.getNom_structure().split("/")[1].length()-4));
+                	selectionModel.clearSelection(); //clear your selection
 
-			case Z:
-				System.out.println("AVANT");
-				camera.setTranslateY(camera.getTranslateY() - 5);
-
-				break;
-			case S:
-				System.out.println("arriere");
-				camera.setTranslateY(camera.getTranslateY() + 5);
-
-				break;
-			case Q:
-				System.out.println("gauche");
-				camera.setTranslateX(camera.getTranslateX() - 5);
-
-				break;
-			case D:
-				System.out.println("droite");
-				camera.setTranslateX(camera.getTranslateX() + 5);
-
-				break;
-
-			case R:
-				structure.setRotationAxis(Rotate.Y_AXIS);
-				spinAnimation();
-				break;
-
-			case W:
-				if (isRotating == false) {
-					structure.time_laps();
-
-				}
-				break;
-			case T:
-				structure.move_sun2();
-				break;
-			case Y:
-				//structure.move_sun();
-				
-				structure.setTaille(0);
-
-				structure.setSelected_bloc("TAPIS");
-				break;
-			case U:
-				structure.setTaille(0);
-
-				structure.setSelected_bloc("CUBE");
-				break;
-			case I:
-				structure.setTaille(0);
-
-				String bloc = "RECTANGLE2_" + this.rotations[this.rota];
-				System.out.println(rota);
-				structure.setSelected_bloc(bloc);
-				break;
-			case O:
-				structure.setTaille(0);
-
-				String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
-				structure.setSelected_bloc(bloc2);
-				break;
-			case P:
-
-				structure.setTaille(0);
-
-				String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
-				structure.setSelected_bloc(bloc3);
-				break;
-
-			case K:
-
-				structure.setTaille(0);
-
-				String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
-				structure.setSelected_bloc(bloc5);
-				break;
-
-			case H:
-				structure.setTaille(structure.getTaille() + 1);
-				break;
-			case G:
-				if (structure.getTaille() > 0) {
-					structure.setTaille(structure.getTaille() - 1);
-
-				}
-				break;
-
-			case F:
-				String bloc6 = "ANGLE_" + this.rotations[this.rota];
-				structure.setSelected_bloc(bloc6);
-				break;
-			case B:
-				structure.deleteLastBloc();
-				System.out.println(structure.getChildren());
-				break;
-
-			case N:
-				structure.recupDeletedBloc();
-				break;
-
-			case X:
-
-				if (this.matiere == this.tab_matiere.length - 1) {
-					this.matiere = 0;
 				} else {
-					this.matiere += 1;
-
-				}
-				structure.setSelected_matiere(this.tab_matiere[this.matiere]);
-				break;
-
-			case C:
-
-				structure.setSelected_matiere(null);
-
-				if (this.couleur == this.tab_couleur.length - 1) {
-					this.couleur = 0;
-				} else {
-					this.couleur += 1;
+					structure.enregistrer();
 
 				}
 
-				structure.setSelected_color(this.tab_couleur[this.couleur]);
-				break;
+			}
+			break;
 
-			case V:
+		case Z:
+			System.out.println("AVANT");
+			camera.setTranslateY(camera.getTranslateY() - 5);
 
-				if (structure.getSelected_bloc() != "CUBE") {
-					if (this.rota == this.rotations.length - 1) {
-						this.rota = 0;
-					} else {
-						this.rota += 1;
+			break;
+		case S:
+			System.out.println("arriere");
+			camera.setTranslateY(camera.getTranslateY() + 5);
 
-					}
-					String[] blocs = structure.getSelected_bloc().split("_");
+			break;
+		case Q:
+			System.out.println("gauche");
+			camera.setTranslateX(camera.getTranslateX() - 5);
 
-					structure.setSelected_bloc(blocs[0] + "_" + this.rotations[rota]);
-				}
+			break;
+		case D:
+			System.out.println("droite");
+			camera.setTranslateX(camera.getTranslateX() + 5);
 
-				break;
+			break;
+
+		case R:
+			structure.setRotationAxis(Rotate.Y_AXIS);
+			spinAnimation();
+			break;
+
+		case W:
+			if (isRotating == false) {
+				structure.time_laps();
+
+			}
+			break;
+		case T:
+			structure.move_sun2();
+			break;
+		case Y:
+			//structure.move_sun();
+			
+			structure.setTaille(0);
+
+			structure.setSelected_bloc("TAPIS");
+			break;
+		case U:
+			structure.setTaille(0);
+
+			structure.setSelected_bloc("CUBE");
+			break;
+		case I:
+			structure.setTaille(0);
+
+			String bloc = "RECTANGLE2_" + this.rotations[this.rota];
+			System.out.println(rota);
+			structure.setSelected_bloc(bloc);
+			break;
+		case O:
+			structure.setTaille(0);
+
+			String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
+			structure.setSelected_bloc(bloc2);
+			break;
+		case P:
+
+			structure.setTaille(0);
+
+			String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
+			structure.setSelected_bloc(bloc3);
+			break;
+
+		case K:
+
+			structure.setTaille(0);
+
+			String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
+			structure.setSelected_bloc(bloc5);
+			break;
+
+		case H:
+			structure.setTaille(structure.getTaille() + 1);
+			break;
+		case G:
+			if (structure.getTaille() > 0) {
+				structure.setTaille(structure.getTaille() - 1);
+
+			}
+			break;
+
+		case F:
+			String bloc6 = "ANGLE_" + this.rotations[this.rota];
+			structure.setSelected_bloc(bloc6);
+			break;
+		case B:
+			structure.deleteLastBloc();
+			System.out.println(structure.getChildren());
+			break;
+
+		case N:
+			structure.recupDeletedBloc();
+			break;
+
+		case X:
+
+			if (this.matiere == this.tab_matiere.length - 1) {
+				this.matiere = 0;
+			} else {
+				this.matiere += 1;
+
+			}
+			structure.setSelected_matiere(this.tab_matiere[this.matiere]);
+			break;
+
+		case C:
+
+			structure.setSelected_matiere(null);
+
+			if (this.couleur == this.tab_couleur.length - 1) {
+				this.couleur = 0;
+			} else {
+				this.couleur += 1;
 
 			}
 
-		});
+			structure.setSelected_color(this.tab_couleur[this.couleur]);
+			break;
 
+		case V:
+
+			if (structure.getSelected_bloc() != "CUBE") {
+				if (this.rota == this.rotations.length - 1) {
+					this.rota = 0;
+				} else {
+					this.rota += 1;
+
+				}
+				String[] blocs = structure.getSelected_bloc().split("_");
+
+				structure.setSelected_bloc(blocs[0] + "_" + this.rotations[rota]);
+			}
+
+			break;
+
+		}
 	}
-
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
 		Rotate yRotate;

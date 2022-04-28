@@ -259,7 +259,7 @@ public class Structure_3D extends Group implements Serializable {
 	}
 
 	public void deleteLastBloc() {
-
+		System.out.println(this);
 		if (this.getChildren().size() > (PLATEAU_TAILLE * 4 + 1)) {
 
 			try {
