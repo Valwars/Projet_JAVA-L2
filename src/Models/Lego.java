@@ -1,59 +1,116 @@
 package Models;
 
-import javafx.animation.RotateTransition;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 
-public class Lego extends Box {
+public class Lego extends Box implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
-	Lego parent;
-	Lego enfant;
+	private Lego legoParent;
+	private Lego enfant;
 
-	public int width;
-	public int height;
-	public int depth;
+	private String type;
+	private Structure_3D structure;
+	
+	private String coul;
+	
+	private String texture;
+	
+	private int taille;
+	
+	private String parent_name;
+	
+	public ArrayList<Lego> getChilds() {
+		return childs;
+	}
 
-	public String type;
+	public void setChilds(ArrayList<Lego> childs) {
+		this.childs = childs;
+	}
 
-	public Structure_3D structure;
 
-	public Lego(int width, int height, int depth, String type, Lego parent, Structure_3D structure) {
+	private ArrayList<Lego> childs;
+	
+	public String getParent_name() {
+		return parent_name;
+	}
 
-		this.width = width;
-		this.height = height;
-		this.depth = depth;
-		this.parent = parent;
+	public void setParent_name(String parent_name) {
+		this.parent_name = parent_name;
+	}
 
+	public int getTaille() {
+		return taille;
+	}
+
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+
+	public Lego() {
+		
+
+		this.setOnMousePressed(event -> {
+			
+			if (event.isSecondaryButtonDown() &&  this.getEnfant() == null) {
+				this.create_blocs();
+
+			}
+		});
+	}
+	
+	public String getTexture() {
+		return texture;
+	}
+
+	public void setTexture(String texture) {
+		this.texture = texture;
+	}
+
+	public Lego(double width, double height, double depth, String type, Lego parent, Structure_3D structure) {
+		childs = new ArrayList<Lego>();
+		this.legoParent = parent;
 		this.structure = structure;
 		this.type = type;
+		this.taille = structure.getTaille();
+		this.parent_name = structure.getNom_structure();
+		
 		PhongMaterial material = new PhongMaterial();
 
 		if (parent == null) {
-			material.setDiffuseColor(Color.valueOf("#6B6E74"));
+			material.setDiffuseColor(Color.GRAY);
 		} else {
-			if(structure.selected_matiere == null) {
-				material.setDiffuseColor(structure.selected_color);
+			if(structure.getSelected_matiere() == null) {
+				this.coul = structure.getSelected_color().toString();
+
+				material.setDiffuseColor(structure.getSelected_color());
 
 			}else {
-				material.setDiffuseMap(new Image(getClass().getResourceAsStream(structure.selected_matiere)));
+				this.texture = structure.getSelected_matiere();
+				material.setDiffuseMap(new Image(getClass().getResourceAsStream(structure.getSelected_matiere())));
 
 			}
 
 		}
+		
 		material.setSpecularColor(Color.valueOf("#424242"));
-		System.out.println(type);
 
 		this.setWidth(width);
 		this.setHeight(height);
 		this.setDepth(depth);
 
 		this.setMaterial(material);
+		
 
 		this.setOnMousePressed(event -> {
 
@@ -66,135 +123,150 @@ public class Lego extends Box {
 
 	}
 
+	public String getCoul() {
+		return coul;
+	}
+
+	public void setCoul(String coul) {
+		this.coul = coul;
+	}
+
+
 	public void create_blocs() {
-		String[] rot = structure.selected_bloc.split("_");
+		String[] rot = structure.getSelected_bloc().split("_");
 
 		String rotate = "";
 		if (rot.length > 1) {
 			rotate = rot[1];
-			System.out.println(rotate);
 		}
-
+		
 		Group group = new Group();
 		
-		Lego model = structure.legos_collections.legos.get(structure.selected_bloc);
-
+		Lego model = structure.getLegos_collections().getLegos().get(structure.getSelected_bloc());
 		if (this.enfant == null) {
-			
 			if (!this.type.equals("TAPIS")) {
 
 				if (this.type.equals("BASE")) {
-					Lego new_lego = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this, structure);
+							
+					Lego new_lego = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this, structure);
 					
-					if (Math.abs(model.width) > structure.BLOC_SIZE) {
+					if (Math.abs(model.getWidth()) > structure.getBLOC_SIZE()) {
 
-						for (int i = 1; i < ((Math.abs(model.width)+(structure.BLOC_SIZE*structure.taille)) / structure.BLOC_SIZE); i++) {
-							System.out.println("JE DOIS AJOUTER UN BLOC");
-							System.out.println(i);		
+						for (int i = 1; i < ((Math.abs(model.getWidth())+(structure.getBLOC_SIZE()*structure.getTaille())) / structure.getBLOC_SIZE()); i++) {
+								
 
-							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
+							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
 							if (rotate.equals("GAUCHE")) {
-								System.out.println("GAUCHE CHILD");
-								System.out.println(i);
-								child.setTranslateX(this.getTranslateX() + i * (-structure.BLOC_SIZE - 1));
+								
+								child.setTranslateX(this.getTranslateX() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
-								child.setTranslateX(this.getTranslateX() + i * (structure.BLOC_SIZE +1));
+								child.setTranslateX(this.getTranslateX() + i * (structure.getBLOC_SIZE() +1));
 							}
-							child.setTranslateY(-1 * (model.height / 2));
+							child.setTranslateY(-1 * (model.getHeight() / 2));
 							child.setTranslateZ(this.getTranslateZ());
 
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
-							group.getChildren().add(child);
+							structure.getChildren().add(child);
+							
+							new_lego.childs.add(child);
 
 						}
 
-					} if (Math.abs(model.depth) > structure.BLOC_SIZE) {
+					} 
+					
+					if (Math.abs(model.getDepth()) > structure.getBLOC_SIZE()) {
 
-						for (int i = 1; i < ((Math.abs(model.depth)+(structure.BLOC_SIZE*structure.taille))/ structure.BLOC_SIZE); i++) {
-							System.out.println("JE DOIS AJOUTER UN BLOC");
+						for (int i = 1; i < ((Math.abs(model.getDepth())+(structure.getBLOC_SIZE()*structure.getTaille()))/ structure.getBLOC_SIZE()); i++) {
 
-							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
+							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
 							if (rotate.equals("AVANT")) {
-								child.setTranslateZ(this.getTranslateZ() + i * (-structure.BLOC_SIZE - 1));
+								child.setTranslateZ(this.getTranslateZ() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
-								System.out.println("ARRIERE : " + i);
 
-								child.setTranslateZ(this.getTranslateZ() + (i * (structure.BLOC_SIZE +1)));
+								child.setTranslateZ(this.getTranslateZ() + (i * (structure.getBLOC_SIZE() +1)));
 							}
-							child.setTranslateY(-1 * (model.height / 2));
+							child.setTranslateY(-1 * (model.getHeight() / 2));
 							child.setTranslateX(this.getTranslateX());
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
-							group.getChildren().add(child);
+							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
 					}
-
+					
+					
+				
 					new_lego.setTranslateX(this.getTranslateX());
-					new_lego.setTranslateY(-1 * (model.height / 2));
+					new_lego.setTranslateY(-1 * (model.getHeight() / 2));
 					new_lego.setTranslateZ(this.getTranslateZ());
-
-					System.out.println(new_lego.parent);
+					
+					for(int i = 0; i < this.childs.size();i++) {
+						this.childs.get(i).enfant =  new_lego;
+					}
+					this.enfant = new_lego;
 					create3DAsset(group, model, new_lego);
-					group.getChildren().add(new_lego);
+					structure.getChildren().add(new_lego);
 
 				} else {
-					Lego new_lego = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this, structure);
+					Lego new_lego = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this, structure);
 
-					System.out.println(model.width);
-					if (Math.abs(model.width) > structure.BLOC_SIZE) {
+					if (Math.abs(model.getWidth()) > structure.getBLOC_SIZE()) {
 
-						for (int i = 1; i < ((Math.abs(model.width)+(structure.BLOC_SIZE*structure.taille))/ structure.BLOC_SIZE); i++) {
-							System.out.println("JE DOIS AJOUTER UN BLOC");
+						for (int i = 1; i < ((Math.abs(model.getWidth())+(structure.getBLOC_SIZE()*structure.getTaille()))/ structure.getBLOC_SIZE()); i++) {
 
-							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
+							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
 							if (rotate.equals("GAUCHE")) {
-								System.out.println("GAUCHE CHILD");
-								System.out.println(i);
-								child.setTranslateX(this.getTranslateX() + i * (-structure.BLOC_SIZE - 1));
+								
+								child.setTranslateX(this.getTranslateX() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
-								child.setTranslateX(this.getTranslateX() + i * (structure.BLOC_SIZE +1));
+								child.setTranslateX(this.getTranslateX() + i * (structure.getBLOC_SIZE() +1));
 							}
 							child.setTranslateY(-1 * (this.getTotalHeight()));
 							child.setTranslateZ(this.getTranslateZ());
 							create3DAsset(group, model, child);
+							child.getLegoParent().enfant = child;
 
-							group.getChildren().add(child);
+							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
-					} if (Math.abs(model.depth) > structure.BLOC_SIZE) {
+					} if (Math.abs(model.getDepth()) > structure.getBLOC_SIZE()) {
 
-						for (int i = 1; i < ((Math.abs(model.depth)+(structure.BLOC_SIZE*structure.taille)) / structure.BLOC_SIZE); i++) {
-							System.out.println("JE DOIS AJOUTER UN BLOC");
+						for (int i = 1; i < ((Math.abs(model.getDepth())+(structure.getBLOC_SIZE()*structure.getTaille())) / structure.getBLOC_SIZE()); i++) {
 
-							Lego child = new Lego(structure.BLOC_SIZE, model.height, structure.BLOC_SIZE, structure.selected_bloc, this,
+							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
 							if (rotate.equals("AVANT")) {
-								child.setTranslateZ(this.getTranslateZ() + i * (-structure.BLOC_SIZE - 1));
+								child.setTranslateZ(this.getTranslateZ() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
-								child.setTranslateZ(this.getTranslateZ() + i * (structure.BLOC_SIZE +1));
+								child.setTranslateZ(this.getTranslateZ() + i * (structure.getBLOC_SIZE() +1));
 							}
 
 							child.setTranslateY(-1 * (this.getTotalHeight()));
 							child.setTranslateX(this.getTranslateX());
+							child.getLegoParent().enfant = child;
 							create3DAsset(group, model, child);
 
-							group.getChildren().add(child);
+							structure.getChildren().add(child);
+							new_lego.childs.add(child);
 
 						}
 					}
 
 					new_lego.setTranslateX(this.getTranslateX());
 					
-					if (new_lego.height == 5) {
+					if (new_lego.getHeight() == 5) {
 
 						new_lego.setTranslateY(-1 * (this.getTotalHeight()) + 22);
 
@@ -203,14 +275,29 @@ public class Lego extends Box {
 					}
 
 					new_lego.setTranslateZ(this.getTranslateZ());
+					
 
 					this.enfant = new_lego;
+					
+					if(!new_lego.getType().equals("CUBE")) {
+						if(this.childs.size() > new_lego.getChilds().size()) {
+							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
+								this.childs.get(i).enfant =  new_lego;
+							}
+						}else {
+							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
+								this.childs.get(i).enfant =  new_lego;
+							}
+						}
+					}
+					
+					
+					
 					create3DAsset(group, model, new_lego);
 
-					group.getChildren().add(new_lego);
+					structure.getChildren().add(new_lego);
 				}
 				
-				structure.getChildren().add(group);
 			}
 		}
 	}
@@ -288,11 +375,11 @@ public class Lego extends Box {
 		});
 		PhongMaterial material2 = new PhongMaterial();
 		
-		if(structure.selected_matiere == null) {
-			material2.setDiffuseColor(structure.selected_color);
+		if(structure.getSelected_matiere() == null) {
+			material2.setDiffuseColor(structure.getSelected_color());
 
 		}else {
-			material2.setDiffuseMap(new Image(getClass().getResourceAsStream(structure.selected_matiere)));
+			material2.setDiffuseMap(new Image(getClass().getResourceAsStream(structure.getSelected_matiere())));
 
 		}
 
@@ -304,14 +391,14 @@ public class Lego extends Box {
 		cylinder7.setMaterial(material2);
 
 		if (this.type.equals("BASE")) {
-			cylinder7.setTranslateY(-1 * (model.height));
-			cylinder9.setTranslateY(-1 * (model.height));
+			cylinder7.setTranslateY(-1 * (model.getHeight()));
+			cylinder9.setTranslateY(-1 * (model.getHeight()));
 
-			cylinder10.setTranslateY(-1 * (model.height));
+			cylinder10.setTranslateY(-1 * (model.getHeight()));
 
-			cylinder5.setTranslateY(-1 * (model.height));
+			cylinder5.setTranslateY(-1 * (model.getHeight()));
 
-		} else if (model.height == 5) {
+		} else if (model.getHeight() == 5) {
 			cylinder7.setTranslateY(-1 * (this.getTotalHeight() - 20));
 			cylinder9.setTranslateY(-1 * (this.getTotalHeight() - 20));
 
@@ -320,23 +407,23 @@ public class Lego extends Box {
 			cylinder5.setTranslateY(-1 * (this.getTotalHeight() - 20));
 
 		} else {
-			cylinder7.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
-			cylinder9.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
+			cylinder7.setTranslateY(-1 * (this.getTotalHeight() + model.getHeight() / 2));
+			cylinder9.setTranslateY(-1 * (this.getTotalHeight() + model.getHeight() / 2));
 
-			cylinder10.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
+			cylinder10.setTranslateY(-1 * (this.getTotalHeight() + model.getHeight() / 2));
 
-			cylinder5.setTranslateY(-1 * (this.getTotalHeight() + model.height / 2));
+			cylinder5.setTranslateY(-1 * (this.getTotalHeight() + model.getHeight() / 2));
 		}
 
-		group.getChildren().add(cylinder9);
-		group.getChildren().add(cylinder5);
-		group.getChildren().add(cylinder7);
-		group.getChildren().add(cylinder10);
+		structure.getChildren().add(cylinder9);
+		structure.getChildren().add(cylinder5);
+		structure.getChildren().add(cylinder7);
+		structure.getChildren().add(cylinder10);
 	}
 
 	public void searshAndCreate(Cylinder cylindre) {
-		System.out.println("CYLINDRE PARENT :" + cylindre.getParent().getChildrenUnmodifiable());
-		System.out.println(cylindre.toString());
+		
+		
 		Group g = (Group) cylindre.getParent();
 
 		if (g.getChildren().size() > 5) {
@@ -344,12 +431,10 @@ public class Lego extends Box {
 			for (int i = 0; i < g.getChildren().size() - 1; i++) {
 
 				if (g.getChildren().get(i).equals(cylindre)) {
-					System.out.println("J'AI TROUVÉ LE CYLINDRE");
 					boolean drap = false;
 					for (int j = i; j < g.getChildren().size(); j++) {
 
 						if (g.getChildren().get(j).toString().contains("Lego") && drap == false) {
-							System.out.println("J'AI LE LGO PARENT");
 							Lego l = (Lego) g.getChildren().get(j);
 							l.create_blocs();
 							drap = true;
@@ -367,15 +452,15 @@ public class Lego extends Box {
 
 	public int getTotalHeight() {
 
-		int height = this.height / 2;
+		int height = (int) (this.getHeight() / 2);
 
 		Lego curr = this;
 
-		while (curr.parent != null) {
+		while (curr.legoParent != null) {
 
-			height += curr.height;
+			height += curr.getHeight();
 
-			curr = curr.parent;
+			curr = curr.legoParent;
 
 		}
 		return height;
@@ -386,9 +471,47 @@ public class Lego extends Box {
 
 	}
 
-	public void translate(int translate) {
-		this.setTranslateX(translate);
-
+	
+	
+	public Lego child() {
+		return legoParent;
 	}
+
+	public void setLegoParent(Lego parent) {
+		this.legoParent = parent;
+	}
+	
+	public Lego getLegoParent() {
+		return this.legoParent ;
+	}
+
+	public Lego getEnfant() {
+		return enfant;
+	}
+
+	public void setEnfant(Lego enfant) {
+		this.enfant = enfant;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Structure_3D getStructure() {
+		return structure;
+	}
+	
+
+	public void setStructure(Structure_3D structure) {
+		this.structure = structure;
+	}
+	
+	
+	
 
 }

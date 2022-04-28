@@ -1,79 +1,224 @@
 package Models;
 
-
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Stack;
 
-import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 
 public class Structure_3D extends Group implements Serializable {
 
-	private static final long serialVersionUID =1L;
 	
-	Legos_collection legos_collections;
-	
-	public Stack<Node> deleted_blocs;
-	
-	public String selected_bloc = "BASE";
-	
-	public Color selected_color = Color.ROYALBLUE;
-	
-	public String selected_matiere = null;
-	
-	public int taille = 0;
-	
-	public int BLOC_SIZE;
-	
-	public int PLATEAU_TAILLE = 20;
-		
-	public int sun_orientation = 0;
-	
-	
-	public PointLight pointLight;
-	Sphere sphere;
+	private static final long serialVersionUID = 1L;
 
+	private Legos_collection legos_collections;
+
+	private Stack<Node> deleted_blocs;
+
+	private String selected_bloc = "BASE";
+
+	private Color selected_color = Color.ROYALBLUE;
+
+	private String selected_matiere = null;
+
+	private int taille = 0;
+
+	private int BLOC_SIZE;
+
+	private int PLATEAU_TAILLE = 20;
+
+	private int sun_orientation = 0;
+
+	private PointLight pointLight;
+	private Sphere sphere;
 	
+	private String nom_structure;
+	
+	public String getNom_structure() {
+		return nom_structure;
+	}
+
+	public void setNom_structure(String nom_structure) {
+		this.nom_structure = nom_structure;
+	}
+
+	public Structure_3D() {
+
+	}
+
+	public Legos_collection getLegos_collections() {
+		return legos_collections;
+	}
+
+	public void setLegos_collections(Legos_collection legos_collections) {
+		this.legos_collections = legos_collections;
+	}
+
+	public Stack<Node> getDeleted_blocs() {
+		return deleted_blocs;
+	}
+
+	public void setDeleted_blocs(Stack<Node> deleted_blocs) {
+		this.deleted_blocs = deleted_blocs;
+	}
+
+	public String getSelected_bloc() {
+		return selected_bloc;
+	}
+
+	public void setSelected_bloc(String selected_bloc) {
+		this.selected_bloc = selected_bloc;
+	}
+
+	public Color getSelected_color() {
+		return selected_color;
+	}
+
+	public void setSelected_color(Color selected_color) {
+		this.selected_color = selected_color;
+	}
+
+	public String getSelected_matiere() {
+		return selected_matiere;
+	}
+
+	public void setSelected_matiere(String selected_matiere) {
+		this.selected_matiere = selected_matiere;
+	}
+
+	public int getTaille() {
+		return taille;
+	}
+
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+
+	public int getBLOC_SIZE() {
+		return BLOC_SIZE;
+	}
+
+	public void setBLOC_SIZE(int bLOC_SIZE) {
+		BLOC_SIZE = bLOC_SIZE;
+	}
+
+	public int getPLATEAU_TAILLE() {
+		return PLATEAU_TAILLE;
+	}
+
+	public void setPLATEAU_TAILLE(int pLATEAU_TAILLE) {
+		PLATEAU_TAILLE = pLATEAU_TAILLE;
+	}
+
+	public int getSun_orientation() {
+		return sun_orientation;
+	}
+
+	public void setSun_orientation(int sun_orientation) {
+		this.sun_orientation = sun_orientation;
+	}
+
+	public PointLight getPointLight() {
+		return pointLight;
+	}
+
+	public void setPointLight(PointLight pointLight) {
+		this.pointLight = pointLight;
+	}
+
+	public Sphere getSphere() {
+		return sphere;
+	}
+
+	public void setSphere(Sphere sphere) {
+		this.sphere = sphere;
+	}
+
+	public PausableAnimationTimer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(PausableAnimationTimer timer) {
+		this.timer = timer;
+	}
+
 	public void enregistrer() {
-		try {
-			FileOutputStream fos =  new FileOutputStream(new File("Sauvegarde.dat"));;
-			ObjectOutputStream oos= new ObjectOutputStream(fos);
-			oos.writeObject(this.getChildren());
-			oos.close();
-			fos.close();
-		} catch (IOException e) {
-			throw new RuntimeException("Impossible d'�crire les donn�es");
-		}
-	}
-	
-	public void charger() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(new File("Sauvegarde.dat"));
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		this.getChildren().addAll((ArrayList<Group>) ois.readObject());
-		ois.close();
-		fis.close();
-	}
-	
 
-	private void prepareLight() {
+		File fichier;
 		
+		if(this.nom_structure != null ) {
+			System.out.println("le fichier existe déjà, on l'écrase");
+			fichier = new File(this.nom_structure);
+		}else {
+			System.out.println("Aucune sauvergarde de cette structure, on en créer une");
+
+			fichier = new File("sauvegardes/sauvegarde0.xml");
+			
+			int j = 0;
+			
+			while (fichier.exists()) {
+				fichier = new File("sauvegardes/sauvegarde"+j+".xml");
+				j += 1;
+			}
+			
+			this.nom_structure = "sauvegardes/sauvegarde"+j+".xml";
+
+
+		}
+		
+		this.getChildren().remove(1600);
+		this.getChildren().remove(1600);
+
+		ArrayList<Shape3D> array = new ArrayList<Shape3D>();
+
+		for (int i = 0; i < this.getChildren().size(); i++) {
+			
+			if(this.getChildren().get(i).getClass() == Lego.class) {
+				 Lego l = (Lego) this.getChildren().get(i);
+				 l.setParent_name(this.nom_structure);
+			}
+			
+			array.add((Shape3D) this.getChildren().get(i));
+		}
+
+		XMLEncoder encoder = null;
+
+		try {
+			FileOutputStream fos = new FileOutputStream(fichier);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			encoder = new XMLEncoder(bos);
+			encoder.writeObject(array);
+
+			encoder.flush();
+
+			this.prepareLight();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(this.nom_structure);
+	}
+
+	public void prepareLight() {
+
 		PointLight pointLight = new PointLight();
-		
+
 		pointLight.getTransforms().add(new Translate(0, -500, -1500));
 		pointLight.setRotationAxis(Rotate.X_AXIS);
 		PhongMaterial material = new PhongMaterial();
@@ -82,118 +227,250 @@ public class Structure_3D extends Group implements Serializable {
 		Sphere sphere = new Sphere(10);
 
 		sphere.getTransforms().setAll(pointLight.getTransforms());
-	    sphere.rotateProperty().bind(pointLight.rotateProperty());
-	    sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
-	    
-	    this.pointLight = pointLight;
-	    this.sphere = sphere;
+		sphere.rotateProperty().bind(pointLight.rotateProperty());
+		sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
+
+		this.sphere = sphere;
+		this.pointLight = pointLight;
+		this.getChildren().add(1600, sphere);
+		this.getChildren().add(1600, pointLight);
 
 	}
 
-	
 	public PausableAnimationTimer timer = new PausableAnimationTimer() {
-	        @Override
-	        public void tick(long animationTime) {
-	    		pointLight.setRotate(pointLight.getRotate() - 2);
-	        }
-	    };
+		@Override
+		public void tick(long animationTime) {
+			pointLight.setRotate(pointLight.getRotate() - 2);
+		}
+	};
 	
+
 
 	public Structure_3D(int bs) {
 		this.BLOC_SIZE = bs;
 		deleted_blocs = new Stack<Node>();
 	}
-	
+
 	public void resetStructure() {
 		this.selected_bloc = "BASE";
 		this.getChildren().clear();
 		createBase();
-		
-	
+
 	}
-	
+
 	public void deleteLastBloc() {
-		
-		if(this.getChildren().size() > (PLATEAU_TAILLE*4 +1)) {
-		
+
+		if (this.getChildren().size() > (PLATEAU_TAILLE * 4 + 1)) {
+
 			try {
-				Group g =  (Group) this.getChildren().get(this.getChildren().size() - 1);
-				
-			
-				System.out.println(g.getChildren().size());
-				if(g.getChildren().size() > 5) {
-					
-					Lego l = (Lego) g.getChildren().get(4);
-					
-					l.parent.enfant = null;
-				
-				}else{
-					
-					System.out.println(g.getChildren().get(4));
-					Lego l = (Lego) g.getChildren().get(4);
-					
-					l.parent.enfant = null;
+
+				System.out.println(this.getChildren());
+
+				if (this.getChildren().get(this.getChildren().size() - 1).getClass() == Lego.class) {
+
+					Lego l = (Lego) this.getChildren().get(this.getChildren().size() - 1);
+
+					Lego model = this.getLegos_collections().getLegos().get(l.getType());
+
+					if (Math.abs(model.getWidth()) > this.BLOC_SIZE && Math.abs(model.getDepth()) > this.BLOC_SIZE) {
+						
+						for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
+								/ this.getBLOC_SIZE()) * 2 - 1; i++) {
+
+							Lego child = (Lego) this.getChildren().get(this.getChildren().size() - 1);
+							child.getLegoParent().setEnfant(null);
+
+							this.getChildren().remove(this.getChildren().size() - 1);
+
+							for (int j = 0; j < 4; j++) {
+
+								deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
+								this.getChildren().remove(this.getChildren().size() - 1);
+
+							}
+
+							deleted_blocs.push(child);
+
+						}
+						
+					}else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
+
+						for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
+								/ this.getBLOC_SIZE()); i++) {
+
+							Lego child = (Lego) this.getChildren().get(this.getChildren().size() - 1);
+							child.getLegoParent().setEnfant(null);
+
+							this.getChildren().remove(this.getChildren().size() - 1);
+
+							for (int j = 0; j < 4; j++) {
+
+								deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
+								this.getChildren().remove(this.getChildren().size() - 1);
+
+							}
+
+							deleted_blocs.push(child);
+
+						}
+
+					} else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
+
+						for (int i = 0; i < ((Math.abs(model.getDepth()) + (this.getBLOC_SIZE() * l.getTaille()))
+								/ this.getBLOC_SIZE()); i++) {
+
+							Lego child = (Lego) this.getChildren().get(this.getChildren().size() - 1);
+							child.getLegoParent().setEnfant(null);
+
+							this.getChildren().remove(child);
+
+							for (int j = 0; j < 4; j++) {
+
+								deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
+								this.getChildren().remove(this.getChildren().size() - 1);
+
+							}
+
+							deleted_blocs.push(child);
+
+						}
+
+					} else {
+
+						l.getLegoParent().setEnfant(null);
+						this.getChildren().remove(this.getChildren().size() - 1);
+
+						for (int i = 0; i < 4; i++) {
+
+							deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
+							this.getChildren().remove(this.getChildren().size() - 1);
+
+						}
+
+						deleted_blocs.push(l);
+
+					}
+
 				}
-				
-			
-				deleted_blocs.push(this.getChildren().get(this.getChildren().size() - 1));
-				this.getChildren().remove(this.getChildren().size() - 1);
-				
-			}catch(Exception e){
+
+			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
-		
-		
+
 	}
-	
+
+	public void move_sun2() {
+	      this.pointLight.setRotationAxis(new Point3D(200,0,0));
+
+	      this.pointLight.setRotate(pointLight.getRotate() - 25);
+
+	}
 	
 	
 	public void move_sun() {
-		this.pointLight.setRotate(pointLight.getRotate() - 25);		
-		
-	}
 	
+	      //Setting pivot points for the rotation
+	      this.pointLight.setRotationAxis(new Point3D(0,200,0));
+
+		  this.pointLight.setRotate(pointLight.getRotate() - 25);
+
+	}
+
+
 	public void time_laps() {
-		 
-		 if(!timer.isActive || timer.isPaused) {
-			 timer.start();
-		 }else {
-			 timer.pause();
-		 }
-		 
-		
+
+		if (!timer.isActive || timer.isPaused) {
+			timer.start();
+		} else {
+			timer.pause();
+		}
+
 	}
-	
+
 	public void recupDeletedBloc() {
 		try {
-			Group g =  (Group) deleted_blocs.pop();
-			
-			
-			if(g.getChildren().size() > 5) {
-				
-				Lego l = (Lego) g.getChildren().get(4);
-				
-				l.parent.enfant = l;
-			
-			}else{
-				
-				System.out.println(g.getChildren().get(4));
-				Lego l = (Lego) g.getChildren().get(4);
-				
-				l.parent.enfant = l;
-			}
-			
-			System.out.println(g.getChildren());
-			
-			this.getChildren().add(g);
 
-		}catch(Exception e){
+			Lego l = (Lego) deleted_blocs.peek();
+
+			Lego model = this.getLegos_collections().getLegos().get(l.getType());
+
+			if (Math.abs(model.getWidth()) > this.BLOC_SIZE && Math.abs(model.getDepth()) > this.BLOC_SIZE) {
+				
+				for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
+						/ this.getBLOC_SIZE()) * 2 - 1; i++) {
+
+					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
+					for (int j = 0; j < 4; j++) {
+
+						Cylinder child = (Cylinder) deleted_blocs.pop();
+						this.getChildren().add(child);
+					}
+
+					this.getChildren().add(lego);
+
+
+				}
+				
+			}else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
+
+				for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
+						/ this.getBLOC_SIZE()); i++) {
+
+					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
+
+					for (int j = 0; j < 4; j++) {
+
+						Cylinder child = (Cylinder) deleted_blocs.pop();
+						this.getChildren().add(child);
+					}
+
+					this.getChildren().add(lego);
+
+				}
+
+			}else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
+
+				for (int i = 0; i < ((Math.abs(model.getDepth()) + (this.getBLOC_SIZE() * l.getTaille()))
+						/ this.getBLOC_SIZE()); i++) {
+					Lego lego = (Lego) deleted_blocs.pop();
+					lego.setEnfant(null);
+
+
+					for (int j = 0; j < 4; j++) {
+
+						Cylinder child = (Cylinder) deleted_blocs.pop();
+						this.getChildren().add(child);
+					}
+
+					this.getChildren().add(lego);
+
+				}
+
+			}else if (Math.abs(model.getDepth()) <= this.BLOC_SIZE && Math.abs(model.getWidth()) <= this.BLOC_SIZE) {
+				Lego lego = (Lego) deleted_blocs.pop();
+				lego.setEnfant(null);
+
+
+				for (int j = 0; j < 4; j++) {
+
+					Cylinder child = (Cylinder) deleted_blocs.pop();
+					this.getChildren().add(child);
+
+				}
+
+				this.getChildren().add(lego);
+
+			}
+
+		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 	}
-	 
+
 	public void setCollec(Legos_collection leg) {
 		this.legos_collections = leg;
 	}
@@ -204,9 +481,9 @@ public class Structure_3D extends Group implements Serializable {
 		int y = 0;
 
 		Lego pateforme_de_construction;
-		
-		for(int k = 0 ; k < 4; k ++) {
-			
+
+		for (int k = 0; k < 4; k++) {
+
 			for (int i = 0; i < PLATEAU_TAILLE; i++) {
 
 				for (int j = 0; j < PLATEAU_TAILLE; j++) {
@@ -216,36 +493,36 @@ public class Structure_3D extends Group implements Serializable {
 					pateforme_de_construction.setTranslateZ(y);
 
 					this.getChildren().add(pateforme_de_construction);
-					
-					if(k == 0 || k == 2) {
-						x += (this.BLOC_SIZE +1);
-					}else if(k == 1  || k == 3){
-						x -= (this.BLOC_SIZE +1);
+
+					if (k == 0 || k == 2) {
+						x += (this.BLOC_SIZE + 1);
+					} else if (k == 1 || k == 3) {
+						x -= (this.BLOC_SIZE + 1);
 					}
-					 
+
 				}
 
-				if(k == 0 || k == 3) {
-					y -= (this.BLOC_SIZE +1);
-				} else if(k == 1 || k == 2){
-					y += (this.BLOC_SIZE +1);
+				if (k == 0 || k == 3) {
+					y -= (this.BLOC_SIZE + 1);
+				} else if (k == 1 || k == 2) {
+					y += (this.BLOC_SIZE + 1);
 				}
-				
+
 				x = 0;
 			}
-			
+
 			x = 0;
 			y = 0;
 		}
-		
 		prepareLight();
-		this.getChildren().add(this.pointLight);
-		this.getChildren().add(this.sphere);
+
 		this.selected_bloc = "CUBE";
 	}
 
 	public Lego create_selectedBlock() {
-		return new Lego(this.legos_collections.legos.get(selected_bloc).width,this.legos_collections.legos.get(selected_bloc).height,this.legos_collections.legos.get(selected_bloc).depth,selected_bloc, null , this);
+		return new Lego(this.legos_collections.getLegos().get(selected_bloc).getWidth(),
+				this.legos_collections.getLegos().get(selected_bloc).getHeight(),
+				this.legos_collections.getLegos().get(selected_bloc).getDepth(), selected_bloc, null, this);
 	}
 
 }

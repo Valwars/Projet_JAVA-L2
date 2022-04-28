@@ -1,13 +1,36 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Legos_collection {
+public class Legos_collection implements Serializable{
 
-	public HashMap<String, Lego> legos;
+	private static final long serialVersionUID = 1L;
+
+	private HashMap<String, Lego> legos;
 	// public HashMap<String, Decoration> decorations;
 	
-	public int bloc_size;
+	private int bloc_size;
+	
+	public HashMap<String, Lego> getLegos() {
+		return legos;
+	}
+
+	public void setLegos(HashMap<String, Lego> legos) {
+		this.legos = legos;
+	}
+
+	public int getBloc_size() {
+		return bloc_size;
+	}
+
+	public void setBloc_size(int bloc_size) {
+		this.bloc_size = bloc_size;
+	}
+
+	public Legos_collection() {
+		
+	}
 
 	public Legos_collection(Structure_3D structure,int bs) {
 		
@@ -15,15 +38,13 @@ public class Legos_collection {
 		
 		legos = new HashMap<String, Lego>();
 		
-		// deco :
+		// DECORATION :
 		legos.put("TAPIS", new Lego(bloc_size, 5, bloc_size, "TAPIS", null,structure));
 		legos.put("SPHERE1", new Lego(bloc_size, bloc_size, bloc_size, "SPHERE1", null,structure));
 		
 		// BLOCS : 
 		legos.put("CUBE", new Lego(bloc_size, bloc_size, bloc_size, "CUBE", null,structure));
-			
-		legos.put("PLATEAU_4", new Lego(bloc_size*4, bloc_size, bloc_size*4, "PLATEAU_4", null,structure));
-		
+					
 		legos.put("RECTANGLE2_DROITE", new Lego(bloc_size*2, bloc_size, bloc_size, "RECTANGLE2_DROITE", null,structure));
 		legos.put("RECTANGLE2_GAUCHE", new Lego(-bloc_size*2, bloc_size, bloc_size, "RECTANGLE2_GAUCHE", null,structure));
 		legos.put("RECTANGLE2_ARRIERE", new Lego(bloc_size, bloc_size, bloc_size*2, "RECTANGLE2_DROITE", null,structure));
@@ -53,6 +74,6 @@ public class Legos_collection {
 		legos.put("BASE", new Lego(bloc_size, 1, bloc_size, "BASE", null,structure));
 	}
 
-
+	
 
 }
