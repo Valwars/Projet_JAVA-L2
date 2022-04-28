@@ -208,9 +208,7 @@ public class Lego extends Box implements Serializable{
 					new_lego.setTranslateY(-1 * (model.getHeight() / 2));
 					new_lego.setTranslateZ(this.getTranslateZ());
 					
-					for(int i = 0; i < this.childs.size();i++) {
-						this.childs.get(i).enfant =  new_lego;
-					}
+					
 					this.enfant = new_lego;
 					create3DAsset(group, model, new_lego);
 					structure.getChildren().add(new_lego);
@@ -279,17 +277,7 @@ public class Lego extends Box implements Serializable{
 
 					this.enfant = new_lego;
 					
-					if(!new_lego.getType().equals("CUBE")) {
-						if(this.childs.size() > new_lego.getChilds().size()) {
-							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
-								this.childs.get(i).enfant =  new_lego;
-							}
-						}else {
-							for(int i = 0; i < this.childs.size() - new_lego.getChilds().size();i++) {
-								this.childs.get(i).enfant =  new_lego;
-							}
-						}
-					}
+				
 					
 					
 					
