@@ -115,7 +115,6 @@ public class Main extends Application {
 	                	
 	                	selectionModel.select(tb1); //select by object
 	                	
-	                	selectionModel.clearSelection(); //clear your selection
 	                	
 
 	                }
