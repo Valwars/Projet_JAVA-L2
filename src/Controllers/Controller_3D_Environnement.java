@@ -170,8 +170,9 @@ public class Controller_3D_Environnement {
 		camera = new PerspectiveCamera();
 
 		subscene.setCamera(camera);
-		structure.translateXProperty().set(1200 / 2);
-		structure.translateYProperty().set(800 / 2);
+		
+		structure.translateXProperty().set(subscene.getWidth());
+		structure.translateYProperty().set(subscene.getHeight() / 2);
 		structure.translateZProperty().set(0);
 
 		camera.translateZProperty().set(-1000);
@@ -525,7 +526,7 @@ public class Controller_3D_Environnement {
 		ajout_categorie();
 		ajout_couleur();
 	    searsh_bar.setFocusTraversable(false);
-
+	   
 	}
 	
 	private void loadStructure(String name) throws FileNotFoundException {

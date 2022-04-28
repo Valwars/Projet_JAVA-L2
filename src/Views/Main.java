@@ -92,6 +92,9 @@ public class Main extends Application {
 	        			structure.setCollec(legos_collection);
 
 	        			SubScene subscene = new SubScene(structure, 800, 600, true, SceneAntialiasing.BALANCED);
+	        			
+	        			subscene.widthProperty().bind(tp.widthProperty());
+	        	        subscene.heightProperty().bind(tp.heightProperty());
 	        			try {
 							environnement_Controller.start(primaryStage,structure, subscene);
 						} catch (FileNotFoundException e1) {
@@ -117,7 +120,12 @@ public class Main extends Application {
 	            }
 	        });
 
+
+			
             tb1.setContent(subscene);
+
+            subscene.widthProperty().bind(tp.widthProperty());
+            subscene.heightProperty().bind(tp.heightProperty());
 
             tp.getTabs().add(tb1);
             
