@@ -72,7 +72,7 @@ public class Controller_3D_Environnement {
 
 	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
 			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED,
-			Color.SNOW };
+			Color.SNOW, new Color(0.1, 0.1, 0.1, 1) };
 
 	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
