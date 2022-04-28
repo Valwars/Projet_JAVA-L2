@@ -293,6 +293,12 @@ public class Structure_3D extends Group implements Serializable {
 
 						}
 						
+						for(int i = 0; i < l.getChilds().size(); i ++) {
+							l.getChilds().get(i).setEnfant(null);
+						}
+						
+						
+						
 					}else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
 
 						for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
@@ -312,7 +318,10 @@ public class Structure_3D extends Group implements Serializable {
 
 							deleted_blocs.push(child);
 
+						}	for(int i = 0; i < l.getChilds().size(); i ++) {
+							l.getChilds().get(i).setEnfant(null);
 						}
+						
 
 					} else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
 
@@ -334,6 +343,11 @@ public class Structure_3D extends Group implements Serializable {
 							deleted_blocs.push(child);
 
 						}
+						
+						for(int i = 0; i < l.getChilds().size(); i ++) {
+							l.getChilds().get(i).setEnfant(null);
+						}
+						
 
 					} else {
 

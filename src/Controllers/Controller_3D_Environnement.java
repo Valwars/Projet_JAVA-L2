@@ -5,7 +5,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -30,6 +29,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -71,8 +74,14 @@ public class Controller_3D_Environnement {
 	@FXML
 	private ScrollPane cat;
 	
+
 	
 	private int BLOC_SIZE = 50;
+
+	@FXML
+	private TextField searsh_bar;
+
+
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
 			"-fx-Base: #FF0000", "-fx-Base: #FFFAFA" };
@@ -92,7 +101,7 @@ public class Controller_3D_Environnement {
 
 	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
 			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED,
-			Color.SNOW };
+			Color.SNOW, new Color(0.1, 0.1, 0.1, 1) };
 
 	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
@@ -115,18 +124,18 @@ public class Controller_3D_Environnement {
 	};
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) throws FileNotFoundException {
-		double width = anch.getPrefWidth()+150;
-		double height = anch.getPrefHeight();
-		subscene.setWidth(width);
-		subscene.setHeight(height);
 		this.structure = st;
+
 		
-		File f = new File("sauvegardes/Le Pont sur l'eau.xml");
+		File f = new File("sauvegardes/Le Pont sur l'eau00.xml");
+		
+
+
 		
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau00.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -188,8 +197,9 @@ public class Controller_3D_Environnement {
 		camera = new PerspectiveCamera();
 
 		subscene.setCamera(camera);
-		structure.translateXProperty().set(1200 / 2);
-		structure.translateYProperty().set(800 / 2);
+		
+		structure.translateXProperty().set(subscene.getWidth());
+		structure.translateYProperty().set(subscene.getHeight() / 2);
 		structure.translateZProperty().set(0);
 
 		camera.translateZProperty().set(-1000);
@@ -201,6 +211,9 @@ public class Controller_3D_Environnement {
 			switch (event.getCode()) {
 
 			case L:
+				BorderPane parent = (BorderPane) structure.getScene().getRoot();
+				TabPane pane = (TabPane) parent.getChildren().get(2);
+						
 				if (structure.getChildren().size() > 1065) {
 
 					if (structure.getNom_structure() == null) {
@@ -234,6 +247,7 @@ public class Controller_3D_Environnement {
 									structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
 									structure.enregistrer();
 									td.close();
+									
 								}else {
 									td.setHeaderText("Ce nom est déjà pris !");
 								}
@@ -243,6 +257,12 @@ public class Controller_3D_Environnement {
 							
 							
 						}
+						
+
+						SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
+	                	
+						selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0, structure.getNom_structure().split("/")[1].length()-4));
+	                	selectionModel.clearSelection(); //clear your selection
 
 					} else {
 						structure.enregistrer();
@@ -534,7 +554,8 @@ public class Controller_3D_Environnement {
 
 		ajout_categorie();
 		ajout_couleur();
-
+	    searsh_bar.setFocusTraversable(false);
+	   
 	}
 	
 	private void loadStructure(String name) throws FileNotFoundException {
