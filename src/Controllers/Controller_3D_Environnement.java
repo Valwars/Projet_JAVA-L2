@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import Models.Lego;
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
@@ -82,6 +81,7 @@ public class Controller_3D_Environnement {
 	private TextField searsh_bar;
 
 
+
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
 			"-fx-Base: #FF0000", "-fx-Base: #FFFAFA" };
@@ -126,9 +126,8 @@ public class Controller_3D_Environnement {
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) throws FileNotFoundException {
 		this.structure = st;
 
-		
+
 		File f = new File("sauvegardes/Le Pont sur l'eau00.xml");
-		
 
 
 		

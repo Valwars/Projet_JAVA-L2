@@ -59,9 +59,6 @@ public class Main extends Application {
 			SubScene subscene = new SubScene(structure, 800,1000 , true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene);
 			subscene.setFill(Color.valueOf("#2C2D32"));
-
-		
-
 			
 			Scene scene = new Scene(root);
 			
