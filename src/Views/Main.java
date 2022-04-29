@@ -47,7 +47,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		
 		try {
-		
+			
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
 			
@@ -166,7 +166,7 @@ public class Main extends Application {
 
 			root.setCenter(tp);
 
-			primaryStage.setTitle("Lego Builder !");
+			primaryStage.setTitle("Lego Builder");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
