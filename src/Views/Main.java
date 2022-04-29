@@ -1,37 +1,26 @@
 package Views;
 
-import java.awt.Toolkit;
-import java.beans.XMLDecoder;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 import Controllers.Controller_3D_Environnement;
-import Models.Lego;
 import Models.Legos_collection;
 import Models.Structure_3D;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
-import javafx.scene.control.Button;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -48,6 +37,7 @@ public class Main extends Application {
 		
 		try {
 			
+		
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
 			

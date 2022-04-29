@@ -1,12 +1,12 @@
 package Models;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -63,6 +63,11 @@ public class Lego extends Box implements Serializable{
 		this.setOnMousePressed(event -> {
 			
 			if (event.isSecondaryButtonDown() &&  this.getEnfant() == null) {
+				Media buzzer = new Media(getClass().getResource("sound.mp3").toExternalForm());
+				MediaPlayer mediaPlayer = new MediaPlayer(buzzer);
+				 if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
+				        mediaPlayer.play();
+				    }
 				this.create_blocs();
 
 			}
@@ -115,7 +120,11 @@ public class Lego extends Box implements Serializable{
 		this.setOnMousePressed(event -> {
 
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
-				
+				Media buzzer = new Media(getClass().getResource("sound.mp3").toExternalForm());
+				MediaPlayer mediaPlayer = new MediaPlayer(buzzer);
+				 if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
+				        mediaPlayer.play();
+				    }
 				create_blocs();
 
 			}
