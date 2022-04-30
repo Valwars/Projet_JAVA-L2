@@ -2,7 +2,6 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;

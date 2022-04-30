@@ -1,6 +1,5 @@
 package Views;
 
-import java.awt.Toolkit;
 import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -9,10 +8,6 @@ import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 import Controllers.Controller_3D_Environnement;
 import Models.Lego;
 import Models.Legos_collection;
@@ -23,8 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
@@ -39,13 +32,14 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -65,6 +59,7 @@ public class Main extends Application {
 		
 		try {
 			
+		
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
 			
