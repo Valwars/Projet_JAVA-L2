@@ -136,7 +136,7 @@ public class Controller_3D_Environnement {
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau00.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau.xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -271,7 +271,7 @@ public class Controller_3D_Environnement {
 								td.close();
 								
 							}else {
-								td.setHeaderText("Ce nom est d√©j√† pris !");
+								td.setHeaderText("Ce nom est dÈj‡† pris !");
 							}
 
 						});

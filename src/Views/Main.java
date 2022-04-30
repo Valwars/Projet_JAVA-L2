@@ -6,7 +6,9 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,6 +19,7 @@ import Models.Legos_collection;
 import Models.Structure_3D;
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -26,13 +29,27 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -88,68 +105,240 @@ public class Main extends Application {
 			new_tab.setClosable(false);
 			
 
-			new_tab.setOnSelectionChanged(new EventHandler<Event>() {
+			new_tab.setOnSelectionChanged(new EventHandler<Event>(){
 
 	            public void handle(Event e) {
 	            	
 	            	
 	                if (new_tab.isSelected()) {
-	                	
-	                	Tab tb = new Tab("Structure"+ tp.getTabs().size());
-	                	        		
-	                	
-	                	Structure_3D structure2 = new Structure_3D(BLOC_SIZE);
-	                	
-	        			structure2.setCollec(legos_collection);
-	        			structures.add(structure2);
-	        			
+	                	File file = new File("C:/Users/Admin/Desktop/java/Projet_JAVA-L2/sauvegardes");
+				        if(file.isDirectory()){
+				            if(file.list().length==0){
+			                	Tab tb = new Tab("Structure"+ tp.getTabs().size());
+            	        		
+			                	
+			                	Structure_3D structure2 = new Structure_3D(BLOC_SIZE);
+			                	
+			        			structure2.setCollec(legos_collection);
+			        			structures.add(structure2);
+			        			
 
-	                	tb.setOnSelectionChanged(new EventHandler<Event>() {
+			                	tb.setOnSelectionChanged(new EventHandler<Event>() {
 
-	        				@Override
-	        				public void handle(Event arg0) {
-	        					SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-	        			    	System.out.println(structures.toString());
-	        			    	System.out.println(selectionModel.getSelectedIndex());
-	        			    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
-	        			    	System.out.println(environnement_Controller.structure);
-	        				}
-	        				
-	        		
-	        		
-	        			});
+			        				@Override
+			        				public void handle(Event arg0) {
+			        					SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+			        			    	System.out.println(structures.toString());
+			        			    	System.out.println(selectionModel.getSelectedIndex());
+			        			    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
+			        			    	System.out.println(environnement_Controller.structure);
+			        				}
+			        				
+			        		
+			        		
+			        			});
 
-	        			SubScene subscene2 = new SubScene(structure2, 800, 600, true, SceneAntialiasing.BALANCED);
-	        			
-	        			subscene2.widthProperty().bind(tp.widthProperty());
-	        			subscene2.heightProperty().bind(tp.heightProperty());
-	        			
-	        			try {
+			        			SubScene subscene2 = new SubScene(structure2, 800, 600, true, SceneAntialiasing.BALANCED);
+			        			
+			        			subscene2.widthProperty().bind(tp.widthProperty());
+			        			subscene2.heightProperty().bind(tp.heightProperty());
+			        			
+			        			try {
 
-	        				environnement_Controller.start(primaryStage,structure2, subscene2);
-						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+			        				environnement_Controller.start(primaryStage,structure2, subscene2);
+								} catch (FileNotFoundException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 
-	        			subscene2.setFill(Color.valueOf("#2C2D32"));
-	        		
+			        			subscene2.setFill(Color.valueOf("#2C2D32"));
+			        		
 
-	        			tb.setContent(subscene2);
+			        			tb.setContent(subscene2);
 
+			                	
+			                	tp.getTabs().add(tp.getTabs().size() - 1, tb);
+			                	
+			                	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+			                	
+			                	selectionModel.select(tb); //select by object
+			                	
+				            	
+				            }
+				            else {
+				            	Dialog dialog = new Dialog();
+				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.OK_DONE);
+				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.APPLY);
+				            	dialog.getDialogPane().getButtonTypes().add(nouveau);
+				            	dialog.getDialogPane().getButtonTypes().add(charger);
+				            	dialog.showAndWait();
+				            	ButtonType result = (ButtonType) dialog.resultProperty().getValue();
+				            	if (result.getText()==nouveau.getText()) {
+				            		Tab tb = new Tab("Structure"+ tp.getTabs().size());
+	            	        		
+				                	
+				                	Structure_3D structure2 = new Structure_3D(BLOC_SIZE);
+				                	
+				        			structure2.setCollec(legos_collection);
+				        			structures.add(structure2);
+				        			
+
+				                	tb.setOnSelectionChanged(new EventHandler<Event>() {
+
+				        				@Override
+				        				public void handle(Event arg0) {
+				        					SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+				        			    	System.out.println(structures.toString());
+				        			    	System.out.println(selectionModel.getSelectedIndex());
+				        			    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
+				        			    	System.out.println(environnement_Controller.structure);
+				        				}
+				        				
+				        		
+				        		
+				        			});
+
+				        			SubScene subscene2 = new SubScene(structure2, 800, 600, true, SceneAntialiasing.BALANCED);
+				        			
+				        			subscene2.widthProperty().bind(tp.widthProperty());
+				        			subscene2.heightProperty().bind(tp.heightProperty());
+				        			
+				        			try {
+
+				        				environnement_Controller.start(primaryStage,structure2, subscene2);
+									} catch (FileNotFoundException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+
+				        			subscene2.setFill(Color.valueOf("#2C2D32"));
+				        		
+
+				        			tb.setContent(subscene2);
+
+				                	
+				                	tp.getTabs().add(tp.getTabs().size() - 1, tb);
+				                	
+				                	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+				                	
+				                	selectionModel.select(tb); //select by object
+				            	}
+				            	if(result.getText()==charger.getText()) {
+				            		
+				            		ScrollPane sauvegardes = new ScrollPane();
+				            		GridPane container = new GridPane();
+				            		sauvegardes.setPrefSize(250,250);
+				            		File[] liste = file.listFiles();
+				            		for (int k = 1;k<liste.length;k++) {
+				            			container.getColumnConstraints().add(new ColumnConstraints(100));
+					        			container.getRowConstraints().add(new RowConstraints(40));
+				            			File f = new File("sauvegardes/"+liste[k].getName());
+				            			Label lbl = new Label(liste[k].getName().substring(0,liste[k].getName().length()-4));
+				            			Button bt_charger = new Button("charger");
+				            			String ch = new String(liste[k].getName());
+				            			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+				            				@Override
+				            				public void handle(ActionEvent evt) {
+				            					System.out.println("heelo");
+				            					if (f.exists() && !f.isDirectory()) {
+				            						System.out.println("heello");
+				            						XMLDecoder decoder = null;
+				            						
+				            						FileInputStream fis;
+													try {
+														primaryStage.close();
+														System.out.println("heeloo");
+														fis = new FileInputStream(new File("sauvegardes/"+ch));
+														BufferedInputStream bos = new BufferedInputStream(fis);
+
+					            						decoder = new XMLDecoder(bos);
+
+					            						ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
+
+					            						for (int i = 0; i < l.size(); i++) {
+
+					            							Shape3D shape = l.get(i);
+
+					            							PhongMaterial material = new PhongMaterial();
+
+					            							if (i < 1602 && shape.getClass() != Cylinder.class) {
+					            								((Lego) shape).setStructure(structure);
+
+					            								material.setDiffuseColor(Color.GREY);
+					            							} else {
+					            								if (shape.getClass() == Lego.class) {
+
+					            									((Lego) shape).setStructure(structure);
+
+					            									if (((Lego) shape).getCoul() != null) {
+					            										String color = "#" + ((Lego) shape).getCoul().split("x")[1];
+
+					            										Color c = Color.valueOf(color);
+					            										material.setDiffuseColor(c);
+					            									} else {
+					            										String texture = ((Lego) shape).getTexture();
+
+					            										material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
+					            									}
+
+					            									for (int j = 1; j < 5; j++) {
+					            										Shape3D shape2 = l.get(i - j);
+					            										shape2.setMaterial(material);
+
+					            									}
+
+					            								}
+
+					            							}
+
+					            							shape.setMaterial(material);
+
+					            							structure.getChildren().add(l.get(i));
+
+					            						}
+					            						
+					            						structure.setSelected_bloc("CUBE");
+					            						structure.prepareLight();
+					            						structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
+
+													}
+				            					
+													 catch (FileNotFoundException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													}
+				            						
+				            				}
+				            				}
+				            			};
+				            			bt_charger.setOnAction(event);
+				            			container.add(lbl,0,k-1);
+				            			container.add(bt_charger, 1, k-1);
+				            			
+				            			
+				            		}
+				            		sauvegardes.setContent(container);
+				            		Scene scene = new Scene(sauvegardes);
+				            		primaryStage.setScene(scene);
+				            		primaryStage.show();
+				            		
+				            		
+				            	}
+				            	
+				            		
+				            	}
+				            	
+				            }
+				        }else{
+				            System.out.println("Ce n'est pas un répertoire!");
+				        } 
 	                	
-	                	tp.getTabs().add(tp.getTabs().size() - 1, tb);
-	                	
-	                	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-	                	
-	                	selectionModel.select(tb); //select by object
-	                	
-	                	
 
-	                }
 	                	
 	            }
-	        });
+	            });
+	       
 			
         	
 
@@ -174,8 +363,7 @@ public class Main extends Application {
 
 				@Override
 				public void handle(Event arg0) {
-			    	environnement_Controller.structure = structures.get(0);
-					System.out.println(environnement_Controller.structure);
+					environnement_Controller.structure = structures.get(0);
 
 				}
 				
