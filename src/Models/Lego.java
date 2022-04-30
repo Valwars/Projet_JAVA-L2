@@ -115,10 +115,7 @@ public class Lego extends Box implements Serializable{
 		this.setOnMousePressed(event -> {
 
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
-<<<<<<< Updated upstream
-=======
-				
->>>>>>> Stashed changes
+
 				create_blocs();
 
 			}
