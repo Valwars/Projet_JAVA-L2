@@ -62,11 +62,7 @@ public class Lego extends Box implements Serializable{
 		this.setOnMousePressed(event -> {
 			
 			if (event.isSecondaryButtonDown() &&  this.getEnfant() == null) {
-				Media buzzer = new Media(getClass().getResource("sound.mp3").toExternalForm());
-				MediaPlayer mediaPlayer = new MediaPlayer(buzzer);
-				 if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
-				        mediaPlayer.play();
-				    }
+			
 				this.create_blocs();
 
 			}
@@ -119,6 +115,10 @@ public class Lego extends Box implements Serializable{
 		this.setOnMousePressed(event -> {
 
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
+<<<<<<< Updated upstream
+=======
+				
+>>>>>>> Stashed changes
 				create_blocs();
 
 			}

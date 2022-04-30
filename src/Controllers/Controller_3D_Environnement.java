@@ -578,9 +578,12 @@ public class Controller_3D_Environnement {
 	
 	private void loadStructure(String name) throws FileNotFoundException {
 		
+		
 		File f = new File(name);
 
 		if (f.exists() && !f.isDirectory()) {
+			
+			
 			XMLDecoder decoder = null;
 
 			FileInputStream fis = new FileInputStream(name);
