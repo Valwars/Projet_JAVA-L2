@@ -106,7 +106,7 @@ public class Main extends Application {
 	            	
 	            	
 	                if (new_tab.isSelected()) {
-	                	File file = new File("C:/Users/Admin/Desktop/java/Projet_JAVA-L2/sauvegardes");
+	                	File file = new File("sauvegardes");
 				        if(file.isDirectory()){
 				            if(file.list().length==0){
 			                	Tab tb = new Tab("Structure"+ tp.getTabs().size());
@@ -161,6 +161,12 @@ public class Main extends Application {
 				            	
 				            }
 				            else {
+				            	
+				            	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+			                	
+			                	selectionModel2.select(tp.getTabs().get(0)); //select by object
+			            	
+				            
 				            	Dialog dialog = new Dialog();
 				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.OK_DONE);
 				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.APPLY);
@@ -326,7 +332,7 @@ public class Main extends Application {
 				            	
 				            }
 				        }else{
-				            System.out.println("Ce n'est pas un répertoire!");
+				            System.out.println("Ce n'est pas un rï¿½pertoire!");
 				        } 
 	                	
 
