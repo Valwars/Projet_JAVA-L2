@@ -18,6 +18,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
@@ -86,7 +87,7 @@ public class Controller_3D_Environnement {
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
 			"-fx-Base: #FF0000", "-fx-Base: #FFFAFA" };
-	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle"), new Label("Tapis") };
+	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle"), new Label("Tapis"), new Label("Texture") };
 
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -271,7 +272,7 @@ public class Controller_3D_Environnement {
 								td.close();
 								
 							}else {
-								td.setHeaderText("Ce nom est déjà  pris !");
+								td.setHeaderText("Ce nom est dï¿½jï¿½ pris !");
 							}
 
 						});
@@ -529,10 +530,13 @@ public class Controller_3D_Environnement {
 
 	public void ajout_categorie() {
 		GridPane container = new GridPane();
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(50);
+		container.getColumnConstraints().add(col1);
 		Label lbl1 = new Label("Categorie :");
 		container.add(lbl1, 0, 0);
 		for (int i = 0; i < tab_categorie.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(150));
+			container.getColumnConstraints().add(new ColumnConstraints(20));
 			container.getRowConstraints().add(new RowConstraints(20));
 			Label lbl = tab_categorie[i];
 			CheckBox cbx = new CheckBox();

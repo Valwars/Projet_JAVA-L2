@@ -21,9 +21,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -45,8 +48,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
-public class Main extends Application {
+public class Main extends Application{
 	
 
 	private FXMLLoader loader;
@@ -167,11 +171,12 @@ public class Main extends Application {
 			                	selectionModel2.select(tp.getTabs().get(0)); //select by object
 			            	
 				            
-				            	Dialog dialog = new Dialog();
-				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.OK_DONE);
-				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.APPLY);
+				            	Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.APPLY);
+				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.OK_DONE);
 				            	dialog.getDialogPane().getButtonTypes().add(nouveau);
 				            	dialog.getDialogPane().getButtonTypes().add(charger);
+				            	
 				            	dialog.showAndWait();
 				            	ButtonType result = (ButtonType) dialog.resultProperty().getValue();
 				            	if (result.getText()==nouveau.getText()) {
@@ -223,7 +228,10 @@ public class Main extends Application {
 				                	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
 				                	
 				                	selectionModel.select(tb); //select by object
+				            	
 				            	}
+				            	
+				            	
 				            	if(result.getText()==charger.getText()) {
 				            		
 				            		ScrollPane sauvegardes = new ScrollPane();
@@ -332,7 +340,7 @@ public class Main extends Application {
 				            	
 				            }
 				        }else{
-				            System.out.println("Ce n'est pas un r�pertoire!");
+				            System.out.println("Ce n'est pas un répertoire!");
 				        } 
 	                	
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,6 +30,24 @@
    <center>
    </center>
    <top>
-      <AnchorPane prefHeight="65.0" prefWidth="1067.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="32.0" prefWidth="1325.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="32.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu fx:id="fic" mnemonicParsing="false" text="Fichiers">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Charger un projet" />
+                        <MenuItem mnemonicParsing="false" text="Nouveau projet" />
+                        <MenuItem mnemonicParsing="false" text="Sauvegarder" />
+                     </items>
+                </Menu>
+                <Menu id="aide" fx:id="aide" mnemonicParsing="false" styleClass="application.css" text="Aide">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Explications des boutons" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children></AnchorPane>
    </top>
 </BorderPane>
