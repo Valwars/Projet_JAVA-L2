@@ -94,7 +94,12 @@ public class Lego extends Box implements Serializable{
 		this.type = type;
 		this.taille = structure.getTaille();
 		this.parent_name = structure.getNom_structure();
-		
+		String[] rot = structure.getSelected_bloc().split("_");
+
+		if(rot.length >1) {
+			this.direction = rot[1];
+
+		}
 		PhongMaterial material = new PhongMaterial();
 
 		if (parent == null) {
@@ -147,7 +152,7 @@ public class Lego extends Box implements Serializable{
 		String rotate = "";
 		if (rot.length > 1) {
 			rotate = rot[1];
-			this.direction = rot[1];
+			
 
 		}
 		
@@ -315,11 +320,12 @@ public class Lego extends Box implements Serializable{
 
 					new_lego.setTranslateZ(this.getTranslateZ());
 					
-
+			
 					this.enfant = new_lego;
 				
 					if(this.direction != null) {
-						if(this.direction.equals(new_lego.direction)) {
+					
+						if(this.direction.equals(rotate)) {
 							System.out.println("MEME DIRECTION");
 
 							if(this.childs.size() >= new_lego.childs.size()) {
