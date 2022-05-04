@@ -43,12 +43,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Controller_3D_Environnement {
 
@@ -75,6 +78,9 @@ public class Controller_3D_Environnement {
 	@FXML
 	private ScrollPane cat;
 	
+	
+	@FXML
+	private Button mute_sound;
 
 	
 	private int BLOC_SIZE = 50;
@@ -82,7 +88,8 @@ public class Controller_3D_Environnement {
 	@FXML
 	private TextField searsh_bar;
 
-
+	
+	MediaPlayer player;
 
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
@@ -573,6 +580,27 @@ public class Controller_3D_Environnement {
 		ajout_categorie();
 		ajout_couleur();
 	    searsh_bar.setFocusTraversable(false);
+	    
+	    mute_sound.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if(mute_sound.getText().equals("Mute")) {
+					player.setMute(true);
+					mute_sound.setText("Unmute");
+				}else {
+					player.setMute(false);
+					mute_sound.setText("Mute");
+				}
+				
+			}
+		});
+	    
+		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
+		player = new MediaPlayer(buzzer);
+		 if(player.getStatus() != MediaPlayer.Status.PLAYING){
+			 player.seek(Duration.ZERO);
+			 player.play();
+		    }
 	   
 	}
 	

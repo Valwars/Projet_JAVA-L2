@@ -42,19 +42,15 @@ public class Main extends Application{
 	private Controller_3D_Environnement environnement_Controller;
 	private int BLOC_SIZE = 50;
 	
+	
+	
 	private ArrayList<Structure_3D> structures = new ArrayList<Structure_3D>();
 	@Override
 	public void start(Stage primaryStage) {
 		
 		try {
 			
-			Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
-			MediaPlayer mediaPlayer = new MediaPlayer(buzzer);
-			 if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
-				 	mediaPlayer.seek(Duration.ZERO);
-			        mediaPlayer.play();
-			        mediaPlayer.cycleDurationProperty();
-			    }
+		
 			
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
