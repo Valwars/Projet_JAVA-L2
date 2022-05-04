@@ -29,6 +29,16 @@ public class Lego extends Box implements Serializable{
 	
 	private String parent_name;
 	
+	private String direction;
+	
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
 	public ArrayList<Lego> getChilds() {
 		return childs;
 	}
@@ -134,15 +144,17 @@ public class Lego extends Box implements Serializable{
 
 	public void create_blocs() {
 		String[] rot = structure.getSelected_bloc().split("_");
-
 		String rotate = "";
 		if (rot.length > 1) {
 			rotate = rot[1];
+			this.direction = rot[1];
+
 		}
 		
 		Group group = new Group();
 		
 		Lego model = structure.getLegos_collections().getLegos().get(structure.getSelected_bloc());
+		System.out.println(this.enfant);
 		if (this.enfant == null) {
 			if (!this.type.equals("TAPIS")) {
 
@@ -202,7 +214,16 @@ public class Lego extends Box implements Serializable{
 						}
 					}
 					
-					
+					for(int i = 0; i < new_lego.childs.size() - 1;i ++) {
+						
+						Lego c = new_lego.childs.get(i);
+						
+						for(int j = i + 1; j < new_lego.childs.size(); j ++ ) {
+							c.childs.add(new_lego.childs.get(j));
+						}
+						
+					}
+
 				
 					new_lego.setTranslateX(this.getTranslateX());
 					new_lego.setTranslateY(-1 * (model.getHeight() / 2));
@@ -239,7 +260,8 @@ public class Lego extends Box implements Serializable{
 
 						}
 					} if (Math.abs(model.getDepth()) > structure.getBLOC_SIZE()) {
-
+						
+						
 						for (int i = 1; i < ((Math.abs(model.getDepth())+(structure.getBLOC_SIZE()*structure.getTaille())) / structure.getBLOC_SIZE()); i++) {
 
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
@@ -255,14 +277,33 @@ public class Lego extends Box implements Serializable{
 							child.setTranslateX(this.getTranslateX());
 							child.getLegoParent().enfant = child;
 							create3DAsset(group, model, child);
-
+							
+						
 							structure.getChildren().add(child);
 							new_lego.childs.add(child);
+							
+						
 
 						}
+						
+						
+						
+						
+
+					}
+					
+					for(int i = 0; i < new_lego.childs.size() - 1;i ++) {
+						
+						Lego c = new_lego.childs.get(i);
+						
+						for(int j = i + 1; j < new_lego.childs.size(); j ++ ) {
+							c.childs.add(new_lego.childs.get(j));
+						}
+						
 					}
 
 					new_lego.setTranslateX(this.getTranslateX());
+					new_lego.setDirection(rotate);
 					
 					if (new_lego.getHeight() == 5) {
 
@@ -276,8 +317,30 @@ public class Lego extends Box implements Serializable{
 					
 
 					this.enfant = new_lego;
-					
 				
+					if(this.direction != null) {
+						if(this.direction.equals(new_lego.direction)) {
+							System.out.println("MEME DIRECTION");
+
+							if(this.childs.size() >= new_lego.childs.size()) {
+								for(int i = 0; i < new_lego.childs.size();i++) {
+									
+									System.out.println("BLOC ENFANT");
+									this.childs.get(i).setEnfant(new_lego.childs.get(i));
+									System.out.println(	this.childs.get(i).getEnfant());
+
+								}
+							}else {
+								for(int i = 0; i < this.childs.size();i++) {
+									this.childs.get(i).setEnfant(new_lego.childs.get(i));
+									System.out.println(	this.childs.get(i).getEnfant());
+
+								}
+
+							}
+						}
+					}
+					
 					
 					
 					

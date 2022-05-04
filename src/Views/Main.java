@@ -127,10 +127,8 @@ public class Main extends Application{
 			        				@Override
 			        				public void handle(Event arg0) {
 			        					SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-			        			    	System.out.println(structures.toString());
-			        			    	System.out.println(selectionModel.getSelectedIndex());
+			        			    	
 			        			    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
-			        			    	System.out.println(environnement_Controller.structure);
 			        				}
 			        				
 			        		
@@ -171,7 +169,7 @@ public class Main extends Application{
 			                	selectionModel2.select(tp.getTabs().get(0)); //select by object
 			            	
 				            
-				            	Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+				            	ChoiceDialog dialog = new ChoiceDialog();
 				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.APPLY);
 				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.OK_DONE);
 				            	dialog.getDialogPane().getButtonTypes().add(nouveau);
@@ -249,76 +247,8 @@ public class Main extends Application{
 
 				            				@Override
 				            				public void handle(ActionEvent evt) {
-				            					System.out.println("heelo");
-				            					if (f.exists() && !f.isDirectory()) {
-				            						System.out.println("heello");
-				            						XMLDecoder decoder = null;
-				            						
-				            						FileInputStream fis;
-													try {
-														primaryStage.close();
-														System.out.println("heeloo");
-														fis = new FileInputStream(new File("sauvegardes/"+ch));
-														BufferedInputStream bos = new BufferedInputStream(fis);
-
-					            						decoder = new XMLDecoder(bos);
-
-					            						ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
-
-					            						for (int i = 0; i < l.size(); i++) {
-
-					            							Shape3D shape = l.get(i);
-
-					            							PhongMaterial material = new PhongMaterial();
-
-					            							if (i < 1602 && shape.getClass() != Cylinder.class) {
-					            								((Lego) shape).setStructure(structure);
-
-					            								material.setDiffuseColor(Color.GREY);
-					            							} else {
-					            								if (shape.getClass() == Lego.class) {
-
-					            									((Lego) shape).setStructure(structure);
-
-					            									if (((Lego) shape).getCoul() != null) {
-					            										String color = "#" + ((Lego) shape).getCoul().split("x")[1];
-
-					            										Color c = Color.valueOf(color);
-					            										material.setDiffuseColor(c);
-					            									} else {
-					            										String texture = ((Lego) shape).getTexture();
-
-					            										material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
-					            									}
-
-					            									for (int j = 1; j < 5; j++) {
-					            										Shape3D shape2 = l.get(i - j);
-					            										shape2.setMaterial(material);
-
-					            									}
-
-					            								}
-
-					            							}
-
-					            							shape.setMaterial(material);
-
-					            							structure.getChildren().add(l.get(i));
-
-					            						}
-					            						
-					            						structure.setSelected_bloc("CUBE");
-					            						structure.prepareLight();
-					            						structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
-
-													}
 				            					
-													 catch (FileNotFoundException e) {
-														// TODO Auto-generated catch block
-														e.printStackTrace();
-													}
-				            						
-				            				}
+				            					
 				            				}
 				            			};
 				            			bt_charger.setOnAction(event);

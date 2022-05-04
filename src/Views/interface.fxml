@@ -23,7 +23,7 @@
                </content>
             </ScrollPane>
             <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" layoutX="-1.0" layoutY="237.0" prefHeight="40.0" prefWidth="212.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="237.0" />
-            <ScrollPane fx:id="cat" fitToHeight="true" fitToWidth="true" layoutX="1.0" layoutY="-1.0" prefHeight="213.0" prefWidth="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane fx:id="cat" fitToHeight="true" fitToWidth="true" layoutX="1.0" layoutY="28.0" prefHeight="185.0" prefWidth="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </left>
@@ -32,7 +32,7 @@
    <top>
       <AnchorPane prefHeight="32.0" prefWidth="1325.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar prefHeight="32.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="0.0">
+            <MenuBar prefHeight="32.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                 <Menu fx:id="fic" mnemonicParsing="false" text="Fichiers">
                      <items>
