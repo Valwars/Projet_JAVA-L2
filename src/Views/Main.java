@@ -1,19 +1,13 @@
 package Views;
 
-import java.beans.XMLDecoder;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Optional;
+
 import Controllers.Controller_3D_Environnement;
-import Models.Lego;
 import Models.Legos_collection;
 import Models.Structure_3D;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -21,14 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
@@ -38,17 +28,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.util.Duration;
 
 public class Main extends Application{
 	
@@ -63,7 +48,14 @@ public class Main extends Application{
 		
 		try {
 			
-		
+			Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
+			MediaPlayer mediaPlayer = new MediaPlayer(buzzer);
+			 if(mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
+				 	mediaPlayer.seek(Duration.ZERO);
+			        mediaPlayer.play();
+			        mediaPlayer.cycleDurationProperty();
+			    }
+			
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
 			
