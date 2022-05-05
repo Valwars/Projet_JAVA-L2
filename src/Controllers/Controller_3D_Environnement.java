@@ -14,7 +14,6 @@ import Models.Lego;
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
 import Models.Structure_3D;
-import TP1_TP2_Correction.ImageModèle;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -623,19 +622,12 @@ public class Controller_3D_Environnement {
 
 	}
 	
-	File fichier = new File ("/images") ;
-	public ArrayList<String> images;
+	public String[] ListeCouleur = {"BLEU","BOIS","CYAN","FEUILLE","GRIS","LAVE","MARRON","NEIGE","NOIR","ORANGE","PIERRE","ROUGE1","ROUGE2","SABLE","TERRE","TRANSPARENT","VERT"};
+	public String[] ListeForme = {"ANGLE","CARRE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
-	private void chargeimages () {
-		
-		FileInputStream fis=new FileInputStream(fichier);
-		ObjectInputStream ois = new ObjectInputStream(fis) ;
-		
-		this.images = (ArrayList<String>)ois.readObject();
-	
-		this.images.add(new String("images/"+ois.getName()));
+	public void afficher_block(String c, String f) {
+		Image img = new Image("/images/"+f+"_"+c+".png");
 	}
-	
 	
 	
 	
