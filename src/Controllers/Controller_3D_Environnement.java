@@ -131,6 +131,21 @@ public class Controller_3D_Environnement {
 
 		}
 	};
+	/*
+	public Controller_3D_Environnement() {
+		
+		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
+		player = new MediaPlayer(buzzer);
+		player.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				player.seek(Duration.ZERO);
+			}
+		});
+		player.play();
+
+
+	}
+	*/
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
 			throws FileNotFoundException {
@@ -603,18 +618,7 @@ public class Controller_3D_Environnement {
 			}
 		});
 
-		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
-		player = new MediaPlayer(buzzer);
-		player.setOnEndOfMedia(new Runnable() {
-			public void run() {
-				player.seek(Duration.ZERO);
-			}
-		});
-		player.play();
-
-
 	}
-
 	private void loadStructure(String name) throws FileNotFoundException {
 
 		File f = new File(name);
