@@ -8,6 +8,7 @@ import java.util.Optional;
 import Controllers.Controller_3D_Environnement;
 import Models.Legos_collection;
 import Models.Structure_3D;
+import Models.ToggleSwitch;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -65,12 +66,10 @@ public class Main extends Application{
 			SubScene subscene = new SubScene(structure, 800,1000 , true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene,null);
 			subscene.setFill(Color.valueOf("#2C2D32"));
-			
-			
+		
 			Scene scene = new Scene(root);
 			
 			TabPane tp = new TabPane();
-			
 			
 			Tab tb1;
 			if(structure.getNom_structure() != null) {
@@ -156,6 +155,15 @@ public class Main extends Application{
             
 
 			root.setCenter(tp);
+			
+			
+			ToggleSwitch toggle = new ToggleSwitch();
+		
+			
+			root.getChildren().add(toggle);
+			
+			toggle.setTranslateX(1200);
+			toggle.setTranslateY(5);
 
 			primaryStage.setTitle("Lego Builder");
 			primaryStage.setScene(scene);

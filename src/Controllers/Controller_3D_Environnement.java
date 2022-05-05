@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import Models.Lego;
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
@@ -14,30 +15,24 @@ import Models.Structure_3D;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
-import javafx.scene.input.InputEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -63,41 +58,43 @@ public class Controller_3D_Environnement {
 
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-	
-	private int  i = 0;
+
+	private int i = 0;
 	@FXML
 	private Button boutton_onglet;
-	
+
 	@FXML
 	private AnchorPane anch;
-	
+
 	@FXML
 	private BorderPane root;
-	
+
 	@FXML
 	private ScrollPane Coulscrollpane;
-	
+
 	@FXML
 	private ScrollPane cat;
-	
-	
+
 	@FXML
 	private Button mute_sound;
 
-	
 	private int BLOC_SIZE = 50;
 
 	@FXML
 	private TextField searsh_bar;
-	
+
+	@FXML
+	private Button light_dark;
+
 	SubScene subscene;
-	
+
 	MediaPlayer player;
 
 	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
 			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
 			"-fx-Base: #FF0000", "-fx-Base: #FFFAFA" };
-	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle"), new Label("Tapis"), new Label("Texture") };
+	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle"), new Label("Tapis"),
+			new Label("Texture") };
 
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -135,25 +132,25 @@ public class Controller_3D_Environnement {
 		}
 	};
 
-	public void start(Stage primaryStage, Structure_3D st, SubScene subscene,String fileName) throws FileNotFoundException {
-		
+	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
+			throws FileNotFoundException {
+
 		this.structure = st;
 		this.subscene = subscene;
-		
-		 Image img = new Image(getClass().getResourceAsStream("cursor.png"));
-		 
-	     ImageCursor cursor = new ImageCursor(img,10, 10);
-	     subscene.setCursor(cursor);
-	     
+
+		Image img = new Image(getClass().getResourceAsStream("cursor.png"));
+
+		ImageCursor cursor = new ImageCursor(img, 10, 10);
+		subscene.setCursor(cursor);
+
 		System.out.println(structure);
 
-		File f = new File("sauvegardes/"+fileName+".xml");
+		File f = new File("sauvegardes/" + fileName + ".xml");
 
-		
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/"+fileName+".xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/" + fileName + ".xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -201,7 +198,7 @@ public class Controller_3D_Environnement {
 				structure.getChildren().add(l.get(i));
 
 			}
-			
+
 			structure.setSelected_bloc("CUBE");
 			structure.prepareLight();
 			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
@@ -210,42 +207,38 @@ public class Controller_3D_Environnement {
 
 			structure.createBase();
 		}
-		
 
 		camera = new PerspectiveCamera();
 
 		subscene.setCamera(camera);
-		
+
 		structure.translateXProperty().set(subscene.getWidth());
 		structure.translateYProperty().set(subscene.getHeight() / 2);
 		structure.translateZProperty().set(0);
 
 		camera.translateZProperty().set(-2000);
-		
-		
+
 		anchorAngleX = 0;
 		anchorAngleY = 0;
 
-
 		initMouseControl(st, subscene, primaryStage);
-		
 
 	}
-	
+
 	public void setEvent(Stage primaryStage) {
-		 
-		EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() { 
-			   @Override 
-			   public void handle(KeyEvent e) { 
-				   System.out.println("event handler");
-				   listenerKeyboard(e);
-			   } 
-			}; 
-			
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED,eventHandler);
-		
+
+		EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent e) {
+				System.out.println("event handler");
+				listenerKeyboard(e);
+			}
+		};
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+
 	}
-	
+
 	private void listenerKeyboard(KeyEvent event) {
 		System.out.println("je clique");
 		switch (event.getCode()) {
@@ -254,7 +247,7 @@ public class Controller_3D_Environnement {
 			subscene.setCursor(Cursor.WAIT);
 			BorderPane parent = (BorderPane) structure.getScene().getRoot();
 			TabPane pane = (TabPane) parent.getChildren().get(2);
-					
+
 			if (structure.getChildren().size() > 1065) {
 
 				if (structure.getNom_structure() == null) {
@@ -268,21 +261,18 @@ public class Controller_3D_Environnement {
 					boolean drap = false;
 
 					while (drap == false) {
-						
-						
+
 						Optional<String> result = td.showAndWait();
 
 						File file = new File("sauvegardes/" + result.get() + ".xml");
 
-								
 						if (!file.exists()) {
-							
+
 							drap = true;
 
 						}
-						
+
 						result.ifPresent(name_structure -> {
-							
 
 							if (!file.exists()) {
 								subscene.setCursor(Cursor.WAIT);
@@ -292,22 +282,19 @@ public class Controller_3D_Environnement {
 								td.close();
 								subscene.setCursor(Cursor.DEFAULT);
 
-								
-							}else {
+							} else {
 								td.setHeaderText("Ce nom est d�j� pris !");
 							}
 
 						});
-						
-						
-						
+
 					}
-					
 
 					SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
-                	
-					selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0, structure.getNom_structure().split("/")[1].length()-4));
-                	selectionModel.clearSelection(); //clear your selection
+
+					selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0,
+							structure.getNom_structure().split("/")[1].length() - 4));
+					selectionModel.clearSelection(); // clear your selection
 
 				} else {
 					subscene.setCursor(Cursor.WAIT);
@@ -356,8 +343,8 @@ public class Controller_3D_Environnement {
 			structure.move_sun2();
 			break;
 		case Y:
-			//structure.move_sun();
-			
+			// structure.move_sun();
+
 			structure.setTaille(0);
 
 			structure.setSelected_bloc("TAPIS");
@@ -462,6 +449,7 @@ public class Controller_3D_Environnement {
 
 		}
 	}
+
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
 		Rotate xRotate;
 		Rotate yRotate;
@@ -581,7 +569,6 @@ public class Controller_3D_Environnement {
 		this.cat.setContent(container);
 
 	}
-	
 
 	public void changer_categorie(CheckBox cb, Label lbl) {
 		structure.setTaille(0);
@@ -597,51 +584,47 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private void initialize() {
-		
 
 		ajout_categorie();
 		ajout_couleur();
-	    searsh_bar.setFocusTraversable(false);
-	    
-	    mute_sound.setOnAction(new EventHandler<ActionEvent>() {
+		searsh_bar.setFocusTraversable(false);
+
+		mute_sound.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if(mute_sound.getText().equals("Mute")) {
+				if (mute_sound.getText().equals("Mute")) {
 					player.setMute(true);
 					mute_sound.setText("Unmute");
-				}else {
+				} else {
 					player.setMute(false);
 					mute_sound.setText("Mute");
 				}
-				
+
 			}
 		});
-	    
-	   
+
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
 		player = new MediaPlayer(buzzer);
-		 player.setOnEndOfMedia(new Runnable() {
-		        public void run() {
-		        	player.seek(Duration.ZERO);
-		        }
-		    });
-		 player.play();
-	   
+		player.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				player.seek(Duration.ZERO);
+			}
+		});
+		player.play();
+
+
 	}
-	
+
 	private void loadStructure(String name) throws FileNotFoundException {
-		
-		
+
 		File f = new File(name);
 
 		if (f.exists() && !f.isDirectory()) {
-			
-			
+
 			XMLDecoder decoder = null;
 
 			FileInputStream fis = new FileInputStream(name);
 			BufferedInputStream bos = new BufferedInputStream(fis);
-
 
 			ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
 
@@ -690,10 +673,10 @@ public class Controller_3D_Environnement {
 			structure.prepareLight();
 			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
 
-		}else {
+		} else {
 			System.out.println("Cette sauvegarde n'existe pas");
 		}
-		
+
 	}
 
 }
