@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
@@ -138,6 +139,12 @@ public class Controller_3D_Environnement {
 		
 		this.structure = st;
 		this.subscene = subscene;
+		
+		 Image img = new Image(getClass().getResourceAsStream("cursor.png"));
+		 
+	     ImageCursor cursor = new ImageCursor(img,10, 10);
+	     subscene.setCursor(cursor);
+	     
 		System.out.println(structure);
 
 		File f = new File("sauvegardes/"+fileName+".xml");

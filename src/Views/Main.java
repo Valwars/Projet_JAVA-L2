@@ -59,16 +59,13 @@ public class Main extends Application{
 			
 			BorderPane root = (BorderPane) loader.load();
 			
-			 Image img = new Image(getClass().getResourceAsStream("cursor.png"));
-			 
-		        ImageCursor cursor = new ImageCursor(img,10, 10);
+			
 		        
 			
 			SubScene subscene = new SubScene(structure, 800,1000 , true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene,null);
 			subscene.setFill(Color.valueOf("#2C2D32"));
 			
-			subscene.setCursor(cursor);			
 			
 			Scene scene = new Scene(root);
 			
