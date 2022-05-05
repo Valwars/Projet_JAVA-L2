@@ -131,7 +131,7 @@ public class Controller_3D_Environnement {
 
 		}
 	};
-	/*
+	
 	public Controller_3D_Environnement() {
 		
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
@@ -145,7 +145,7 @@ public class Controller_3D_Environnement {
 
 
 	}
-	*/
+	
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
 			throws FileNotFoundException {
