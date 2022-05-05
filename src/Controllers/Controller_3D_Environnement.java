@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
+import javafx.scene.Cursor;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
@@ -87,7 +88,8 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private TextField searsh_bar;
-
+	
+	SubScene subscene;
 	
 	MediaPlayer player;
 
@@ -132,19 +134,19 @@ public class Controller_3D_Environnement {
 		}
 	};
 
-	public void start(Stage primaryStage, Structure_3D st, SubScene subscene) throws FileNotFoundException {
-		this.structure = st;
+	public void start(Stage primaryStage, Structure_3D st, SubScene subscene,String fileName) throws FileNotFoundException {
 		
+		this.structure = st;
+		this.subscene = subscene;
 		System.out.println(structure);
 
-		File f = new File("sauvegardes/Le Pont sur l'eau00.xml");
-
+		File f = new File("sauvegardes/"+fileName+".xml");
 
 		
 		if (f.exists() && !f.isDirectory()) {
 			XMLDecoder decoder = null;
 
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/Le Pont sur l'eau00.xml"));
+			FileInputStream fis = new FileInputStream(new File("sauvegardes/"+fileName+".xml"));
 			BufferedInputStream bos = new BufferedInputStream(fis);
 
 			decoder = new XMLDecoder(bos);
@@ -211,7 +213,12 @@ public class Controller_3D_Environnement {
 		structure.translateYProperty().set(subscene.getHeight() / 2);
 		structure.translateZProperty().set(0);
 
-		camera.translateZProperty().set(-1000);
+		camera.translateZProperty().set(-2000);
+		
+		
+		anchorAngleX = 0;
+		anchorAngleY = 0;
+
 
 		initMouseControl(st, subscene, primaryStage);
 		
@@ -237,6 +244,7 @@ public class Controller_3D_Environnement {
 		switch (event.getCode()) {
 
 		case L:
+			subscene.setCursor(Cursor.WAIT);
 			BorderPane parent = (BorderPane) structure.getScene().getRoot();
 			TabPane pane = (TabPane) parent.getChildren().get(2);
 					
@@ -270,9 +278,13 @@ public class Controller_3D_Environnement {
 							
 
 							if (!file.exists()) {
+								subscene.setCursor(Cursor.WAIT);
+
 								structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
 								structure.enregistrer();
 								td.close();
+								subscene.setCursor(Cursor.DEFAULT);
+
 								
 							}else {
 								td.setHeaderText("Ce nom est d�j� pris !");
@@ -291,7 +303,10 @@ public class Controller_3D_Environnement {
                 	selectionModel.clearSelection(); //clear your selection
 
 				} else {
+					subscene.setCursor(Cursor.WAIT);
+
 					structure.enregistrer();
+					subscene.setCursor(Cursor.DEFAULT);
 
 				}
 
@@ -581,7 +596,7 @@ public class Controller_3D_Environnement {
 		ajout_couleur();
 	    searsh_bar.setFocusTraversable(false);
 	    
-	    /*mute_sound.setOnAction(new EventHandler<ActionEvent>() {
+	    mute_sound.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				if(mute_sound.getText().equals("Mute")) {
@@ -595,12 +610,15 @@ public class Controller_3D_Environnement {
 			}
 		});
 	    
+	   
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
 		player = new MediaPlayer(buzzer);
-		 if(player.getStatus() != MediaPlayer.Status.PLAYING){
-			 player.seek(Duration.ZERO);
-			 player.play();
-		    }*/
+		 player.setOnEndOfMedia(new Runnable() {
+		        public void run() {
+		        	player.seek(Duration.ZERO);
+		        }
+		    });
+		 player.play();
 	   
 	}
 	

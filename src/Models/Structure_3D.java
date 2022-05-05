@@ -159,7 +159,9 @@ public class Structure_3D extends Group implements Serializable {
 	}
 
 	public void enregistrer() {
-
+		
+		
+		
 		File fichier;
 		
 		if(this.nom_structure != null ) {
