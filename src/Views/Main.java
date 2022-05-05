@@ -107,7 +107,9 @@ public class Main extends Application{
 			                	String[] dos = new String[file.list().length];
 			                	
 			                	String[] verif = file.list();
+			                	
 			                	dos[0] = "Nouvelle structure";
+			                	
 			                	for(int i = 1;i<file.list().length;i++) {
 				                	dos[i]=verif[i].substring(0,verif[i].length()-4);
 			                	}
