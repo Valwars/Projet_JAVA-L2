@@ -229,6 +229,11 @@ public class Main extends Application{
 		try {
 
 			environnement_Controller.start(primaryStage,structure2, subscene2,fileName);
+			structure2.translateXProperty().set(subscene2.getWidth()/1.5);
+			structure2.translateYProperty().set(subscene2.getHeight()/1.5);
+			structure2.translateZProperty().set(0);
+
+
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
