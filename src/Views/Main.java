@@ -156,14 +156,21 @@ public class Main extends Application{
 			                	
 			                	selectionModel2.select(tp.getTabs().get(0)); //select by object
 			            	
-				            
-				            	ChoiceDialog dialog = new ChoiceDialog();
+			                	String[] dos = new String[file.list().length-1];
+			                	String[] verif = file.list();
+			                	for(int i = 1;i<file.list().length;i++) {
+				                	dos[i-1]=verif[i];
+			                	}
+				            	ChoiceDialog dialog = new ChoiceDialog(dos[0],dos);
 				            	ButtonType charger=new ButtonType("Charger un projet",ButtonData.APPLY);
 				            	ButtonType nouveau=new ButtonType("Nouveau projet",ButtonData.OK_DONE);
 				            	dialog.getDialogPane().getButtonTypes().add(nouveau);
 				            	dialog.getDialogPane().getButtonTypes().add(charger);
 				            	
-				            	dialog.showAndWait();
+				            	dialog.getDialogPane().getButtonTypes().remove(0);
+				            	dialog.setTitle("Nouvelle structure");
+                                dialog.setHeaderText("Choix en cours...");
+                                dialog.showAndWait();
 				            	ButtonType result = (ButtonType) dialog.resultProperty().getValue();
 				            	if (result.getText()==nouveau.getText()) {
 				            		Tab tb = new Tab("Structure"+ tp.getTabs().size());

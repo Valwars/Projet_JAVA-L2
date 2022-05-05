@@ -581,7 +581,7 @@ public class Controller_3D_Environnement {
 		ajout_couleur();
 	    searsh_bar.setFocusTraversable(false);
 	    
-	    mute_sound.setOnAction(new EventHandler<ActionEvent>() {
+	    /*mute_sound.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				if(mute_sound.getText().equals("Mute")) {
@@ -600,7 +600,7 @@ public class Controller_3D_Environnement {
 		 if(player.getStatus() != MediaPlayer.Status.PLAYING){
 			 player.seek(Duration.ZERO);
 			 player.play();
-		    }
+		    }*/
 	   
 	}
 	
