@@ -5,6 +5,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -12,6 +14,7 @@ import Models.Lego;
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
 import Models.Structure_3D;
+import TP1_TP2_Correction.ImageModèle;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -131,7 +134,7 @@ public class Controller_3D_Environnement {
 
 		}
 	};
-	
+
 	public Controller_3D_Environnement() {
 		
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
@@ -145,7 +148,7 @@ public class Controller_3D_Environnement {
 
 
 	}
-	
+
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
 			throws FileNotFoundException {
@@ -619,6 +622,23 @@ public class Controller_3D_Environnement {
 		});
 
 	}
+	
+	File fichier = new File ("/images") ;
+	public ArrayList<String> images;
+	
+	private void chargeimages () {
+		
+		FileInputStream fis=new FileInputStream(fichier);
+		ObjectInputStream ois = new ObjectInputStream(fis) ;
+		
+		this.images = (ArrayList<String>)ois.readObject();
+	
+		this.images.add(new String("images/"+ois.getName()));
+	}
+	
+	
+	
+	
 	private void loadStructure(String name) throws FileNotFoundException {
 
 		File f = new File(name);
