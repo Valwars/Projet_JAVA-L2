@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -77,7 +78,9 @@ public class Lego extends Box implements Serializable{
 			
 				this.create_blocs();
 
-			}else {
+			}else if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 1 ){
+				
+				System.out.println(structure.getPressedKeys().toString());
 				
 				if(structure.getLego_selected() != null) {
 					
@@ -88,9 +91,9 @@ public class Lego extends Box implements Serializable{
 					Color c = Color.valueOf(color);
 					
 					m.setDiffuseColor(c);
-					searsh_cylinder(c);
-
 					
+					searsh_cylinder(c);
+							
 					
 				}
 				
@@ -99,6 +102,7 @@ public class Lego extends Box implements Serializable{
 				PhongMaterial m = (PhongMaterial) this.getMaterial();
 				
 				m.setDiffuseColor(Color.FUCHSIA);
+				
 				searsh_cylinder(Color.FUCHSIA);
 				
 
@@ -161,8 +165,9 @@ public class Lego extends Box implements Serializable{
 
 				create_blocs();
 
-			}else {
-				
+			}else if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 1 ){
+				System.out.println(structure.getPressedKeys());
+
 				if(structure.getLego_selected() != null) {
 					
 					PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();

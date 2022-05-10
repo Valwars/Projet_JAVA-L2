@@ -7,13 +7,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.Stack;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PointLight;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
@@ -38,6 +41,12 @@ public class Structure_3D extends Group implements Serializable {
 	private String selected_matiere = null;
 	
 	private Lego lego_selected;
+
+	private final Set<KeyCode> pressedKeys = new HashSet<>();
+
+	public Set<KeyCode> getPressedKeys() {
+		return pressedKeys;
+	}
 
 	public Lego getLego_selected() {
 		return lego_selected;

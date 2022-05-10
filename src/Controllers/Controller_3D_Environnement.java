@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import Models.Lego;
 import Models.Legos_collection;
@@ -32,6 +34,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -44,7 +47,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -58,6 +60,8 @@ public class Controller_3D_Environnement {
 
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+	
+
 
 	private int i = 0;
 	@FXML
@@ -245,27 +249,37 @@ public class Controller_3D_Environnement {
 		EventHandler<KeyEvent> eventHandler = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
+				structure.getPressedKeys().add(e.getCode());
+
 				System.out.println("event handler");
 				listenerKeyboard(e);
 			}
 		};
-
+		
+		EventHandler<KeyEvent> eventHandler2 = new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent e) {
+				structure.getPressedKeys().remove(e.getCode());
+				
+			}
+		};
+		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, eventHandler2);
 
 	}
 
 	private void listenerKeyboard(KeyEvent event) {
-		System.out.println("je clique");
+		
+		
 		switch (event.getCode()) {
 		
 		
 		case J:
-			
 			PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
 			m.setDiffuseColor(this.tab_couleur[this.couleur]);
 			structure.getLego_selected().searsh_cylinder(this.tab_couleur[this.couleur]);
 			structure.getLego_selected().setCoul(this.tab_couleur[this.couleur].toString());
-			
 			break;
 			
 		case L:
