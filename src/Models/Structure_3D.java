@@ -36,6 +36,16 @@ public class Structure_3D extends Group implements Serializable {
 	private Color selected_color = Color.ROYALBLUE;
 
 	private String selected_matiere = null;
+	
+	private Lego lego_selected;
+
+	public Lego getLego_selected() {
+		return lego_selected;
+	}
+
+	public void setLego_selected(Lego lego_selected) {
+		this.lego_selected = lego_selected;
+	}
 
 	private int taille = 0;
 

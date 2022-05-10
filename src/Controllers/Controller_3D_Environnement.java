@@ -5,8 +5,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -34,7 +32,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,6 +44,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -259,7 +257,17 @@ public class Controller_3D_Environnement {
 	private void listenerKeyboard(KeyEvent event) {
 		System.out.println("je clique");
 		switch (event.getCode()) {
-
+		
+		
+		case J:
+			
+			PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
+			m.setDiffuseColor(this.tab_couleur[this.couleur]);
+			structure.getLego_selected().searsh_cylinder(this.tab_couleur[this.couleur]);
+			structure.getLego_selected().setCoul(this.tab_couleur[this.couleur].toString());
+			
+			break;
+			
 		case L:
 			subscene.setCursor(Cursor.WAIT);
 			BorderPane parent = (BorderPane) structure.getScene().getRoot();
@@ -491,13 +499,16 @@ public class Controller_3D_Environnement {
 		});
 
 		scene.setOnMouseDragged(event -> {
+			
+			
 			if (event.isPrimaryButtonDown() && this.isRotating == false) {
 				angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
 				angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
 			}
 
 		});
-
+		
+		
 		stage.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double delta = event.getDeltaY();
 			group.translateZProperty().set(group.getTranslateZ() + delta);

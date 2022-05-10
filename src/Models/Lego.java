@@ -7,9 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Shape3D;
 
 public class Lego extends Box implements Serializable{
 	
@@ -75,6 +77,31 @@ public class Lego extends Box implements Serializable{
 			
 				this.create_blocs();
 
+			}else {
+				
+				if(structure.getLego_selected() != null) {
+					
+					PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
+					
+					String color = "#" + structure.getLego_selected().getCoul().split("x")[1];
+					
+					Color c = Color.valueOf(color);
+					
+					m.setDiffuseColor(c);
+					searsh_cylinder(c);
+
+					
+					
+				}
+				
+				structure.setLego_selected(this);
+				
+				PhongMaterial m = (PhongMaterial) this.getMaterial();
+				
+				m.setDiffuseColor(Color.FUCHSIA);
+				searsh_cylinder(Color.FUCHSIA);
+				
+
 			}
 		});
 	}
@@ -104,6 +131,7 @@ public class Lego extends Box implements Serializable{
 
 		if (parent == null) {
 			material.setDiffuseColor(Color.GRAY);
+			this.coul = Color.GRAY.toString();
 		} else {
 			if(structure.getSelected_matiere() == null) {
 				this.coul = structure.getSelected_color().toString();
@@ -132,6 +160,28 @@ public class Lego extends Box implements Serializable{
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
 
 				create_blocs();
+
+			}else {
+				
+				if(structure.getLego_selected() != null) {
+					
+					PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
+					
+					String color = "#" + structure.getLego_selected().getCoul().split("x")[1];
+					
+					Color c = Color.valueOf(color);
+					
+					m.setDiffuseColor(c);
+					
+					searsh_cylinder(c);
+
+					
+				}
+				
+				structure.setLego_selected(this);
+				System.out.println(structure.getChildren().toString());
+				material.setDiffuseColor(Color.FUCHSIA);
+				searsh_cylinder(Color.FUCHSIA);
 
 			}
 		});
@@ -507,6 +557,27 @@ public class Lego extends Box implements Serializable{
 		}
 	}
 
+	public void searsh_cylinder(Color c) {
+		
+		if(!structure.getLego_selected().type.equals("BASE")) {
+		
+			int index = structure.getChildren().indexOf(structure.getLego_selected());
+			
+			System.out.println(structure.getLego_selected());
+			
+			System.out.println(index);
+			for(int i = 1; i <= 4; i ++) {
+				
+				PhongMaterial m = (PhongMaterial) ((Shape3D) structure.getChildren().get(index - i)).getMaterial();
+				
+				m.setDiffuseColor(c);
+				
+			}
+		
+		}
+		
+	}
+	
 	public int getTotalHeight() {
 
 		int height = (int) (this.getHeight() / 2);
