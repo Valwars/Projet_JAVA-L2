@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="1871.0" prefWidth="579.0">
+      <VBox prefHeight="1877.0" prefWidth="450.0">
          <children>
             <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="703.0" text="Touches clavier" textAlignment="CENTER">
                <font>
@@ -338,7 +338,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -348,7 +348,7 @@
             </HBox>
             <HBox prefHeight="38.0" prefWidth="660.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="479.0" text="Appliquer la couleur selectionnée à la sélection :">
+                  <Label prefHeight="28.0" prefWidth="479.0" text="Appliquer la couleur  à la sélection :">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -537,7 +537,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>
