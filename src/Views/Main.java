@@ -155,13 +155,7 @@ public class Main extends Application{
             tp.getTabs().add(new_tab);
             
 			root.setCenter(tp);
-			
-			ToggleSwitch toggle = new ToggleSwitch();
 		
-			root.getChildren().add(toggle);
-			
-			toggle.setTranslateX(1200);
-			toggle.setTranslateY(5);
 
 			primaryStage.setTitle("Lego Builder");
 			primaryStage.setScene(scene);

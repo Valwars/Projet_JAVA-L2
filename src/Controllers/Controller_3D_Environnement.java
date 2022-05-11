@@ -18,6 +18,7 @@ import Models.Lego;
 import Models.Legos_collection;
 import Models.PausableAnimationTimer;
 import Models.Structure_3D;
+import Models.ToggleSwitch;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -607,71 +608,182 @@ public class Controller_3D_Environnement {
 
 	}
 
-	public void ajout_couleur() {
-		GridPane container = new GridPane();
-		for (int i = 0; i < tab_couleur1.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(30));
-			Button bt1 = new Button();
-			bt1.setPrefSize(25, 25);
-			bt1.setStyle(tab_couleur1[i]);
-			bt1.setId("bt" + String.valueOf(i) + "color");
-			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+public void ajout_couleur(int a) {
+		
+		if (a==0) {
+			GridPane container = new GridPane();
+			for (int i = 0; i < tab_couleur1.length; i++) {
+				container.getColumnConstraints().add(new ColumnConstraints(30));
+				Button bt1 = new Button();
+				bt1.setPrefSize(25, 25);
+				bt1.setStyle(tab_couleur1[i]);
+				bt1.setId("bt" + String.valueOf(i) + "color");
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent evt) {
-					
-				}
-			};
-			bt1.setOnAction(event);
-			container.add(bt1, i, 0);
+					@Override
+					public void handle(ActionEvent evt) {
+						
+					}
+				};
+				bt1.setOnAction(event);
+				container.add(bt1, i, 0);
 
+			}
+			this.Coulscrollpane.setContent(container);
+			File f = new File("src/Views/dark.css");
+			this.Coulscrollpane.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			this.Coulscrollpane.getStyleClass().add("scroll-bar");
+			container.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			container.getStyleClass().add("background");
+			
 		}
-		this.Coulscrollpane.setContent(container);
+		if(a==1) {
+			GridPane container = new GridPane();
+			for (int i = 0; i < tab_couleur1.length; i++) {
+				container.getColumnConstraints().add(new ColumnConstraints(30));
+				Button bt1 = new Button();
+				bt1.setPrefSize(25, 25);
+				bt1.setStyle(tab_couleur1[i]);
+				bt1.setId("bt" + String.valueOf(i) + "color");
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent evt) {
+						
+					}
+				};
+				bt1.setOnAction(event);
+				container.add(bt1, i, 0);
+
+			}
+			this.Coulscrollpane.setContent(container);
+			this.Coulscrollpane.getStylesheets().clear();
+			
+		}
+		
 
 	}
 
-	public void ajout_categorie() {
-		GridPane container = new GridPane();
-		ColumnConstraints col1 = new ColumnConstraints();
-		col1.setPercentWidth(50);
-		container.getColumnConstraints().add(col1);
-		Label lbl1 = new Label("Categorie :");
-		container.add(lbl1, 0, 0);
-		for (int i = 0; i < tab_categorie.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(20));
-			container.getRowConstraints().add(new RowConstraints(20));
-			Label lbl = tab_categorie[i];
-			CheckBox cbx = new CheckBox();
-			lbl.setTextFill(Color.GREY);
-			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+	public void ajout_categorie(int a) {
+		if(a==0) {
+			GridPane container = new GridPane();
+			ColumnConstraints col1 = new ColumnConstraints();
+			col1.setPercentWidth(50);
+			container.getColumnConstraints().add(col1);
+			Label lbl1 = new Label("Categorie :");
+			container.add(lbl1, 0, 0);
+			for (int i = 0; i < tab_categorie.length; i++) {
+				container.getColumnConstraints().add(new ColumnConstraints(20));
+				container.getRowConstraints().add(new RowConstraints(20));
+				Label lbl = tab_categorie[i];
+				CheckBox cbx = new CheckBox();
+				lbl.setTextFill(Color.GREY);
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent evt) {
-					String f=lbl.getText().toUpperCase();
-					try {
-						panneau_block(f,"BASE");
-					} catch (FileNotFoundException e) {
-						System.out.print("Erreur mon reuf");
-						e.printStackTrace();
+					@Override
+					public void handle(ActionEvent evt) {
+						String f=lbl.getText().toUpperCase();
+						try {
+							panneau_block(f,"BASE",a);
+						} catch (FileNotFoundException e) {
+							System.out.print("Erreur mon reuf");
+							e.printStackTrace();
+						}
+						
 					}
-					
-				}
-			};
-			cbx.setOnAction(event);
-			container.add(lbl, 0, i + 1);
-			container.add(cbx, 1, i + 1);
+				};
+				cbx.setOnAction(event);
+				container.add(lbl, 0, i + 1);
+				container.add(cbx, 1, i + 1);
 
+			}
+			this.cat.setContent(container);
+			File f = new File("src/Views/dark.css");
+			container.getStylesheets().clear();
+			container.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			container.getStyleClass().add("background");
+			
 		}
-		this.cat.setContent(container);
+		if(a==1){
+			GridPane container = new GridPane();
+			ColumnConstraints col1 = new ColumnConstraints();
+			col1.setPercentWidth(50);
+			container.getColumnConstraints().add(col1);
+			Label lbl1 = new Label("Categorie :");
+			container.add(lbl1, 0, 0);
+			for (int i = 0; i < tab_categorie.length; i++) {
+				container.getColumnConstraints().add(new ColumnConstraints(20));
+				container.getRowConstraints().add(new RowConstraints(20));
+				Label lbl = tab_categorie[i];
+				CheckBox cbx = new CheckBox();
+				lbl.setTextFill(Color.GREY);
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent evt) {
+						String f=lbl.getText().toUpperCase();
+						try {
+							panneau_block(f,"BASE",a);
+						} catch (FileNotFoundException e) {
+							System.out.print("Erreur mon reuf");
+							e.printStackTrace();
+						}
+						
+					}
+				};
+				cbx.setOnAction(event);
+				container.add(lbl, 0, i + 1);
+				container.add(cbx, 1, i + 1);
+
+			}
+			this.cat.setContent(container);
+
+			
+		}
+		
 	}
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
-
-		ajout_categorie();
-		ajout_couleur();
 		
-		panneau_block("BASE","BASE");
+		ajout_couleur(1);
+		ajout_categorie(1);
+		panneau_block("BASE","BASE",1);
+		ToggleSwitch toggle = new ToggleSwitch();
+		root.getChildren().add(toggle);
+		toggle.setTranslateX(1200);
+		toggle.setTranslateY(5);
+		toggle.setOnMousePressed(event -> {
+			if(!toggle.select().getValue()) {
+				System.out.println("hello");
+				ajout_categorie(0);
+				ajout_couleur(0);
+				File fil = new File("src/Views/dark.css");
+				anch.getStylesheets().add("file:///" + fil.getAbsolutePath().replace("\\", "/"));
+				anch.getStyleClass().add("anchor-pane");
+				try {
+					panneau_block("BASE","BASE",0);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			else {
+				System.out.println("helloooooo");
+				ajout_categorie(1);
+				ajout_couleur(1);
+				anch.getStylesheets().clear();
+				try {
+					panneau_block("BASE","BASE",1);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		});
+		
+		
 		
 		
 		searsh_bar.setFocusTraversable(false);
@@ -808,44 +920,99 @@ public class Controller_3D_Environnement {
 	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
 	public String[] LF = {"ANGLE","CUBE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
-	public void panneau_block (String f,String c) throws FileNotFoundException {
-		int x =0;
-		int y =0;
-		
-		panneau.getChildren().clear();
-		
-		System.out.println(Arrays.asList(LF).contains(f));
-		
-		//Ouverture tous les blocks
-		if (f.equals("BASE") && c.equals("BASE")) {
-			for (int i=0; i<LF.length ; i++) {
-				for (int j=0; j<LC.length ; j++) {
-					panneau.add(afficher_block(LF[i],LC[j]), x,  y);
-					if (x<2) {
-						x+=1;
-					}
-					else if (x==2) {
-						x=0;
-						y+=1;
-					}
+	public void panneau_block (String f,String c,int a ) throws FileNotFoundException {
+		if (a==0) {
+			int x =0;
+			int y =0;
+			
+			panneau.getStylesheets().clear();
+			panneau.getChildren().clear();
+			
+			System.out.println(Arrays.asList(LF).contains(f));
+			
+			//Ouverture tous les blocks
+			if (f.equals("BASE") && c.equals("BASE")) {
+				for (int i=0; i<LF.length ; i++) {
+					for (int j=0; j<LC.length ; j++) {
+						panneau.add(afficher_block(LF[i],LC[j]), x,  y);
+						if (x<2) {
+							x+=1;
+						}
+						else if (x==2) {
+							x=0;
+							y+=1;
+						}
+				}
 			}
-		}
-		}
+			}
+			
+			//Ouverture block en fonction de la forme
+			else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
+					for (int j=0; j<LC.length ; j++) {
+						panneau.add(afficher_block(f,LC[j]), x, y);
+						if (x<2) {
+							x+=1;
+						}
+						else if (x==2) {
+							x=0;
+							y+=1;
+						}
+			}
+			}
+		this.Imagescrollpane.setContent(panneau);
+		File fil_dark = new File("src/Views/dark.css");
+		File fil_app = new File("src/Views/application.css");
+		this.Imagescrollpane.getStylesheets().add("file:///" + fil_dark.getAbsolutePath().replace("\\", "/"));
+		this.Imagescrollpane.getStyleClass().add("scroll-bar");
+		panneau.getStylesheets().add("file:///" + fil_app.getAbsolutePath().replace("\\", "/"));
+		panneau.getStyleClass().add("pic");
 		
-		//Ouverture block en fonction de la forme
-		else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
-				for (int j=0; j<LC.length ; j++) {
-					panneau.add(afficher_block(f,LC[j]), x, y);
-					if (x<2) {
-						x+=1;
-					}
-					else if (x==2) {
-						x=0;
-						y+=1;
-					}
+			
 		}
+		if (a==1) {
+			int x =0;
+			int y =0;
+			panneau.getStylesheets().clear();
+			panneau.getChildren().clear();
+			
+			System.out.println(Arrays.asList(LF).contains(f));
+			
+			//Ouverture tous les blocks
+			if (f.equals("BASE") && c.equals("BASE")) {
+				for (int i=0; i<LF.length ; i++) {
+					for (int j=0; j<LC.length ; j++) {
+						panneau.add(afficher_block(LF[i],LC[j]), x,  y);
+						if (x<2) {
+							x+=1;
+						}
+						else if (x==2) {
+							x=0;
+							y+=1;
+						}
+				}
+			}
+			}
+			
+			//Ouverture block en fonction de la forme
+			else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
+					for (int j=0; j<LC.length ; j++) {
+						panneau.add(afficher_block(f,LC[j]), x, y);
+						if (x<2) {
+							x+=1;
+						}
+						else if (x==2) {
+							x=0;
+							y+=1;
+						}
+			}
+			}
+			File fil = new File("src/Views/application.css");
+			this.Imagescrollpane.setContent(panneau);
+			this.Imagescrollpane.getStylesheets().clear();
+			panneau.getStylesheets().add("file:///" + fil.getAbsolutePath().replace("\\", "/"));
+			panneau.getStyleClass().add("pic");
+			
 		}
-	this.Imagescrollpane.setContent(panneau);
 	}
 	
 	public BorderPane afficher_block(String f,String c) throws FileNotFoundException {

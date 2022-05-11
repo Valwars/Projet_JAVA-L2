@@ -5,6 +5,7 @@ package Models;
 import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
@@ -53,6 +54,9 @@ public class ToggleSwitch extends Parent {
 		setOnMouseClicked(event ->{
 			swichedOn.set(!swichedOn.get());
 		});
+	}
+	public BooleanProperty select() {
+		return swichedOn;
 	}
 
 
