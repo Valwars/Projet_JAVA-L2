@@ -41,6 +41,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
@@ -86,6 +87,9 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private ScrollPane cat;
+	
+	@FXML
+	private ScrollPane Imagescrollpane;
 
 	@FXML
 	private Button mute_sound;
@@ -659,10 +663,14 @@ public class Controller_3D_Environnement {
 	}
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws FileNotFoundException {
 
 		ajout_categorie();
 		ajout_couleur();
+		
+		panneau_block("BASE","BASE");
+		
+		
 		searsh_bar.setFocusTraversable(false);
 
 		mute_sound.setOnAction(new EventHandler<ActionEvent>() {
@@ -705,11 +713,38 @@ public class Controller_3D_Environnement {
 
 	}
 	
-	public String[] ListeCouleur = {"BLEU","BOIS","CYAN","FEUILLE","GRIS","LAVE","MARRON","NEIGE","NOIR","ORANGE","PIERRE","ROUGE1","ROUGE2","SABLE","TERRE","TRANSPARENT","VERT"};
-	public String[] ListeForme = {"ANGLE","CARRE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
+	public String[] LC = {"BLEU","BOIS","CYAN","FEUILLE","GRIS","LAVE","MARRON","NEIGE","NOIR","ORANGE","PIERRE","ROUGE1","ROUGE2","SABLE","TERRE","TRANSPARENT","VERT"};
+	public String[] LF = {"ANGLE","CARRE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
-	public void afficher_block(String c, String f) {
-		Image img = new Image("/images/"+f+"_"+c+".png");
+	public void panneau_block (String f,String c) throws FileNotFoundException {
+		GridPane panneau = new GridPane();
+		int x =0;
+		int y =0;
+		if (f.equals("BASE") && c.equals("BASE")) {
+			for (int i=0; i<LF.length ; i++) {
+				for (int j=0; j<LC.length ; j++) {
+					panneau.add(afficher_block(LF[i],LC[j]), x, y);
+					if (x<2) {
+						x+=1;
+					}
+					else if (x==2) {
+						x=0;
+						y+=1;
+					}
+			}
+		}
+		
+		this.Imagescrollpane.setContent(panneau);
+	}
+	}
+	
+	public ImageView afficher_block(String f,String c) throws FileNotFoundException {
+		Image img = new Image("File:images/"+f+"_"+c+".png");
+		ImageView pic = new ImageView(img);
+		pic.setFitWidth(93);
+		pic.setFitHeight(70);
+		return pic;
+		
 	}
 	
 	
