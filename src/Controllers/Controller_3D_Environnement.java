@@ -5,6 +5,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,14 +21,19 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
+import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -51,6 +57,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 public class Controller_3D_Environnement {
@@ -90,7 +97,10 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private Button light_dark;
-
+	
+	@FXML
+	private MenuItem aide;
+	
 	SubScene subscene;
 
 	MediaPlayer player;
@@ -399,7 +409,11 @@ public class Controller_3D_Environnement {
 			}
 			break;
 		case T:
-			structure.move_sun2();
+			if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 2) {
+				structure.move_sun();
+			}else {
+				structure.move_sun2();
+			}
 			break;
 		case Y:
 			// structure.move_sun();
@@ -660,6 +674,30 @@ public class Controller_3D_Environnement {
 				} else {
 					player.setMute(false);
 					mute_sound.setText("Mute");
+				}
+
+			}
+		});
+		
+		aide.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+
+				Stage stage = new Stage();
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
+
+				Parent root;
+				try {
+					root = loader.load();
+					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("../Views/help.css").toExternalForm());
+
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 
 			}

@@ -41,8 +41,6 @@ public class Main extends Application{
 		
 		try {
 			
-		
-			
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
 			
@@ -88,15 +86,16 @@ public class Main extends Application{
 	            	
 	            	
 	                if (new_tab.isSelected()) {
+	                	
 	                	File file = new File("sauvegardes");
+	                	
 				        if(file.isDirectory()){
+				        	
 				            if(file.list().length==0){
 				            	
 				            	create_newTab(tp, legos_collection,primaryStage,null);
-			                	
-				            	
-				            }
-				            else {
+			                
+				            }else {
 				            	
 				            	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
 			                	
@@ -143,8 +142,6 @@ public class Main extends Application{
 	       
 			
         	
-
-			
             tb1.setContent(subscene);
 
             subscene.widthProperty().bind(tp.widthProperty());
@@ -154,13 +151,10 @@ public class Main extends Application{
             
             tp.getTabs().add(new_tab);
             
-
 			root.setCenter(tp);
-			
 			
 			ToggleSwitch toggle = new ToggleSwitch();
 		
-			
 			root.getChildren().add(toggle);
 			
 			toggle.setTranslateX(1200);
@@ -178,8 +172,6 @@ public class Main extends Application{
 
 				}
 				
-				
-				
 			});
 				
 
@@ -195,8 +187,7 @@ public class Main extends Application{
 	    	        selectionModel2.select(tp.getTabs().get(0)); 
 					environnement_Controller.structure = structures.get(0);
 
-	    	        
-	    	    	
+	    	       
 	    	    }
 	    	});
 
@@ -232,8 +223,6 @@ public class Main extends Application{
 		    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
 			}
 			
-	
-	
 		});
     	
     	tb.setOnClosed(new EventHandler<Event>() {
