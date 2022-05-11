@@ -313,7 +313,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="X" textAlignment="CENTER">
+                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="V" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="40.0" />
                      </HBox.margin>

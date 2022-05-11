@@ -109,11 +109,10 @@ public class Controller_3D_Environnement {
 
 	MediaPlayer player;
 
-	String[] tab_couleur1 = { "-fx-Base: #4169E1", "-fx-Base: #006400", "-fx-Base: #F0E68C", "-fx-Base: #FFFFF0",
-			"-fx-Base: #40E0D0", "-fx-Base: #8B4513", "-fx-Base: #FF8C00", "-fx-Base: #A9A9A9", "-fx-Base: #8b4513",
-			"-fx-Base: #FF0000", "-fx-Base: #FFFAFA" };
-	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle"), new Label("Tapis"),
-			new Label("Texture") };
+	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
+			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black", "-fx-Base: darkorange",
+			"-fx-Base: brown", "-fx-Base: red" };
+	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle2"), new Label("Rectangle3"), new Label("Rectangle4"), new Label("Tapis") };
 
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -127,9 +126,8 @@ public class Controller_3D_Environnement {
 
 	public String type;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.IVORY, Color.TURQUOISE,
-			new Color(0.6, 0.6, 0.6, 0.6), Color.BROWN, Color.DARKORANGE, Color.DARKGRAY, Color.SADDLEBROWN, Color.RED,
-			Color.SNOW, new Color(0.1, 0.1, 0.1, 1) };
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.SNOW , Color.TURQUOISE, Color.DARKGRAY,
+			 Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED, new Color(0.6, 0.6, 0.6, 0.6) };
 
 	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
@@ -589,7 +587,7 @@ public class Controller_3D_Environnement {
 
 	public void ajout_couleur() {
 		GridPane container = new GridPane();
-		for (int i = 0; i < tab_couleur1.length - 1; i++) {
+		for (int i = 0; i < tab_couleur1.length; i++) {
 			container.getColumnConstraints().add(new ColumnConstraints(30));
 			Button bt1 = new Button();
 			bt1.setPrefSize(25, 25);
@@ -599,7 +597,7 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
-					changer_couleur(bt1);
+					
 				}
 			};
 			bt1.setOnAction(event);
@@ -608,17 +606,6 @@ public class Controller_3D_Environnement {
 		}
 		this.Coulscrollpane.setContent(container);
 
-	}
-
-	public void changer_couleur(Button bt) {
-		structure.setSelected_matiere(null);
-		int clr = 0;
-		for (int i = 0; i < this.tab_couleur1.length; i++) {
-			if (this.tab_couleur1[i] == bt.getStyle()) {
-				clr = i;
-			}
-		}
-		structure.setSelected_color(this.tab_couleur[clr]);
 	}
 
 	public void ajout_categorie() {
@@ -638,7 +625,7 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
-					changer_categorie(cbx, lbl);
+					
 				}
 			};
 			cbx.setOnAction(event);
@@ -647,19 +634,6 @@ public class Controller_3D_Environnement {
 
 		}
 		this.cat.setContent(container);
-
-	}
-
-	public void changer_categorie(CheckBox cb, Label lbl) {
-		structure.setTaille(0);
-		String blc = "";
-		String label = lbl.getText();
-		if (cb.isSelected()) {
-			blc = label.toString().toUpperCase() + "_" + this.rotations[this.rota];
-			System.out.println(blc);
-			structure.setSelected_bloc(blc);
-		}
-
 	}
 
 	@FXML
@@ -713,7 +687,7 @@ public class Controller_3D_Environnement {
 
 	}
 	
-	public String[] LC = {"BLEU","BOIS","CYAN","FEUILLE","GRIS","LAVE","MARRON","NEIGE","NOIR","ORANGE","PIERRE","ROUGE1","ROUGE2","SABLE","TERRE","TRANSPARENT","VERT"};
+	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
 	public String[] LF = {"ANGLE","CARRE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
 	public void panneau_block (String f,String c) throws FileNotFoundException {
