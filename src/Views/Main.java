@@ -3,6 +3,7 @@ package Views;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import Controllers.Controller_3D_Environnement;
@@ -64,7 +65,8 @@ public class Main extends Application{
 			subscene.setFill(Color.valueOf("#2C2D32"));
 		
 			Scene scene = new Scene(root);
-			
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 			TabPane tp = new TabPane();
 			
 			Tab tb1;
@@ -79,7 +81,8 @@ public class Main extends Application{
 			Tab new_tab =new Tab("+");
 			new_tab.setClosable(false);
 			
-
+			ArrayList<String> t = new ArrayList<>();
+			t.contains(root);
 			new_tab.setOnSelectionChanged(new EventHandler<Event>(){
 
 	            public void handle(Event e) {

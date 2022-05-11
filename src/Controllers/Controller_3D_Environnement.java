@@ -805,7 +805,7 @@ public class Controller_3D_Environnement {
 		if (f.equals("BASE") && c.equals("BASE")) {
 			for (int i=0; i<LF.length ; i++) {
 				for (int j=0; j<LC.length ; j++) {
-					panneau.add(afficher_block(LF[i],LC[j]), x, y);
+					panneau.add(afficher_block(LF[i],LC[j]), x,  y);
 					if (x<2) {
 						x+=1;
 					}
@@ -833,12 +833,17 @@ public class Controller_3D_Environnement {
 	this.Imagescrollpane.setContent(panneau);
 	}
 	
-	public ImageView afficher_block(String f,String c) throws FileNotFoundException {
+	public BorderPane afficher_block(String f,String c) throws FileNotFoundException {
 		Image img = new Image("File:images/"+f+"_"+c+".png");
 		ImageView pic = new ImageView(img);
+		BorderPane imageViewWrapper = new BorderPane(pic);
+		imageViewWrapper.getStyleClass().add("pic");
+		
+    	pic.getStyleClass().add("pic");
 		pic.setFitWidth(93);
 		pic.setFitHeight(70);
-		return pic;
+		
+		return imageViewWrapper;
 		
 	}
 	

@@ -47,7 +47,6 @@ public class ToggleSwitch extends Parent {
 			translateAnimation.setToX(isOn ? 50 - 25 : 0);
 			fillAnimation.setFromValue(isOn ? Color.WHITE : Color.GRAY);
 			fillAnimation.setToValue(isOn ? Color.GRAY : Color.WHITE);
-
 			animation.play();
 		});
 		
