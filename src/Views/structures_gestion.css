@@ -1,0 +1,10 @@
+.hbox{
+	-fx-padding:15px;
+	-fx-border-color:gray;
+}
+
+.inp{
+	-fx-background-color:red;
+	-fx-border-color:black;
+
+}
