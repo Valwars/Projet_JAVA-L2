@@ -32,7 +32,10 @@ import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -755,14 +758,26 @@ public class Controller_3D_Environnement {
 			            			@Override
 			            			public void handle(ActionEvent e) {
 			            				
-			            				  File file = new File("sauvegardes/"+l.getText()+".xml");
+			            				Alert alert = new Alert(AlertType.CONFIRMATION);
+			            				alert.setTitle("Supprimer structure");
+			            				String s = "Voulez vous vraiment supprimer "+l.getText()+" ?";
+			            				alert.setContentText(s);
+			            				 
+			            				Optional<ButtonType> result = alert.showAndWait();
+			            				 
+			            				if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+			            				 
+			            					File file = new File("sauvegardes/"+l.getText()+".xml");
 
-			            			      if(file.delete()){
-			            			       System.out.println(file.getName() + " est supprimé.");
-			            			       v.getChildren().remove(b);
-			            			      }else{
-			            			       System.out.println("Opération de suppression echouée");
-			            			      } 
+				            			      if(file.delete()){
+				            			       System.out.println(file.getName() + " est supprimé.");
+				            			       v.getChildren().remove(b);
+				            			      }else{
+				            			       System.out.println("Opération de suppression echouée");
+				            			      } 
+			            				}
+			            				
+			            				  
 			            			}
 			                	});
 			                	
