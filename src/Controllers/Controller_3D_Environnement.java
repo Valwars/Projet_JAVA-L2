@@ -7,8 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -118,6 +120,8 @@ public class Controller_3D_Environnement {
 	SubScene subscene;
 
 	MediaPlayer player;
+	
+	GridPane panneau = new GridPane();
 
 	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
 			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black", "-fx-Base: darkorange",
@@ -640,6 +644,13 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
+					String f=lbl.getText().toUpperCase();
+					try {
+						panneau_block(f,"BASE");
+					} catch (FileNotFoundException e) {
+						System.out.print("Erreur mon reuf");
+						e.printStackTrace();
+					}
 					
 				}
 			};
@@ -780,12 +791,17 @@ public class Controller_3D_Environnement {
 	}
 	
 	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
-	public String[] LF = {"ANGLE","CARRE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
+	public String[] LF = {"ANGLE","CUBE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
 	public void panneau_block (String f,String c) throws FileNotFoundException {
-		GridPane panneau = new GridPane();
 		int x =0;
 		int y =0;
+		
+		panneau.getChildren().clear();
+		
+		System.out.println(Arrays.asList(LF).contains(f));
+		
+		//Ouverture tous les blocks
 		if (f.equals("BASE") && c.equals("BASE")) {
 			for (int i=0; i<LF.length ; i++) {
 				for (int j=0; j<LC.length ; j++) {
@@ -799,9 +815,22 @@ public class Controller_3D_Environnement {
 					}
 			}
 		}
+		}
 		
-		this.Imagescrollpane.setContent(panneau);
-	}
+		//Ouverture block en fonction de la forme
+		else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
+				for (int j=0; j<LC.length ; j++) {
+					panneau.add(afficher_block(f,LC[j]), x, y);
+					if (x<2) {
+						x+=1;
+					}
+					else if (x==2) {
+						x=0;
+						y+=1;
+					}
+		}
+		}
+	this.Imagescrollpane.setContent(panneau);
 	}
 	
 	public ImageView afficher_block(String f,String c) throws FileNotFoundException {
