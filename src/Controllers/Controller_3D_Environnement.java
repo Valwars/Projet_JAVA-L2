@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
@@ -49,7 +50,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -104,6 +107,13 @@ public class Controller_3D_Environnement {
 	
 	@FXML
 	private MenuItem aide;
+	
+	@FXML
+	private MenuItem sauvegarder;
+	
+	@FXML
+	private MenuItem managed_structures;
+	
 	
 	SubScene subscene;
 
@@ -315,67 +325,7 @@ public class Controller_3D_Environnement {
 			break;
 			
 		case L:
-			subscene.setCursor(Cursor.WAIT);
-			BorderPane parent = (BorderPane) structure.getScene().getRoot();
-			TabPane pane = (TabPane) parent.getChildren().get(2);
-
-			if (structure.getChildren().size() > 1065) {
-
-				if (structure.getNom_structure() == null) {
-
-					TextInputDialog td = new TextInputDialog("Structure0");
-					td.setTitle("Sauvegarde");
-					td.setContentText("Choisir un nom : ");
-
-					td.setHeaderText("Sauvegarde...");
-
-					boolean drap = false;
-
-					while (drap == false) {
-
-						Optional<String> result = td.showAndWait();
-
-						File file = new File("sauvegardes/" + result.get() + ".xml");
-
-						if (!file.exists()) {
-
-							drap = true;
-
-						}
-
-						result.ifPresent(name_structure -> {
-
-							if (!file.exists()) {
-								subscene.setCursor(Cursor.WAIT);
-
-								structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
-								structure.enregistrer();
-								td.close();
-								subscene.setCursor(Cursor.DEFAULT);
-
-							} else {
-								td.setHeaderText("Ce nom est d�j� pris !");
-							}
-
-						});
-
-					}
-
-					SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
-
-					selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0,
-							structure.getNom_structure().split("/")[1].length() - 4));
-					selectionModel.clearSelection(); // clear your selection
-
-				} else {
-					subscene.setCursor(Cursor.WAIT);
-
-					structure.enregistrer();
-					subscene.setCursor(Cursor.DEFAULT);
-
-				}
-
-			}
+			sauvegarder();
 			break;
 
 		case Z:
@@ -523,6 +473,71 @@ public class Controller_3D_Environnement {
 			break;
 
 		}
+	}
+	
+	private void sauvegarder() {
+		subscene.setCursor(Cursor.WAIT);
+		BorderPane parent = (BorderPane) structure.getScene().getRoot();
+		TabPane pane = (TabPane) parent.getChildren().get(2);
+
+		if (structure.getChildren().size() > 1065) {
+
+			if (structure.getNom_structure() == null) {
+
+				TextInputDialog td = new TextInputDialog("Structure0");
+				td.setTitle("Sauvegarde");
+				td.setContentText("Choisir un nom : ");
+
+				td.setHeaderText("Sauvegarde...");
+
+				boolean drap = false;
+
+				while (drap == false) {
+
+					Optional<String> result = td.showAndWait();
+
+					File file = new File("sauvegardes/" + result.get() + ".xml");
+
+					if (!file.exists()) {
+
+						drap = true;
+
+					}
+
+					result.ifPresent(name_structure -> {
+
+						if (!file.exists()) {
+							subscene.setCursor(Cursor.WAIT);
+
+							structure.setNom_structure("sauvegardes/" + name_structure + ".xml");
+							structure.enregistrer();
+							td.close();
+							subscene.setCursor(Cursor.DEFAULT);
+
+						} else {
+							td.setHeaderText("Ce nom est d�j� pris !");
+						}
+
+					});
+
+				}
+
+				SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
+
+				selectionModel.getSelectedItem().setText(structure.getNom_structure().split("/")[1].substring(0,
+						structure.getNom_structure().split("/")[1].length() - 4));
+				selectionModel.clearSelection(); // clear your selection
+
+			} else {
+				subscene.setCursor(Cursor.WAIT);
+
+				structure.enregistrer();
+				subscene.setCursor(Cursor.DEFAULT);
+
+			}
+
+		}
+		
 	}
 
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
@@ -674,6 +689,83 @@ public class Controller_3D_Environnement {
 					root = loader.load();
 					Scene scene = new Scene(root);
 					scene.getStylesheets().add(getClass().getResource("../Views/help.css").toExternalForm());
+					stage.setResizable(false);
+					
+
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
+		sauvegarder.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				sauvegarder();
+				
+
+			}
+		});
+		
+		managed_structures.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+
+				Stage stage = new Stage();
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/gestion_structures.fxml"));
+
+				ScrollPane root;
+				
+				
+				try {
+					root = (ScrollPane) loader.load();
+					
+					VBox v = (VBox) root.getContent();
+                	File file = new File("sauvegardes");
+                	if(file.isDirectory()){
+                		 
+                		if(file.list().length!=0){
+			            	
+                			for(int i = 1;i<file.list().length;i++) {
+			                	HBox b = new HBox();
+			                	b.getStyleClass().add("hbox");
+
+			                	Label l = new Label(file.list()[i].substring(0,file.list()[i].length()-4));
+			                	
+			                	Button inp = new Button("SUPPRIMER");
+			                	inp.getStyleClass().add("inp");
+			                	
+			                	inp.setOnAction(new EventHandler<ActionEvent>() {
+			            			@Override
+			            			public void handle(ActionEvent e) {
+			            				
+			            				  File file = new File("sauvegardes/"+l.getText()+".xml");
+
+			            			      if(file.delete()){
+			            			       System.out.println(file.getName() + " est supprimé.");
+			            			       v.getChildren().remove(b);
+			            			      }else{
+			            			       System.out.println("Opération de suppression echouée");
+			            			      } 
+			            			}
+			                	});
+			                	
+			                	b.getChildren().add(l);
+			                	b.getChildren().add(inp);
+			                	
+			                	v.getChildren().add(b);
+		                	}
+		                
+			            }
+                	 }
+					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
+					stage.setResizable(false);
 
 					stage.setScene(scene);
 					stage.show();
