@@ -80,14 +80,15 @@ public class Lego extends Box implements Serializable{
 			}else if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 1 ){
 				
 				
-				
 				structure.setLast_lego_selected(this);
+				
+				System.out.println("Dernier lego selectionné : "+ structure.getLast_lego_selected());
+
 				structure.getLego_selected().add(this);
 				
-				PhongMaterial m = (PhongMaterial) this.getMaterial();
-				
-				m.setDiffuseColor(Color.FUCHSIA);
-				
+				System.out.println("legos selectionnés : "+ structure.getLego_selected());
+
+				((PhongMaterial) this.getMaterial()).setDiffuseColor(Color.FUCHSIA);
 				searsh_cylinder(Color.FUCHSIA);
 				
 
@@ -146,7 +147,8 @@ public class Lego extends Box implements Serializable{
 		
 
 		this.setOnMousePressed(event -> {
-
+			
+			System.out.println("je clique sur un lego");
 			if (event.isSecondaryButtonDown() && this.enfant == null) {
 
 				create_blocs();

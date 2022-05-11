@@ -61,8 +61,6 @@ public class Main extends Application{
 			BorderPane root = (BorderPane) loader.load();
 			
 			
-		        
-			
 			SubScene subscene = new SubScene(structure, 800,1000 , true, SceneAntialiasing.BALANCED);
 			environnement_Controller.start(primaryStage,structure, subscene,null);
 			subscene.setFill(Color.valueOf("#2C2D32"));
@@ -131,6 +129,7 @@ public class Main extends Application{
 
 				            		
 				            	}else{
+				            		
 					            	create_newTab(tp, legos_collection,primaryStage,result.get());
 
 				            	}
@@ -183,7 +182,23 @@ public class Main extends Application{
 				
 			});
 				
-		
+
+	    	tb1.setOnClosed(new EventHandler<Event>() {
+	    	    @Override
+	    	    public void handle(Event t) {
+	    	    	
+	    	    	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+                	
+                	
+	    	        structures.remove(structure);
+	    	        
+	    	        selectionModel2.select(tp.getTabs().get(0)); 
+					environnement_Controller.structure = structures.get(0);
+
+	    	        
+	    	    	
+	    	    }
+	    	});
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -220,6 +235,18 @@ public class Main extends Application{
 	
 	
 		});
+    	
+    	tb.setOnClosed(new EventHandler<Event>() {
+    	    @Override
+    	    public void handle(Event t) {
+    	    	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+            	
+    	        structures.remove(structure2);
+    	        
+    	        selectionModel2.select(tp.getTabs().get(0)); 
+    	        environnement_Controller.structure = structures.get(0);
+    	    }
+    	});
 
 		SubScene subscene2 = new SubScene(structure2, 800, 600, true, SceneAntialiasing.BALANCED);
 		
@@ -241,15 +268,15 @@ public class Main extends Application{
 
 		subscene2.setFill(Color.valueOf("#2C2D32"));
 	
-
 		tb.setContent(subscene2);
-
     	
     	tp.getTabs().add(tp.getTabs().size() - 1, tb);
     	
     	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
     	
     	selectionModel.select(tb); //select by object
+    	
+    	environnement_Controller.structure = structure2;
 	}
 	
 	
