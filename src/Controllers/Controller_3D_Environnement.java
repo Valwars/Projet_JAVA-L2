@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -276,10 +277,29 @@ public class Controller_3D_Environnement {
 		
 		
 		case J:
-			PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
-			m.setDiffuseColor(this.tab_couleur[this.couleur]);
-			structure.getLego_selected().searsh_cylinder(this.tab_couleur[this.couleur]);
-			structure.getLego_selected().setCoul(this.tab_couleur[this.couleur].toString());
+
+			Iterator<Lego> it = structure.getLego_selected().iterator();
+			
+			while (it.hasNext()){
+				
+			
+				Lego l = it.next();
+				
+				PhongMaterial m = (PhongMaterial) l.getMaterial();
+				
+				m.setDiffuseColor(this.tab_couleur[this.couleur]);
+				
+				if(!l.getType().equals("BASE")) {
+					l.searsh_cylinder(this.tab_couleur[this.couleur]);
+
+				}
+				
+				l.setCoul(this.tab_couleur[this.couleur].toString());
+				
+			}
+			
+			structure.getLego_selected().clear();
+			
 			break;
 			
 		case L:

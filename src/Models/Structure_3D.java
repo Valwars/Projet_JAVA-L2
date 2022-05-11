@@ -40,7 +40,17 @@ public class Structure_3D extends Group implements Serializable {
 
 	private String selected_matiere = null;
 	
-	private Lego lego_selected;
+	private Set<Lego> lego_selected = new HashSet<Lego>();
+	
+	private Lego last_lego_selected;
+
+	public Lego getLast_lego_selected() {
+		return last_lego_selected;
+	}
+
+	public void setLast_lego_selected(Lego last_lego_selected) {
+		this.last_lego_selected = last_lego_selected;
+	}
 
 	private final Set<KeyCode> pressedKeys = new HashSet<>();
 
@@ -48,11 +58,11 @@ public class Structure_3D extends Group implements Serializable {
 		return pressedKeys;
 	}
 
-	public Lego getLego_selected() {
+	public Set<Lego>  getLego_selected() {
 		return lego_selected;
 	}
 
-	public void setLego_selected(Lego lego_selected) {
+	public void setLego_selected(Set<Lego> lego_selected) {
 		this.lego_selected = lego_selected;
 	}
 

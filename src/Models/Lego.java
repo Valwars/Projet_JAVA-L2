@@ -2,13 +2,12 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
@@ -80,24 +79,10 @@ public class Lego extends Box implements Serializable{
 
 			}else if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 1 ){
 				
-				System.out.println(structure.getPressedKeys().toString());
 				
-				if(structure.getLego_selected() != null) {
-					
-					PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
-					
-					String color = "#" + structure.getLego_selected().getCoul().split("x")[1];
-					
-					Color c = Color.valueOf(color);
-					
-					m.setDiffuseColor(c);
-					
-					searsh_cylinder(c);
-							
-					
-				}
 				
-				structure.setLego_selected(this);
+				structure.setLast_lego_selected(this);
+				structure.getLego_selected().add(this);
 				
 				PhongMaterial m = (PhongMaterial) this.getMaterial();
 				
@@ -138,6 +123,7 @@ public class Lego extends Box implements Serializable{
 			this.coul = Color.GRAY.toString();
 		} else {
 			if(structure.getSelected_matiere() == null) {
+				
 				this.coul = structure.getSelected_color().toString();
 
 				material.setDiffuseColor(structure.getSelected_color());
@@ -166,25 +152,15 @@ public class Lego extends Box implements Serializable{
 				create_blocs();
 
 			}else if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 1 ){
-				System.out.println(structure.getPressedKeys());
-
-				if(structure.getLego_selected() != null) {
-					
-					PhongMaterial m = (PhongMaterial) structure.getLego_selected().getMaterial();
-					
-					String color = "#" + structure.getLego_selected().getCoul().split("x")[1];
-					
-					Color c = Color.valueOf(color);
-					
-					m.setDiffuseColor(c);
-					
-					searsh_cylinder(c);
-
-					
-				}
 				
-				structure.setLego_selected(this);
-				System.out.println(structure.getChildren().toString());
+				structure.setLast_lego_selected(this);
+				
+				System.out.println("Dernier lego selectionné : "+ structure.getLast_lego_selected());
+
+				structure.getLego_selected().add(this);
+				
+				System.out.println("legos selectionnés : "+ structure.getLego_selected());
+
 				material.setDiffuseColor(Color.FUCHSIA);
 				searsh_cylinder(Color.FUCHSIA);
 
@@ -564,13 +540,13 @@ public class Lego extends Box implements Serializable{
 
 	public void searsh_cylinder(Color c) {
 		
-		if(!structure.getLego_selected().type.equals("BASE")) {
 		
-			int index = structure.getChildren().indexOf(structure.getLego_selected());
+		if(!this.type.equals("BASE")) {
 			
-			System.out.println(structure.getLego_selected());
+		
+			int index = structure.getChildren().indexOf(this);
 			
-			System.out.println(index);
+		
 			for(int i = 1; i <= 4; i ++) {
 				
 				PhongMaterial m = (PhongMaterial) ((Shape3D) structure.getChildren().get(index - i)).getMaterial();
