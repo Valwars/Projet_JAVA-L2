@@ -630,10 +630,9 @@ public void ajout_couleur(int a) {
 
 			}
 			this.Coulscrollpane.setContent(container);
-			File f = new File("src/Views/dark.css");
-			this.Coulscrollpane.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Coulscrollpane.getStyleClass().add("scroll-bar");
-			container.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
 			
 		}
@@ -698,9 +697,8 @@ public void ajout_couleur(int a) {
 
 			}
 			this.cat.setContent(container);
-			File f = new File("src/Views/dark.css");
 			container.getStylesheets().clear();
-			container.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
 			
 		}
@@ -758,8 +756,7 @@ public void ajout_couleur(int a) {
 				System.out.println("hello");
 				ajout_categorie(0);
 				ajout_couleur(0);
-				File fil = new File("src/Views/dark.css");
-				anch.getStylesheets().add("file:///" + fil.getAbsolutePath().replace("\\", "/"));
+				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				anch.getStyleClass().add("anchor-pane");
 				try {
 					panneau_block("BASE","BASE",0);
@@ -960,11 +957,10 @@ public void ajout_couleur(int a) {
 			}
 			}
 		this.Imagescrollpane.setContent(panneau);
-		File fil_dark = new File("src/Views/dark.css");
-		File fil_app = new File("src/Views/application.css");
-		this.Imagescrollpane.getStylesheets().add("file:///" + fil_dark.getAbsolutePath().replace("\\", "/"));
+		
+		this.Imagescrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 		this.Imagescrollpane.getStyleClass().add("scroll-bar");
-		panneau.getStylesheets().add("file:///" + fil_app.getAbsolutePath().replace("\\", "/"));
+		panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 		panneau.getStyleClass().add("pic");
 		
 			
@@ -1006,10 +1002,9 @@ public void ajout_couleur(int a) {
 						}
 			}
 			}
-			File fil = new File("src/Views/application.css");
 			this.Imagescrollpane.setContent(panneau);
 			this.Imagescrollpane.getStylesheets().clear();
-			panneau.getStylesheets().add("file:///" + fil.getAbsolutePath().replace("\\", "/"));
+			panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			panneau.getStyleClass().add("pic");
 			
 		}

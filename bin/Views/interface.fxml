@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,16 +7,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane fx:id="anch" prefHeight="616.0" prefWidth="294.0">
+      <AnchorPane fx:id="anch" prefHeight="616.0" prefWidth="301.0">
          <children>
             <TextField fx:id="searsh_bar" layoutX="-1.0" layoutY="212.0" prefHeight="26.0" prefWidth="256.0" promptText="Rechercher" AnchorPane.topAnchor="212.0" />
-            <ScrollPane fx:id="Imagescrollpane" layoutX="-2.0" layoutY="237.0" prefHeight="343.0" prefWidth="257.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="273.0" />
-            <TextField fx:id="searsh_bar" layoutX="-1.0" layoutY="212.0" prefHeight="26.0" prefWidth="295.0" promptText="Rechercher" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="212.0" />
-            <ScrollPane fx:id="Imagescrollpane" layoutX="-2.0" layoutY="237.0" prefHeight="343.0" prefWidth="295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="273.0" />
-            <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="-1.0" layoutY="237.0" prefHeight="40.0" prefWidth="212.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="237.0" />
+            <ScrollPane fx:id="Imagescrollpane" layoutX="-2.0" layoutY="237.0" prefHeight="343.0" prefWidth="257.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="273.0">
+               <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="277.0" prefWidth="244.0">
+                     <children>
+                     </children></AnchorPane>
+               </content>
+            </ScrollPane>
+            <TextField fx:id="searsh_bar" layoutX="-1.0" layoutY="212.0" prefHeight="26.0" prefWidth="295.0" promptText="Rechercher" AnchorPane.topAnchor="212.0" />
+            <TextField fx:id="searsh_bar" layoutY="199.0" prefHeight="26.0" prefWidth="295.0" promptText="Rechercher" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="199.0" />
+            <ScrollPane fx:id="Imagescrollpane" hbarPolicy="NEVER" layoutX="7.0" layoutY="278.0" prefHeight="336.0" prefWidth="297.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="278.0" />
+            <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="-1.0" layoutY="237.0" prefHeight="40.0" prefWidth="212.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="237.0" />
+            <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="-1.0" layoutY="226.0" prefHeight="45.0" prefWidth="299.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="226.0" />
             <ScrollPane fx:id="cat" fitToHeight="true" fitToWidth="true" layoutX="1.0" layoutY="28.0" prefHeight="185.0" prefWidth="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
