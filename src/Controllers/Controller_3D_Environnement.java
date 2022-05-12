@@ -681,18 +681,34 @@ public void ajout_couleur(int a) {
 				container.getRowConstraints().add(new RowConstraints(20));
 				Label lbl = tab_categorie[i];
 				CheckBox cbx = new CheckBox();
+				cbx.setSelected(true);
 				lbl.setTextFill(Color.GREY);
 				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent evt) {
 						String f=lbl.getText().toUpperCase();
+						
+						if (cbx.isSelected()) {
+							LFO.add(f);
 						try {
-							panneau_block(f,"BASE",a);
+							panneau_block(a);
 						} catch (FileNotFoundException e) {
 							System.out.print("Erreur mon reuf");
 							e.printStackTrace();
 						}
+						}
+						else {
+							LFO.remove(f);
+							try {
+								
+								panneau_block(a);
+							} catch (FileNotFoundException e) {
+								System.out.print("Erreur mon reuf");
+								e.printStackTrace();
+							}
+						}
+						
 						
 					}
 				};
@@ -719,17 +735,32 @@ public void ajout_couleur(int a) {
 				container.getRowConstraints().add(new RowConstraints(20));
 				Label lbl = tab_categorie[i];
 				CheckBox cbx = new CheckBox();
+				cbx.setSelected(true);
 				lbl.setTextFill(Color.GREY);
 				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent evt) {
 						String f=lbl.getText().toUpperCase();
+						
+						if (cbx.isSelected()) {
+							LFO.add(f);
 						try {
-							panneau_block(f,"BASE",a);
+							panneau_block(a);
 						} catch (FileNotFoundException e) {
 							System.out.print("Erreur mon reuf");
 							e.printStackTrace();
+						}
+						}
+						else {
+							LFO.remove(f);
+							try {
+								
+								panneau_block(a);
+							} catch (FileNotFoundException e) {
+								System.out.print("Erreur mon reuf");
+								e.printStackTrace();
+							}
 						}
 						
 					}
@@ -751,7 +782,9 @@ public void ajout_couleur(int a) {
 		
 		ajout_couleur(1);
 		ajout_categorie(1);
-		panneau_block("BASE","BASE",1);
+		
+		remplissage_LFOLCO ();
+		panneau_block(1);
 		ToggleSwitch toggle = new ToggleSwitch();
 		root.getChildren().add(toggle);
 		toggle.setTranslateX(1200);
@@ -768,7 +801,7 @@ public void ajout_couleur(int a) {
 				searsh_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				searsh_bar.getStyleClass().add("text-field");
 				try {
-					panneau_block("BASE","BASE",0);
+					panneau_block(0);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -782,7 +815,7 @@ public void ajout_couleur(int a) {
 				menu_bar.getStylesheets().clear();
 				searsh_bar.getStylesheets().clear();
 				try {
-					panneau_block("BASE","BASE",1);
+					panneau_block(1);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -926,24 +959,59 @@ public void ajout_couleur(int a) {
 
 	}
 	
+	
+	
 	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
 	public String[] LF = {"ANGLE","CUBE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
 	
-	public void panneau_block (String f,String c,int a ) throws FileNotFoundException {
+	public ArrayList <String> LFO = new ArrayList <String> ();
+	public ArrayList <String> LCO = new ArrayList <String> ();
+	
+	public void remplissage_LFOLCO () {
+		LCO.add("BLEU");
+		LCO.add("VERT");
+		LCO.add("SABLE");
+		LCO.add("NEIGE");
+		LCO.add("CYAN");
+		LCO.add("GRIS");
+		LCO.add("MARRON");
+		LCO.add("NOIR");
+		LCO.add("ORANGE");
+		LCO.add("ROUGE1");
+		LCO.add("ROUGE2");
+		LCO.add("TERRE");
+		LCO.add("TRANSPARENT");
+		LCO.add("BOIS");
+		LCO.add("LAVE");
+		LCO.add("FEUILLE");
+		LCO.add("PIERRE");
+		LCO.add("PLANCHE");
+		LFO.add("ANGLE") ;
+		LFO.add("CUBE");
+		LFO.add("RECTANGLE2") ;
+		LFO.add("RECTANGLE3");
+		LFO.add("RECTANGLE4") ;
+		LFO.add("TAPIS");
+		
+		
+	}
+	
+	
+	public void panneau_block (int a ) throws FileNotFoundException {
+		this.Imagescrollpane.setContent(panneau);
 		if (a==0) {
 			int x =0;
 			int y =0;
 			
+			
 			panneau.getStylesheets().clear();
 			panneau.getChildren().clear();
 			
-			System.out.println(Arrays.asList(LF).contains(f));
 			
-			//Ouverture tous les blocks
-			if (f.equals("BASE") && c.equals("BASE")) {
-				for (int i=0; i<LF.length ; i++) {
-					for (int j=0; j<LC.length ; j++) {
-						panneau.add(afficher_block(LF[i],LC[j]), x,  y);
+			
+				for (int i=0; i<LFO.size() ; i++) {
+					for (int j=0; j<LCO.size() ; j++) {
+						panneau.add(afficher_block(LFO.get(i),LCO.get(j)), x,  y);
 						if (x<2) {
 							x+=1;
 						}
@@ -953,21 +1021,7 @@ public void ajout_couleur(int a) {
 						}
 				}
 			}
-			}
-			
-			//Ouverture block en fonction de la forme
-			else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
-					for (int j=0; j<LC.length ; j++) {
-						panneau.add(afficher_block(f,LC[j]), x, y);
-						if (x<2) {
-							x+=1;
-						}
-						else if (x==2) {
-							x=0;
-							y+=1;
-						}
-			}
-			}
+
 		this.Imagescrollpane.setContent(panneau);
 		
 		this.Imagescrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -980,16 +1034,14 @@ public void ajout_couleur(int a) {
 		if (a==1) {
 			int x =0;
 			int y =0;
+			
 			panneau.getStylesheets().clear();
 			panneau.getChildren().clear();
 			
-			System.out.println(Arrays.asList(LF).contains(f));
 			
-			//Ouverture tous les blocks
-			if (f.equals("BASE") && c.equals("BASE")) {
-				for (int i=0; i<LF.length ; i++) {
-					for (int j=0; j<LC.length ; j++) {
-						panneau.add(afficher_block(LF[i],LC[j]), x,  y);
+				for (int i=0; i<LFO.size() ; i++) {
+					for (int j=0; j<LCO.size() ; j++) {
+						panneau.add(afficher_block(LFO.get(i),LCO.get(j)), x,  y);
 						if (x<2) {
 							x+=1;
 						}
@@ -999,21 +1051,7 @@ public void ajout_couleur(int a) {
 						}
 				}
 			}
-			}
-			
-			//Ouverture block en fonction de la forme
-			else if (Arrays.asList(LF).contains(f) && c.equals("BASE")) {
-					for (int j=0; j<LC.length ; j++) {
-						panneau.add(afficher_block(f,LC[j]), x, y);
-						if (x<2) {
-							x+=1;
-						}
-						else if (x==2) {
-							x=0;
-							y+=1;
-						}
-			}
-			}
+				
 			this.Imagescrollpane.setContent(panneau);
 			this.Imagescrollpane.getStylesheets().clear();
 			panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
