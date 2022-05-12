@@ -82,6 +82,7 @@ public class Controller_3D_Environnement {
 
 	private int i = 0;
 	private Scene cssScene;
+	
 	@FXML
 	private MenuBar menu_bar;
 	@FXML
@@ -107,8 +108,6 @@ public class Controller_3D_Environnement {
 
 	private int BLOC_SIZE = 50;
 
-	@FXML
-	private TextField searsh_bar;
 
 	@FXML
 	private Button light_dark;
@@ -754,8 +753,7 @@ public class Controller_3D_Environnement {
 				anch.getStyleClass().add("anchor-pane");
 				menu_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				menu_bar.getStyleClass().add("menu-bar");
-				searsh_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-				searsh_bar.getStyleClass().add("text-field");
+				
 				dark();
 				try {
 					panneau_block(true);
@@ -769,7 +767,7 @@ public class Controller_3D_Environnement {
 				ajout_couleur(false);
 				anch.getStylesheets().clear();
 				menu_bar.getStylesheets().clear();
-				searsh_bar.getStylesheets().clear();
+				
 				ligth();
 				try {
 					panneau_block(false);
@@ -781,7 +779,6 @@ public class Controller_3D_Environnement {
 
 		});
 
-		searsh_bar.setFocusTraversable(false);
 
 		mute_sound.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
