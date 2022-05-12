@@ -623,11 +623,27 @@ public void ajout_couleur(int a) {
 				Button bt1 = new Button();
 				bt1.setPrefSize(25, 25);
 				bt1.setStyle(tab_couleur1[i]);
-				bt1.setId("bt" + String.valueOf(i) + "color");
+				bt1.setId(LC[i]);
+				int j=i;
 				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent evt) {
+						String c=bt1.getId();
+						if (bt_active[j]==true ) {
+							LCO.remove(c);
+							bt_active[j]=false;
+						}
+						else {
+							LCO.add(c);
+							bt_active[j]=true;
+						}
+						try {
+							panneau_block(a);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 					}
 				};
@@ -649,11 +665,27 @@ public void ajout_couleur(int a) {
 				Button bt1 = new Button();
 				bt1.setPrefSize(25, 25);
 				bt1.setStyle(tab_couleur1[i]);
-				bt1.setId("bt" + String.valueOf(i) + "color");
+				bt1.setId(LC[i]);
+				int j=i;
 				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent evt) {
+						String c=bt1.getId();
+						if (bt_active[j]==true ) {
+							LCO.remove(c);
+							bt_active[j]=false;
+						}
+						else {
+							LCO.add(c);
+							bt_active[j]=true;
+						}
+						try {
+							panneau_block(a);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 					}
 				};
@@ -783,7 +815,6 @@ public void ajout_couleur(int a) {
 		
 		ajout_couleur(1);
 		ajout_categorie(1);
-		
 		remplissage_LFOLCO ();
 		panneau_block(1);
 		ToggleSwitch toggle = new ToggleSwitch();
@@ -965,7 +996,7 @@ public void ajout_couleur(int a) {
 	
 	
 	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
-	public String[] LF = {"ANGLE","CUBE","RECTANGLE2","RECTANGLE3","RECTANGLE4","TAPIS"};
+	public Boolean[] bt_active = {true,true,true,true,true,true,true,true,true,true,true};
 	
 	public ArrayList <String> LFO = new ArrayList <String> ();
 	public ArrayList <String> LCO = new ArrayList <String> ();
