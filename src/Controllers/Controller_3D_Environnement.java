@@ -484,10 +484,12 @@ public class Controller_3D_Environnement {
 	}
 	
 	private void sauvegarder() {
+
 		subscene.setCursor(Cursor.WAIT);
 		BorderPane parent = (BorderPane) structure.getScene().getRoot();
-		TabPane pane = (TabPane) parent.getChildren().get(2);
+		System.out.println(parent.getChildren());
 
+		TabPane pane = (TabPane) parent.getChildren().get(3);
 		if (structure.getChildren().size() > 1065) {
 
 			if (structure.getNom_structure() == null) {
