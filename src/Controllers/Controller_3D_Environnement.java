@@ -79,13 +79,11 @@ public class Controller_3D_Environnement {
 
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-	
-
 
 	private int i = 0;
 	private Scene cssScene;
 	@FXML
-	private MenuBar menu_bar; 
+	private MenuBar menu_bar;
 	@FXML
 	private Button boutton_onglet;
 
@@ -100,7 +98,7 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private ScrollPane cat;
-	
+
 	@FXML
 	private ScrollPane Imagescrollpane;
 
@@ -114,30 +112,30 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private Button light_dark;
-	
+
 	@FXML
 	private MenuItem aide;
-	
+
 	@FXML
 	private MenuItem sauvegarder;
-	
+
 	@FXML
 	private MenuItem managed_structures;
-	
+
 	@FXML
 	private AnchorPane anch_top;
-	
-	
+
 	SubScene subscene;
 
 	MediaPlayer player;
-	
+
 	GridPane panneau = new GridPane();
 
 	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
-			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black", "-fx-Base: darkorange",
-			"-fx-Base: brown", "-fx-Base: red" };
-	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle2"), new Label("Rectangle3"), new Label("Rectangle4"), new Label("Tapis") };
+			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black",
+			"-fx-Base: darkorange", "-fx-Base: brown", "-fx-Base: red" };
+	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle2"), new Label("Rectangle3"),
+			new Label("Rectangle4"), new Label("Tapis") };
 
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -151,8 +149,9 @@ public class Controller_3D_Environnement {
 
 	public String type;
 
-	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.SNOW , Color.TURQUOISE, Color.DARKGRAY,
-			 Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED, new Color(0.6, 0.6, 0.6, 0.6) };
+	Color[] tab_couleur = { Color.ROYALBLUE, Color.GREEN, Color.KHAKI, Color.SNOW, Color.TURQUOISE, Color.DARKGRAY,
+			Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED,
+			new Color(0.6, 0.6, 0.6, 0.6) };
 
 	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
@@ -175,7 +174,7 @@ public class Controller_3D_Environnement {
 	};
 
 	public Controller_3D_Environnement() {
-		
+
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
 		player = new MediaPlayer(buzzer);
 		player.setOnEndOfMedia(new Runnable() {
@@ -185,9 +184,7 @@ public class Controller_3D_Environnement {
 		});
 		player.play();
 
-
 	}
-
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
 			throws FileNotFoundException {
@@ -293,52 +290,49 @@ public class Controller_3D_Environnement {
 				listenerKeyboard(e);
 			}
 		};
-		
+
 		EventHandler<KeyEvent> eventHandler2 = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
 				structure.getPressedKeys().remove(e.getCode());
-				
+
 			}
 		};
-		
+
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, eventHandler2);
 
 	}
 
 	private void listenerKeyboard(KeyEvent event) {
-		
-		
+
 		switch (event.getCode()) {
-		
-		
+
 		case J:
 
 			Iterator<Lego> it = structure.getLego_selected().iterator();
-			
-			while (it.hasNext()){
-				
-			
+
+			while (it.hasNext()) {
+
 				Lego l = it.next();
-				
+
 				PhongMaterial m = (PhongMaterial) l.getMaterial();
-				
+
 				m.setDiffuseColor(this.tab_couleur[this.couleur]);
-				
-				if(!l.getType().equals("BASE")) {
+
+				if (!l.getType().equals("BASE")) {
 					l.searsh_cylinder(this.tab_couleur[this.couleur]);
 
 				}
-				
+
 				l.setCoul(this.tab_couleur[this.couleur].toString());
-				
+
 			}
-			
+
 			structure.getLego_selected().clear();
-			
+
 			break;
-			
+
 		case L:
 			sauvegarder();
 			break;
@@ -376,9 +370,9 @@ public class Controller_3D_Environnement {
 			}
 			break;
 		case T:
-			if(structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 2) {
+			if (structure.getPressedKeys().contains(KeyCode.SHIFT) && structure.getPressedKeys().size() == 2) {
 				structure.move_sun();
-			}else {
+			} else {
 				structure.move_sun2();
 			}
 			break;
@@ -489,7 +483,7 @@ public class Controller_3D_Environnement {
 
 		}
 	}
-	
+
 	private void sauvegarder() {
 
 		subscene.setCursor(Cursor.WAIT);
@@ -554,7 +548,7 @@ public class Controller_3D_Environnement {
 			}
 
 		}
-		
+
 	}
 
 	private void initMouseControl(Structure_3D group, SubScene scene, Stage stage) {
@@ -581,16 +575,14 @@ public class Controller_3D_Environnement {
 		});
 
 		scene.setOnMouseDragged(event -> {
-			
-			
+
 			if (event.isPrimaryButtonDown() && this.isRotating == false) {
 				angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
 				angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
 			}
 
 		});
-		
-		
+
 		stage.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double delta = event.getDeltaY();
 			group.translateZProperty().set(group.getTranslateZ() + delta);
@@ -617,218 +609,131 @@ public class Controller_3D_Environnement {
 
 	}
 
-public void ajout_couleur(int a) {
-		
-		if (a==0) {
-			GridPane container = new GridPane();
-			for (int i = 0; i < tab_couleur1.length; i++) {
-				container.getColumnConstraints().add(new ColumnConstraints(30));
-				Button bt1 = new Button();
-				bt1.setPrefSize(25, 25);
-				bt1.setStyle(tab_couleur1[i]);
-				bt1.setId(LC[i]);
-				int j=i;
-				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+	public void ajout_couleur(boolean dark) {
 
-					@Override
-					public void handle(ActionEvent evt) {
-						String c=bt1.getId();
-						if (bt_active[j]==true ) {
-							LCO.remove(c);
-							bt_active[j]=false;
-						}
-						else {
-							LCO.add(c);
-							bt_active[j]=true;
-						}
-						try {
-							panneau_block(a);
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
+		GridPane container = new GridPane();
+		for (int i = 0; i < tab_couleur1.length; i++) {
+			container.getColumnConstraints().add(new ColumnConstraints(30));
+			Button bt1 = new Button();
+			bt1.setPrefSize(25, 25);
+			bt1.setStyle(tab_couleur1[i]);
+			bt1.setId(LC[i]);
+			int j = i;
+			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent evt) {
+					String c = bt1.getId();
+					if (bt_active[j] == true) {
+						LCO.remove(c);
+						bt_active[j] = false;
+					} else {
+						LCO.add(c);
+						bt_active[j] = true;
 					}
-				};
-				bt1.setOnAction(event);
-				container.add(bt1, i, 0);
+					try {
+						panneau_block(dark);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
-			}
-			this.Coulscrollpane.setContent(container);
+				}
+			};
+			bt1.setOnAction(event);
+			container.add(bt1, i, 0);
+
+		}
+		this.Coulscrollpane.setContent(container);
+
+		if (dark) {
 			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Coulscrollpane.getStyleClass().add("scroll-bar");
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
-			
-		}
-		if(a==1) {
-			GridPane container = new GridPane();
-			for (int i = 0; i < tab_couleur1.length; i++) {
-				container.getColumnConstraints().add(new ColumnConstraints(30));
-				Button bt1 = new Button();
-				bt1.setPrefSize(25, 25);
-				bt1.setStyle(tab_couleur1[i]);
-				bt1.setId(LC[i]);
-				int j=i;
-				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent evt) {
-						String c=bt1.getId();
-						if (bt_active[j]==true ) {
-							LCO.remove(c);
-							bt_active[j]=false;
-						}
-						else {
-							LCO.add(c);
-							bt_active[j]=true;
-						}
-						try {
-							panneau_block(a);
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}
-				};
-				bt1.setOnAction(event);
-				container.add(bt1, i, 0);
-
-			}
-			this.Coulscrollpane.setContent(container);
+		} else {
 			this.Coulscrollpane.getStylesheets().clear();
-			
+
 		}
-		
 
 	}
 
-	public void ajout_categorie(int a) {
-		if(a==0) {
-			GridPane container = new GridPane();
-			ColumnConstraints col1 = new ColumnConstraints();
-			col1.setPercentWidth(50);
-			container.getColumnConstraints().add(col1);
-			Label lbl1 = new Label("Categorie :");
-			container.add(lbl1, 0, 0);
-			for (int i = 0; i < tab_categorie.length; i++) {
-				container.getColumnConstraints().add(new ColumnConstraints(20));
-				container.getRowConstraints().add(new RowConstraints(20));
-				Label lbl = tab_categorie[i];
-				CheckBox cbx = new CheckBox();
-				cbx.setSelected(true);
-				lbl.setTextFill(Color.GREY);
-				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+	public void ajout_categorie(boolean dark) {
 
-					@Override
-					public void handle(ActionEvent evt) {
-						String f=lbl.getText().toUpperCase();
-						
-						if (cbx.isSelected()) {
-							LFO.add(f);
+		GridPane container = new GridPane();
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(50);
+		container.getColumnConstraints().add(col1);
+		Label lbl1 = new Label("Categorie :");
+		container.add(lbl1, 0, 0);
+		
+		for (int i = 0; i < tab_categorie.length; i++) {
+			container.getColumnConstraints().add(new ColumnConstraints(20));
+			container.getRowConstraints().add(new RowConstraints(20));
+			Label lbl = tab_categorie[i];
+			CheckBox cbx = new CheckBox();
+			cbx.setSelected(true);
+			lbl.setTextFill(Color.GREY);
+			
+			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent evt) {
+					String f = lbl.getText().toUpperCase();
+
+					if (cbx.isSelected()) {
+						LFO.add(f);
 						try {
-							panneau_block(a);
+							panneau_block(dark);
 						} catch (FileNotFoundException e) {
 							System.out.print("Erreur mon reuf");
 							e.printStackTrace();
 						}
-						}
-						else {
-							LFO.remove(f);
-							try {
-								
-								panneau_block(a);
-							} catch (FileNotFoundException e) {
-								System.out.print("Erreur mon reuf");
-								e.printStackTrace();
-							}
-						}
-						
-						
-					}
-				};
-				cbx.setOnAction(event);
-				container.add(lbl, 0, i + 1);
-				container.add(cbx, 1, i + 1);
+					} else {
+						LFO.remove(f);
+						try {
 
-			}
-			this.cat.setContent(container);
+							panneau_block(dark);
+						} catch (FileNotFoundException e) {
+							System.out.print("Erreur mon reuf");
+							e.printStackTrace();
+						}
+					}
+
+				}
+			};
+			cbx.setOnAction(event);
+			container.add(lbl, 0, i + 1);
+			container.add(cbx, 1, i + 1);
+
+		}
+		this.cat.setContent(container);
+
+		if (dark) {
 			container.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
-			
 		}
-		if(a==1){
-			GridPane container = new GridPane();
-			ColumnConstraints col1 = new ColumnConstraints();
-			col1.setPercentWidth(50);
-			container.getColumnConstraints().add(col1);
-			Label lbl1 = new Label("Categorie :");
-			container.add(lbl1, 0, 0);
-			for (int i = 0; i < tab_categorie.length; i++) {
-				container.getColumnConstraints().add(new ColumnConstraints(20));
-				container.getRowConstraints().add(new RowConstraints(20));
-				Label lbl = tab_categorie[i];
-				CheckBox cbx = new CheckBox();
-				cbx.setSelected(true);
-				lbl.setTextFill(Color.GREY);
-				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-					@Override
-					public void handle(ActionEvent evt) {
-						String f=lbl.getText().toUpperCase();
-						
-						if (cbx.isSelected()) {
-							LFO.add(f);
-						try {
-							panneau_block(a);
-						} catch (FileNotFoundException e) {
-							System.out.print("Erreur mon reuf");
-							e.printStackTrace();
-						}
-						}
-						else {
-							LFO.remove(f);
-							try {
-								
-								panneau_block(a);
-							} catch (FileNotFoundException e) {
-								System.out.print("Erreur mon reuf");
-								e.printStackTrace();
-							}
-						}
-						
-					}
-				};
-				cbx.setOnAction(event);
-				container.add(lbl, 0, i + 1);
-				container.add(cbx, 1, i + 1);
-
-			}
-			this.cat.setContent(container);
-
-			
-		}
-		
 	}
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
-		
-		ajout_couleur(1);
-		ajout_categorie(1);
-		remplissage_LFOLCO ();
-		panneau_block(1);
+
+		ajout_couleur(false);
+		ajout_categorie(false);
+		remplissage_LFOLCO();
+		panneau_block(false);
 		ToggleSwitch toggle = new ToggleSwitch();
 		anch_top.getChildren().add(toggle);
-		anch_top.setRightAnchor(toggle,70.0);
-		anch_top.setBottomAnchor(toggle,2.0);
+		anch_top.setRightAnchor(toggle, 70.0);
+		anch_top.setBottomAnchor(toggle, 2.0);
+		
 		toggle.setOnMousePressed(event -> {
-			if(!toggle.select().getValue()) {
+			if (!toggle.select().getValue()) {
 				System.out.println("hello");
-				ajout_categorie(0);
-				ajout_couleur(0);
+				ajout_categorie(true);
+				ajout_couleur(true);
 				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				anch.getStyleClass().add("anchor-pane");
 				menu_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -837,34 +742,29 @@ public void ajout_couleur(int a) {
 				searsh_bar.getStyleClass().add("text-field");
 				dark();
 				try {
-					panneau_block(0);
+					panneau_block(true);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			}
-			else {
+			} else {
 				System.out.println("helloooooo");
-				ajout_categorie(1);
-				ajout_couleur(1);
+				ajout_categorie(false);
+				ajout_couleur(false);
 				anch.getStylesheets().clear();
 				menu_bar.getStylesheets().clear();
 				searsh_bar.getStylesheets().clear();
 				ligth();
 				try {
-					panneau_block(1);
+					panneau_block(false);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 
-			
 		});
-		
-		
-		
-		
+
 		searsh_bar.setFocusTraversable(false);
 
 		mute_sound.setOnAction(new EventHandler<ActionEvent>() {
@@ -880,13 +780,13 @@ public void ajout_couleur(int a) {
 
 			}
 		});
-		
+
 		aide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 
 				Stage stage = new Stage();
-				
+
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
 
 				Parent root;
@@ -895,7 +795,6 @@ public void ajout_couleur(int a) {
 					Scene scene = new Scene(root);
 					scene.getStylesheets().add(getClass().getResource("../Views/help.css").toExternalForm());
 					stage.setResizable(false);
-					
 
 					stage.setScene(scene);
 					stage.show();
@@ -906,83 +805,81 @@ public void ajout_couleur(int a) {
 
 			}
 		});
-		
+
 		sauvegarder.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				sauvegarder();
-				
 
 			}
 		});
-		
+
 		managed_structures.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 
 				Stage stage = new Stage();
-				
+
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/gestion_structures.fxml"));
 
 				ScrollPane root;
-				
-				
+
 				try {
 					root = (ScrollPane) loader.load();
-					
+
 					VBox v = (VBox) root.getContent();
-                	File file = new File("sauvegardes");
-                	if(file.isDirectory()){
-                		 
-                		if(file.list().length!=0){
-			            	
-                			for(int i = 1;i<file.list().length;i++) {
-			                	HBox b = new HBox();
-			                	b.getStyleClass().add("hbox");
+					File file = new File("sauvegardes");
+					if (file.isDirectory()) {
 
-			                	Label l = new Label(file.list()[i].substring(0,file.list()[i].length()-4));
-			                	l.setPrefSize(100,0);
-			                	Button inp = new Button("SUPPRIMER");
-			                	inp.getStyleClass().add("inp");
-			                	
-			                	inp.setOnAction(new EventHandler<ActionEvent>() {
-			            			@Override
-			            			public void handle(ActionEvent e) {
-			            				
-			            				Alert alert = new Alert(AlertType.CONFIRMATION);
-			            				alert.setTitle("Supprimer structure");
-			            				String s = "Voulez vous vraiment supprimer "+l.getText()+" ?";
-			            				alert.setContentText(s);
-			            				 
-			            				Optional<ButtonType> result = alert.showAndWait();
-			            				 
-			            				if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-			            				 
-			            					File file = new File("sauvegardes/"+l.getText()+".xml");
+						if (file.list().length != 0) {
 
-				            			      if(file.delete()){
-				            			       System.out.println(file.getName() + " est supprimé.");
-				            			       v.getChildren().remove(b);
-				            			      }else{
-				            			       System.out.println("Opération de suppression echouée");
-				            			      } 
-			            				}
-			            				
-			            				  
-			            			}
-			                	});
-			                	Insets margin = new Insets(0,0,0,100);
-			                	b.setMargin(inp, margin);
-			                	b.getChildren().add(l);
-			                	b.getChildren().add(inp);
-			                	
-			                	v.getChildren().add(b);
-		                	}
-		                
-			            }
-                	 }
+							for (int i = 1; i < file.list().length; i++) {
+								HBox b = new HBox();
+								b.getStyleClass().add("hbox");
+
+								Label l = new Label(file.list()[i].substring(0, file.list()[i].length() - 4));
+								l.setPrefSize(100, 0);
+								Button inp = new Button("SUPPRIMER");
+								inp.getStyleClass().add("inp");
+
+								inp.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent e) {
+
+										Alert alert = new Alert(AlertType.CONFIRMATION);
+										alert.setTitle("Supprimer structure");
+										String s = "Voulez vous vraiment supprimer " + l.getText() + " ?";
+										alert.setContentText(s);
+
+										Optional<ButtonType> result = alert.showAndWait();
+
+										if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+
+											File file = new File("sauvegardes/" + l.getText() + ".xml");
+
+											if (file.delete()) {
+												System.out.println(file.getName() + " est supprimé.");
+												v.getChildren().remove(b);
+											} else {
+												System.out.println("Opération de suppression echouée");
+											}
+										}
+
+									}
+								});
+								Insets margin = new Insets(0, 0, 0, 100);
+								b.setMargin(inp, margin);
+								b.getChildren().add(l);
+								b.getChildren().add(inp);
+
+								v.getChildren().add(b);
+							}
+
+						}
+					}
 					Scene scene = new Scene(root);
-					scene.getStylesheets().add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
+					scene.getStylesheets()
+							.add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
 					stage.setResizable(false);
 
 					stage.setScene(scene);
@@ -996,16 +893,15 @@ public void ajout_couleur(int a) {
 		});
 
 	}
-	
-	
-	
-	public String[] LC = {"BLEU","VERT","SABLE","NEIGE","CYAN","GRIS","MARRON","NOIR","ORANGE","ROUGE1","ROUGE2","TERRE","TRANSPARENT","BOIS","LAVE","FEUILLE","PIERRE","PLANCHE"};
-	public Boolean[] bt_active = {true,true,true,true,true,true,true,true,true,true,true};
-	
-	public ArrayList <String> LFO = new ArrayList <String> ();
-	public ArrayList <String> LCO = new ArrayList <String> ();
-	
-	public void remplissage_LFOLCO () {
+
+	public String[] LC = { "BLEU", "VERT", "SABLE", "NEIGE", "CYAN", "GRIS", "MARRON", "NOIR", "ORANGE", "ROUGE1",
+			"ROUGE2", "TERRE", "TRANSPARENT", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
+	public Boolean[] bt_active = { true, true, true, true, true, true, true, true, true, true, true };
+
+	public ArrayList<String> LFO = new ArrayList<String>();
+	public ArrayList<String> LCO = new ArrayList<String>();
+
+	public void remplissage_LFOLCO() {
 		LCO.add("BLEU");
 		LCO.add("VERT");
 		LCO.add("SABLE");
@@ -1025,95 +921,66 @@ public void ajout_couleur(int a) {
 		LCO.add("PIERRE");
 		LCO.add("PLANCHE");
 		LFO.add("CUBE");
-		LFO.add("RECTANGLE2") ;
+		LFO.add("RECTANGLE2");
 		LFO.add("RECTANGLE3");
-		LFO.add("RECTANGLE4") ;
-		LFO.add("ANGLE") ;
+		LFO.add("RECTANGLE4");
+		LFO.add("ANGLE");
 		LFO.add("TAPIS");
-		
-		
-	}
-	
-	
-	public void panneau_block (int a ) throws FileNotFoundException {
-		this.Imagescrollpane.setContent(panneau);
-		if (a==0) {
-			int x =0;
-			int y =0;
-			
-			
-			panneau.getStylesheets().clear();
-			panneau.getChildren().clear();
-			
-			
-			
-				for (int i=0; i<LFO.size() ; i++) {
-					for (int j=0; j<LCO.size() ; j++) {
-						panneau.add(afficher_block(LFO.get(i),LCO.get(j)), x,  y);
-						if (x<2) {
-							x+=1;
-						}
-						else if (x==2) {
-							x=0;
-							y+=1;
-						}
-				}
-			}
 
+	}
+
+	public void panneau_block(boolean dark) throws FileNotFoundException {
 		this.Imagescrollpane.setContent(panneau);
-		
-		this.Imagescrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-		this.Imagescrollpane.getStyleClass().add("scroll-bar");
-		panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
-		panneau.getStyleClass().add("pic");
-		
-			
-		}
-		if (a==1) {
-			int x =0;
-			int y =0;
-			
-			panneau.getStylesheets().clear();
-			panneau.getChildren().clear();
-			
-			
-				for (int i=0; i<LFO.size() ; i++) {
-					for (int j=0; j<LCO.size() ; j++) {
-						panneau.add(afficher_block(LFO.get(i),LCO.get(j)), x,  y);
-						if (x<2) {
-							x+=1;
-						}
-						else if (x==2) {
-							x=0;
-							y+=1;
-						}
+
+		int x = 0;
+		int y = 0;
+
+		panneau.getStylesheets().clear();
+		panneau.getChildren().clear();
+
+		for (int i = 0; i < LFO.size(); i++) {
+			for (int j = 0; j < LCO.size(); j++) {
+				panneau.add(afficher_block(LFO.get(i), LCO.get(j)), x, y);
+				if (x < 2) {
+					x += 1;
+				} else if (x == 2) {
+					x = 0;
+					y += 1;
 				}
 			}
-				
+		}
+
+		if (dark) {
+
+			this.Imagescrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			this.Imagescrollpane.getStyleClass().add("scroll-bar");
+			panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+			panneau.getStyleClass().add("pic");
+
+		} else {
+
 			this.Imagescrollpane.setContent(panneau);
 			this.Imagescrollpane.getStylesheets().clear();
 			panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			panneau.getStyleClass().add("pic");
-			
+
 		}
 	}
-	
-	public BorderPane afficher_block(String f,String c) throws FileNotFoundException {
-		Image img = new Image("File:images/"+f+"_"+c+".png");
+
+	public BorderPane afficher_block(String f, String c) throws FileNotFoundException {
+		Image img = new Image("File:images/" + f + "_" + c + ".png");
 		ImageView pic = new ImageView(img);
 		BorderPane imageViewWrapper = new BorderPane(pic);
 		imageViewWrapper.getStyleClass().add("pic");
-		
-    	pic.getStyleClass().add("pic");
+
+		pic.getStyleClass().add("pic");
 		pic.setFitWidth(93);
 		pic.setFitHeight(70);
-		
+
 		return imageViewWrapper;
-		
+
 	}
-	
-	
-	
+
 	private void loadStructure(String name) throws FileNotFoundException {
 
 		File f = new File(name);
@@ -1177,19 +1044,20 @@ public void ajout_couleur(int a) {
 		}
 
 	}
+
 	public void setCssScene(Scene sc) {
 		this.cssScene = sc;
 	}
-	
+
 	public void dark() {
 		this.cssScene.getStylesheets().clear();
 		this.cssScene.getStylesheets().add(getClass().getResource("../Views/dark_tab_pane.css").toExternalForm());
 	}
+
 	public void ligth() {
 		this.cssScene.getStylesheets().clear();
 		this.cssScene.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
-		
-	}
 
+	}
 
 }
