@@ -83,6 +83,7 @@ public class Controller_3D_Environnement {
 
 
 	private int i = 0;
+	private Scene cssScene;
 	@FXML
 	private MenuBar menu_bar; 
 	@FXML
@@ -800,6 +801,7 @@ public void ajout_couleur(int a) {
 				menu_bar.getStyleClass().add("menu-bar");
 				searsh_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				searsh_bar.getStyleClass().add("text-field");
+				dark();
 				try {
 					panneau_block(0);
 				} catch (FileNotFoundException e1) {
@@ -814,6 +816,7 @@ public void ajout_couleur(int a) {
 				anch.getStylesheets().clear();
 				menu_bar.getStylesheets().clear();
 				searsh_bar.getStylesheets().clear();
+				ligth();
 				try {
 					panneau_block(1);
 				} catch (FileNotFoundException e1) {
@@ -1139,5 +1142,19 @@ public void ajout_couleur(int a) {
 		}
 
 	}
+	public void setCssScene(Scene sc) {
+		this.cssScene = sc;
+	}
+	
+	public void dark() {
+		this.cssScene.getStylesheets().clear();
+		this.cssScene.getStylesheets().add(getClass().getResource("../Views/dark_tab_pane.css").toExternalForm());
+	}
+	public void ligth() {
+		this.cssScene.getStylesheets().clear();
+		this.cssScene.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+		
+	}
+
 
 }
