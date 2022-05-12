@@ -134,8 +134,11 @@ public class Controller_3D_Environnement {
 	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
 			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black",
 			"-fx-Base: darkorange", "-fx-Base: brown", "-fx-Base: red" };
-	Label[] tab_categorie = { new Label("Cube"), new Label("Angle"), new Label("Rectangle2"), new Label("Rectangle3"),
-			new Label("Rectangle4"), new Label("Tapis") };
+	
+	//Image[] tab_texture = { new Image("dirt.png"),new Image("cobble.jpeg"),new Image("feuille.png"),new Image("lave.jpeg"),new Image("wood.jpeg"),new Image("wood.png") };
+	
+	Label[] tab_categorie = { new Label("Cube"), new Label("Rectangle2"), new Label("Rectangle3"),
+			new Label("Rectangle4"), new Label("Angle"), new Label("Tapis") };
 
 	private Camera camera;
 	private Camera firstPersoncamera;
@@ -143,6 +146,8 @@ public class Controller_3D_Environnement {
 	public Structure_3D structure;
 
 	private Legos_collection leg;
+	
+	int x=0;
 
 	int couleur = 0;
 	int matiere = 0;
@@ -608,7 +613,6 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-
 	public void ajout_couleur(boolean dark) {
 
 		GridPane container = new GridPane();
@@ -623,8 +627,18 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
+					
 					String c = bt1.getId();
-					if (bt_active[j] == true) {
+					if (bt_active[j] == true && x==0) {
+						LCO.clear();
+						for (int h=0; h<bt_active.length;h++) {
+							bt_active[h] = false;
+						}
+						LCO.add(c);
+						bt_active[j] = true;
+						x=1;
+					}
+					else if (bt_active[j] == true) {
 						LCO.remove(c);
 						bt_active[j] = false;
 					} else {
@@ -640,10 +654,13 @@ public class Controller_3D_Environnement {
 
 				}
 			};
+			
 			bt1.setOnAction(event);
 			container.add(bt1, i, 0);
 
 		}
+				
+		
 		this.Coulscrollpane.setContent(container);
 
 		if (dark) {
@@ -719,7 +736,6 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
-
 		ajout_couleur(false);
 		ajout_categorie(false);
 		remplissage_LFOLCO();
