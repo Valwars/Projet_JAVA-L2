@@ -40,6 +40,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
@@ -82,6 +83,8 @@ public class Controller_3D_Environnement {
 
 
 	private int i = 0;
+	@FXML
+	private MenuBar menu_bar; 
 	@FXML
 	private Button boutton_onglet;
 
@@ -760,6 +763,10 @@ public void ajout_couleur(int a) {
 				ajout_couleur(0);
 				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				anch.getStyleClass().add("anchor-pane");
+				menu_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+				menu_bar.getStyleClass().add("menu-bar");
+				searsh_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+				searsh_bar.getStyleClass().add("text-field");
 				try {
 					panneau_block("BASE","BASE",0);
 				} catch (FileNotFoundException e1) {
@@ -772,6 +779,8 @@ public void ajout_couleur(int a) {
 				ajout_categorie(1);
 				ajout_couleur(1);
 				anch.getStylesheets().clear();
+				menu_bar.getStylesheets().clear();
+				searsh_bar.getStylesheets().clear();
 				try {
 					panneau_block("BASE","BASE",1);
 				} catch (FileNotFoundException e1) {
@@ -779,6 +788,7 @@ public void ajout_couleur(int a) {
 					e1.printStackTrace();
 				}
 			}
+
 			
 		});
 		
