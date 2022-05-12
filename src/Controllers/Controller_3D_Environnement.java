@@ -1024,11 +1024,11 @@ public void ajout_couleur(int a) {
 		LCO.add("FEUILLE");
 		LCO.add("PIERRE");
 		LCO.add("PLANCHE");
-		LFO.add("ANGLE") ;
 		LFO.add("CUBE");
 		LFO.add("RECTANGLE2") ;
 		LFO.add("RECTANGLE3");
 		LFO.add("RECTANGLE4") ;
+		LFO.add("ANGLE") ;
 		LFO.add("TAPIS");
 		
 		
