@@ -98,6 +98,9 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private ScrollPane Coulscrollpane;
+	
+	@FXML
+	private ScrollPane Textscrollpane;
 
 	@FXML
 	private ScrollPane cat;
@@ -159,7 +162,7 @@ public class Controller_3D_Environnement {
 			Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED,
 			new Color(0.6, 0.6, 0.6, 0.6) };
 
-	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
+	String[] tab_matiere = {"verre.png", "dirt.png","wood.jpeg" , "lave.jpeg", "feuille.png", "cobble.jpeg", "wood2.png", };
 
 	
 	int rota = 0;
@@ -677,6 +680,60 @@ public class Controller_3D_Environnement {
 		}
 
 	}
+	
+	public void ajout_texture(boolean dark) {
+
+		GridPane container = new GridPane();
+		container.getColumnConstraints().add(new ColumnConstraints(45));
+		for (int i = 0; i < tab_matiere.length; i++) {
+			Button bt1 = new Button();
+			bt1.setPrefSize(25, 25);
+			Image img = new Image(getClass().getResourceAsStream("../Models/"+tab_matiere[i]));
+			ImageView view = new ImageView(img);
+		    view.setPreserveRatio(true);
+		    view.setFitHeight(25);
+		    view.setFitWidth(25);
+		    bt1.setGraphic(view);
+			bt1.setId(LC[i+11]);
+			int j = i;
+			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent evt) {
+
+					String t = bt1.getId();
+					if (bt_active2[j] == true && x == 0) {
+						LCO.clear();
+						for (int h = 0; h < bt_active2.length; h++) {
+							bt_active2[h] = false;
+						}
+						LCO.add(t);
+						bt_active2[j] = true;
+						x = 1;
+					} else if (bt_active2[j] == true) {
+						LCO.remove(t);
+						bt_active2[j] = false;
+					} else {
+						LCO.add(t);
+						bt_active2[j] = true;
+					}
+					try {
+						panneau_block(dark);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			};
+
+			bt1.setOnAction(event);
+			container.add(bt1, i, 0);
+
+		}
+
+		this.Textscrollpane.setContent(container);
+	}
 
 	public void remplir_dico() {
 		couleurs_correspond.put("BLEU", Color.ROYALBLUE);
@@ -772,6 +829,7 @@ public class Controller_3D_Environnement {
 	private void initialize() throws FileNotFoundException {
 		ajout_couleur(false);
 		ajout_categorie(false);
+		ajout_texture(false);
 		remplissage_LFOLCO();
 		panneau_block(false);
 		ToggleSwitch toggle = new ToggleSwitch();
@@ -942,9 +1000,11 @@ public class Controller_3D_Environnement {
 	}
 
 	public String[] LC = { "BLEU", "VERT", "SABLE", "NEIGE", "CYAN", "GRIS", "MARRON", "NOIR", "ORANGE", "ROUGE1",
-			"ROUGE2", "TERRE", "TRANSPARENT", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
+			"ROUGE2", "TRANSPARENT","TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
 
 	public Boolean[] bt_active = { true, true, true, true, true, true, true, true, true, true, true };
+	
+	public Boolean[] bt_active2 = { true, true, true, true, true, true, true };
 
 	public ArrayList<String> LFO = new ArrayList<String>();
 	public ArrayList<String> LCO = new ArrayList<String>();
@@ -962,8 +1022,8 @@ public class Controller_3D_Environnement {
 		LCO.add("ORANGE");
 		LCO.add("ROUGE1");
 		LCO.add("ROUGE2");
-		LCO.add("TERRE");
 		LCO.add("TRANSPARENT");
+		LCO.add("TERRE");
 		LCO.add("BOIS");
 		LCO.add("LAVE");
 		LCO.add("FEUILLE");
