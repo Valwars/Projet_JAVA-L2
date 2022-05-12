@@ -124,6 +124,9 @@ public class Controller_3D_Environnement {
 	@FXML
 	private MenuItem managed_structures;
 	
+	@FXML
+	private AnchorPane anch_top;
+	
 	
 	SubScene subscene;
 
@@ -818,9 +821,9 @@ public void ajout_couleur(int a) {
 		remplissage_LFOLCO ();
 		panneau_block(1);
 		ToggleSwitch toggle = new ToggleSwitch();
-		root.getChildren().add(toggle);
-		toggle.setTranslateX(1200);
-		toggle.setTranslateY(5);
+		anch_top.getChildren().add(toggle);
+		anch_top.setRightAnchor(toggle,70.0);
+		anch_top.setBottomAnchor(toggle,2.0);
 		toggle.setOnMousePressed(event -> {
 			if(!toggle.select().getValue()) {
 				System.out.println("hello");
@@ -938,7 +941,7 @@ public void ajout_couleur(int a) {
 			                	b.getStyleClass().add("hbox");
 
 			                	Label l = new Label(file.list()[i].substring(0,file.list()[i].length()-4));
-			                	
+			                	l.setPrefSize(100,0);
 			                	Button inp = new Button("SUPPRIMER");
 			                	inp.getStyleClass().add("inp");
 			                	
@@ -968,7 +971,8 @@ public void ajout_couleur(int a) {
 			            				  
 			            			}
 			                	});
-			                	
+			                	Insets margin = new Insets(0,0,0,100);
+			                	b.setMargin(inp, margin);
 			                	b.getChildren().add(l);
 			                	b.getChildren().add(inp);
 			                	

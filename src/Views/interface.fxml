@@ -23,7 +23,7 @@
    <center>
    </center>
    <top>
-      <AnchorPane prefHeight="32.0" prefWidth="1325.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="anch_top" prefHeight="32.0" prefWidth="1325.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar fx:id="menu_bar" prefHeight="33.0" prefWidth="1263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
