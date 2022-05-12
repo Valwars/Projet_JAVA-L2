@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +53,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -82,7 +84,7 @@ public class Controller_3D_Environnement {
 
 	private int i = 0;
 	private Scene cssScene;
-	
+
 	@FXML
 	private MenuBar menu_bar;
 	@FXML
@@ -108,7 +110,6 @@ public class Controller_3D_Environnement {
 
 	private int BLOC_SIZE = 50;
 
-
 	@FXML
 	private Button light_dark;
 
@@ -130,12 +131,13 @@ public class Controller_3D_Environnement {
 
 	GridPane panneau = new GridPane();
 
+	public HashMap<String, Color> couleurs_correspond = new HashMap<String, Color>();
+	public HashMap<String, String> textures_correspond = new HashMap<String, String>();
+
 	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
 			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black",
 			"-fx-Base: darkorange", "-fx-Base: brown", "-fx-Base: red" };
-	
-	//Image[] tab_texture = { new Image("dirt.png"),new Image("cobble.jpeg"),new Image("feuille.png"),new Image("lave.jpeg"),new Image("wood.jpeg"),new Image("wood.png") };
-	
+
 	Label[] tab_categorie = { new Label("Cube"), new Label("Rectangle2"), new Label("Rectangle3"),
 			new Label("Rectangle4"), new Label("Angle"), new Label("Tapis") };
 
@@ -145,8 +147,8 @@ public class Controller_3D_Environnement {
 	public Structure_3D structure;
 
 	private Legos_collection leg;
-	
-	int x=0;
+
+	int x = 0;
 
 	int couleur = 0;
 	int matiere = 0;
@@ -159,6 +161,7 @@ public class Controller_3D_Environnement {
 
 	String[] tab_matiere = { "cobble.jpeg", "dirt.png", "lave.jpeg", "wood.jpeg", "feuille.png", "wood2.png" };
 
+	
 	int rota = 0;
 
 	boolean r = false;
@@ -203,6 +206,8 @@ public class Controller_3D_Environnement {
 
 		System.out.println(structure);
 
+		remplir_dico();
+		remplir_dico2();
 		File f = new File("sauvegardes/" + fileName + ".xml");
 
 		if (f.exists() && !f.isDirectory()) {
@@ -612,6 +617,7 @@ public class Controller_3D_Environnement {
 		}
 
 	}
+
 	public void ajout_couleur(boolean dark) {
 
 		GridPane container = new GridPane();
@@ -626,18 +632,17 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
-					
+
 					String c = bt1.getId();
-					if (bt_active[j] == true && x==0) {
+					if (bt_active[j] == true && x == 0) {
 						LCO.clear();
-						for (int h=0; h<bt_active.length;h++) {
+						for (int h = 0; h < bt_active.length; h++) {
 							bt_active[h] = false;
 						}
 						LCO.add(c);
 						bt_active[j] = true;
-						x=1;
-					}
-					else if (bt_active[j] == true) {
+						x = 1;
+					} else if (bt_active[j] == true) {
 						LCO.remove(c);
 						bt_active[j] = false;
 					} else {
@@ -653,13 +658,12 @@ public class Controller_3D_Environnement {
 
 				}
 			};
-			
+
 			bt1.setOnAction(event);
 			container.add(bt1, i, 0);
 
 		}
-				
-		
+
 		this.Coulscrollpane.setContent(container);
 
 		if (dark) {
@@ -674,6 +678,36 @@ public class Controller_3D_Environnement {
 
 	}
 
+	public void remplir_dico() {
+		couleurs_correspond.put("BLEU", Color.ROYALBLUE);
+		couleurs_correspond.put("VERT", Color.GREEN);
+		couleurs_correspond.put("SABLE", Color.KHAKI);
+		couleurs_correspond.put("NEIGE", Color.SNOW);
+		couleurs_correspond.put("CYAN", Color.TURQUOISE);
+		couleurs_correspond.put("GRIS", Color.DARKGRAY);
+		couleurs_correspond.put("MARRON", Color.SADDLEBROWN);
+		couleurs_correspond.put("NOIR", new Color(0.1, 0.1, 0.1, 1));
+		couleurs_correspond.put("ORANGE", Color.DARKORANGE);
+		couleurs_correspond.put("ROUGE1", Color.BROWN);
+
+		couleurs_correspond.put("ROUGE2", Color.RED);
+		couleurs_correspond.put("TRANSPARENT", new Color(0.6, 0.6, 0.6, 0.6));
+
+	}
+
+	public void remplir_dico2() {
+
+
+		textures_correspond.put("PIERRE", "cobble.jpeg");
+		textures_correspond.put("TERRE", "dirt.png");
+		textures_correspond.put("LAVE", "lave.jpeg");
+		textures_correspond.put("FEUILLE",  "feuille.png");
+
+		textures_correspond.put("PLANCHE",  "wood2.png");
+		textures_correspond.put("BOIS",  "wood.jpeg");
+
+	}
+
 	public void ajout_categorie(boolean dark) {
 
 		GridPane container = new GridPane();
@@ -682,7 +716,7 @@ public class Controller_3D_Environnement {
 		container.getColumnConstraints().add(col1);
 		Label lbl1 = new Label("Categorie :");
 		container.add(lbl1, 0, 0);
-		
+
 		for (int i = 0; i < tab_categorie.length; i++) {
 			container.getColumnConstraints().add(new ColumnConstraints(20));
 			container.getRowConstraints().add(new RowConstraints(20));
@@ -690,7 +724,7 @@ public class Controller_3D_Environnement {
 			CheckBox cbx = new CheckBox();
 			cbx.setSelected(true);
 			lbl.setTextFill(Color.GREY);
-			
+
 			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
 				@Override
@@ -723,6 +757,7 @@ public class Controller_3D_Environnement {
 			container.add(cbx, 1, i + 1);
 
 		}
+
 		this.cat.setContent(container);
 
 		if (dark) {
@@ -743,7 +778,7 @@ public class Controller_3D_Environnement {
 		anch_top.getChildren().add(toggle);
 		anch_top.setRightAnchor(toggle, 70.0);
 		anch_top.setBottomAnchor(toggle, 2.0);
-		
+
 		toggle.setOnMousePressed(event -> {
 			if (!toggle.select().getValue()) {
 				System.out.println("hello");
@@ -753,7 +788,7 @@ public class Controller_3D_Environnement {
 				anch.getStyleClass().add("anchor-pane");
 				menu_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				menu_bar.getStyleClass().add("menu-bar");
-				
+
 				dark();
 				try {
 					panneau_block(true);
@@ -767,7 +802,7 @@ public class Controller_3D_Environnement {
 				ajout_couleur(false);
 				anch.getStylesheets().clear();
 				menu_bar.getStylesheets().clear();
-				
+
 				ligth();
 				try {
 					panneau_block(false);
@@ -778,7 +813,6 @@ public class Controller_3D_Environnement {
 			}
 
 		});
-
 
 		mute_sound.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -909,12 +943,14 @@ public class Controller_3D_Environnement {
 
 	public String[] LC = { "BLEU", "VERT", "SABLE", "NEIGE", "CYAN", "GRIS", "MARRON", "NOIR", "ORANGE", "ROUGE1",
 			"ROUGE2", "TERRE", "TRANSPARENT", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
+
 	public Boolean[] bt_active = { true, true, true, true, true, true, true, true, true, true, true };
 
 	public ArrayList<String> LFO = new ArrayList<String>();
 	public ArrayList<String> LCO = new ArrayList<String>();
 
 	public void remplissage_LFOLCO() {
+
 		LCO.add("BLEU");
 		LCO.add("VERT");
 		LCO.add("SABLE");
@@ -986,7 +1022,27 @@ public class Controller_3D_Environnement {
 		BorderPane imageViewWrapper = new BorderPane(pic);
 		imageViewWrapper.getStyleClass().add("pic");
 
+		pic.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+			System.out.println(f);
+			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
+
+				structure.setSelected_bloc(f + "_" + rotations[rota]);
+
+			} else {
+				structure.setSelected_bloc(f);
+
+			}
+			if(this.couleurs_correspond.get(c) != null) {
+				structure.setSelected_color(this.couleurs_correspond.get(c));
+
+			}else {
+				structure.setSelected_matiere(this.textures_correspond.get(c));
+			}
+
+		});
+
 		pic.getStyleClass().add("pic");
+
 		pic.setFitWidth(93);
 		pic.setFitHeight(70);
 
