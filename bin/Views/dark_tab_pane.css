@@ -1,0 +1,35 @@
+.pic{
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
+}
+
+* {
+	-fx-primary-color: #1b1e2b;
+	-fx-secondary-color: derive(#1b1e2b,90.0%);
+
+	-fx-focus-color: -fx-secondary-color;
+}
+
+.tab .tab-label { 
+ 	-fx-alignment: CENTER;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-padding: 0 10 0 10;
+}
+
+.tab-header-area .tab-header-background {
+ 	-fx-background-color: -fx-secondary-color;
+}
+
+.tab-pane .tab:selected {
+	-fx-background-color: -fx-primary-color;
+}
+
+.tab-pane {
+	-fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+	-fx-background-color: transparent;
+}

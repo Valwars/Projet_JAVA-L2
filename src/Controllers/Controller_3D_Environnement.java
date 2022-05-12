@@ -162,7 +162,7 @@ public class Controller_3D_Environnement {
 			Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED,
 			new Color(0.6, 0.6, 0.6, 0.6) };
 
-	String[] tab_matiere = {"verre.png", "dirt.png","wood.jpeg" , "lave.jpeg", "feuille.png", "cobble.jpeg", "wood2.png", };
+	String[] tab_matiere = {"verre.png", "dirt.png","wood.jpeg" , "lave.jpeg", "feuille.png", "cobble.jpeg", "wood2.png" };
 
 	
 	int rota = 0;
@@ -489,6 +489,7 @@ public class Controller_3D_Environnement {
 				String[] blocs = structure.getSelected_bloc().split("_");
 
 				structure.setSelected_bloc(blocs[0] + "_" + this.rotations[rota]);
+				
 			}
 
 			break;

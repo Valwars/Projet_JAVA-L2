@@ -112,9 +112,9 @@ public class Lego extends Box implements Serializable{
 		this.taille = structure.getTaille();
 		this.parent_name = structure.getNom_structure();
 		String[] rot = structure.getSelected_bloc().split("_");
-
 		if(rot.length >1) {
 			this.direction = rot[1];
+			System.out.println("ROTATION : "+ this.direction);
 
 		}
 		PhongMaterial material = new PhongMaterial();
@@ -201,14 +201,14 @@ public class Lego extends Box implements Serializable{
 					Lego new_lego = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this, structure);
 					
 					if (Math.abs(model.getWidth()) > structure.getBLOC_SIZE()) {
-
+						System.out.println(model.getType() + " : " + model.getWidth() + "," + model.getDepth());
 						for (int i = 1; i < ((Math.abs(model.getWidth())+(structure.getBLOC_SIZE()*structure.getTaille())) / structure.getBLOC_SIZE()); i++) {
 								
 
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
-							if (rotate.equals("GAUCHE")) {
+							if (rotate.equals("GAUCHE") || ( model.getType().contains("ANGLE") && rotate.equals("ARRIERE")))  {
 								
 								child.setTranslateX(this.getTranslateX() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
@@ -229,13 +229,14 @@ public class Lego extends Box implements Serializable{
 					} 
 					
 					if (Math.abs(model.getDepth()) > structure.getBLOC_SIZE()) {
+						System.out.println(model.getType() + " : " + model.getWidth() + "," + model.getDepth());
 
 						for (int i = 1; i < ((Math.abs(model.getDepth())+(structure.getBLOC_SIZE()*structure.getTaille()))/ structure.getBLOC_SIZE()); i++) {
 
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
-							if (rotate.equals("AVANT")) {
+							if (rotate.equals("AVANT") || (model.getType().contains("ANGLE") && rotate.equals("ARRIERE"))) {
 								child.setTranslateZ(this.getTranslateZ() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
 
@@ -282,7 +283,7 @@ public class Lego extends Box implements Serializable{
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
-							if (rotate.equals("GAUCHE")) {
+							if (rotate.equals("GAUCHE") || (model.getType().contains("ANGLE") && rotate.equals("ARRIERE"))) {
 								
 								child.setTranslateX(this.getTranslateX() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
@@ -305,7 +306,7 @@ public class Lego extends Box implements Serializable{
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
-							if (rotate.equals("AVANT")) {
+							if (rotate.equals("AVANT") || (model.getType().contains("ANGLE") && rotate.equals("ARRIERE"))) {
 								child.setTranslateZ(this.getTranslateZ() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
 								child.setTranslateZ(this.getTranslateZ() + i * (structure.getBLOC_SIZE() +1));

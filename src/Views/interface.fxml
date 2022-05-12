@@ -15,7 +15,7 @@
             <ScrollPane fx:id="Imagescrollpane" hbarPolicy="NEVER" layoutX="7.0" layoutY="284.0" prefHeight="332.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="284.0" />
             <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="1.0" layoutY="231.0" prefHeight="51.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="231.0" />
             <ScrollPane fx:id="cat" fitToHeight="true" fitToWidth="true" layoutX="1.0" layoutY="28.0" prefHeight="185.0" prefWidth="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <ScrollPane fx:id="Textscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutY="185.0" prefHeight="44.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+            <ScrollPane fx:id="Textscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutY="179.0" prefHeight="50.0" prefWidth="299.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
          </children>
       </AnchorPane>
    </left>
