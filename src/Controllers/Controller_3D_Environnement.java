@@ -1093,6 +1093,7 @@ public class Controller_3D_Environnement {
 
 			}
 			if(this.couleurs_correspond.get(c) != null) {
+				structure.setSelected_matiere(null);
 				structure.setSelected_color(this.couleurs_correspond.get(c));
 
 			}else {
