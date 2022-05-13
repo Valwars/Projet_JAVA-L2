@@ -545,8 +545,8 @@ public class Controller_3D_Environnement {
 		subscene.setCursor(Cursor.WAIT);
 		BorderPane parent = (BorderPane) structure.getScene().getRoot();
 		System.out.println(parent.getChildren());
-
-		TabPane pane = (TabPane) parent.getChildren().get(3);
+		
+		TabPane pane = (TabPane) parent.getChildren().get(2);
 		if (structure.getChildren().size() > 1065) {
 
 			if (structure.getNom_structure() == null) {
