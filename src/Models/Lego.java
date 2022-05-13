@@ -306,7 +306,7 @@ public class Lego extends Box implements Serializable{
 							Lego child = new Lego(structure.getBLOC_SIZE(), model.getHeight(), structure.getBLOC_SIZE(), structure.getSelected_bloc(), this,
 									structure);
 
-							if (rotate.equals("AVANT") || (model.getType().contains("ANGLE") && rotate.equals("ARRIERE"))) {
+							if (rotate.equals("AVANT") || (model.getType().contains("ANGLE") && rotate.equals("AVANT"))) {
 								child.setTranslateZ(this.getTranslateZ() + i * (-structure.getBLOC_SIZE() - 1));
 							} else {
 								child.setTranslateZ(this.getTranslateZ() + i * (structure.getBLOC_SIZE() +1));
