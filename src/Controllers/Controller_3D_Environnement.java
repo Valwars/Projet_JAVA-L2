@@ -498,7 +498,7 @@ public class Controller_3D_Environnement {
 		case X:
 
 			if (this.matiere == this.tab_matiere.length - 1) {
-				this.matiere = 0;
+				this.matiere = 1;
 			} else {
 				this.matiere += 1;
 
