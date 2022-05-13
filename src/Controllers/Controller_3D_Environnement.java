@@ -304,7 +304,53 @@ public class Controller_3D_Environnement {
 	private void listenerKeyboard(KeyEvent event) {
 
 		switch (event.getCode()) {
+		
+		case ESCAPE:
+			
+			Iterator<Lego> it2 = structure.getLego_selected().iterator();
 
+			while (it2.hasNext()) {
+
+				Lego l = it2.next();
+
+				PhongMaterial m = (PhongMaterial) l.getMaterial();
+
+				
+				if (l.getCoul() != null) {
+					String color = "#" + l.getCoul().split("x")[1];
+
+					Color c = Color.valueOf(color);
+					m.setDiffuseColor(c);
+					
+					if (!l.getType().equals("BASE")) {
+						l.searsh_cylinder(c,null);
+
+					}
+					
+					
+				} else {
+					m.setDiffuseColor(new Color(1,1,1,1));
+
+					String texture = l.getTexture();
+
+					m.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
+					
+					if (!l.getType().equals("BASE")) {
+						l.searsh_cylinder(null,texture);
+
+					}
+				}
+				
+				
+
+
+			}
+			
+			structure.setLast_lego_selected(null);
+			structure.getLego_selected().clear();
+			
+			break;
+			
 		case J:
 
 			Iterator<Lego> it = structure.getLego_selected().iterator();
@@ -315,14 +361,26 @@ public class Controller_3D_Environnement {
 
 				PhongMaterial m = (PhongMaterial) l.getMaterial();
 
-				m.setDiffuseColor(this.tab_couleur[this.couleur]);
+				
+				if(structure.getSelected_matiere() == null) {
+					
+					m.setDiffuseColor(this.tab_couleur[this.couleur]);
+					l.setCoul(this.tab_couleur[this.couleur].toString());
+
+				}else {
+					m.setDiffuseColor(new Color(1,1,1,1));
+
+					m.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/"+structure.getSelected_matiere())));
+					l.setTexture(structure.getSelected_matiere());
+
+				}
+				
 
 				if (!l.getType().equals("BASE")) {
-					l.searsh_cylinder(this.tab_couleur[this.couleur]);
+					l.searsh_cylinder(this.tab_couleur[this.couleur],structure.getSelected_matiere());
 
 				}
 
-				l.setCoul(this.tab_couleur[this.couleur].toString());
 
 			}
 

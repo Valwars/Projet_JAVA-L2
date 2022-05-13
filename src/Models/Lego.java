@@ -89,7 +89,7 @@ public class Lego extends Box implements Serializable{
 				System.out.println("legos selectionnés : "+ structure.getLego_selected());
 
 				((PhongMaterial) this.getMaterial()).setDiffuseColor(Color.FUCHSIA);
-				searsh_cylinder(Color.FUCHSIA);
+				searsh_cylinder(Color.FUCHSIA,null);
 				
 
 			}
@@ -164,7 +164,7 @@ public class Lego extends Box implements Serializable{
 				System.out.println("legos selectionnés : "+ structure.getLego_selected());
 
 				material.setDiffuseColor(Color.FUCHSIA);
-				searsh_cylinder(Color.FUCHSIA);
+				searsh_cylinder(Color.FUCHSIA,null);
 
 			}
 		});
@@ -542,7 +542,7 @@ public class Lego extends Box implements Serializable{
 		}
 	}
 
-	public void searsh_cylinder(Color c) {
+	public void searsh_cylinder(Color c, String texture) {
 		
 		
 		if(!this.type.equals("BASE")) {
@@ -554,8 +554,15 @@ public class Lego extends Box implements Serializable{
 			for(int i = 1; i <= 4; i ++) {
 				
 				PhongMaterial m = (PhongMaterial) ((Shape3D) structure.getChildren().get(index - i)).getMaterial();
-				
-				m.setDiffuseColor(c);
+				if(texture == null) {
+					m.setDiffuseColor(c);
+
+				}else {
+					m.setDiffuseColor(new Color(1,1,1,1));
+
+					m.setDiffuseMap(new Image(getClass().getResourceAsStream(texture)));
+
+				}
 				
 			}
 		
