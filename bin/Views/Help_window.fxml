@@ -9,7 +9,7 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="1877.0" prefWidth="450.0">
+      <VBox fx:id="vbx" prefHeight="1877.0" prefWidth="450.0">
          <children>
             <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="703.0" text="Touches clavier" textAlignment="CENTER">
                <font>
@@ -325,6 +325,23 @@
                <VBox.margin>
                   <Insets left="50.0" right="30.0" top="30.0" />
                </VBox.margin>
+            </HBox>
+            <HBox prefHeight="38.0" prefWidth="660.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="404.0" text="Suprimer la sélection">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="352.0" text="ESCAPE" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="660.0">
                <children>

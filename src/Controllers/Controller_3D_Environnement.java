@@ -39,6 +39,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -84,49 +86,32 @@ public class Controller_3D_Environnement {
 
 	private int i = 0;
 	private Scene cssScene;
+	private ChoiceDialog cd;
+	
+	private VBox vbx;
 
 	@FXML
 	private MenuBar menu_bar;
+	
 	@FXML
-	private Button boutton_onglet;
+	private Button boutton_onglet,mute_sound,light_dark,btn_plus,btn_moins;
 
 	@FXML
-	private AnchorPane anch;
+	private AnchorPane anch,anch_top;
 
 	@FXML
 	private BorderPane root;
 
 	@FXML
-	private ScrollPane Coulscrollpane;
+	private ScrollPane Coulscrollpane,cat,Textscrollpane,Imagescrollpane;
 	
 	@FXML
-	private ScrollPane Textscrollpane;
+	private MenuItem sauvegarder,managed_structures,aide;
 
-	@FXML
-	private ScrollPane cat;
-
-	@FXML
-	private ScrollPane Imagescrollpane;
-
-	@FXML
-	private Button mute_sound;
 
 	private int BLOC_SIZE = 50;
 
-	@FXML
-	private Button light_dark;
 
-	@FXML
-	private MenuItem aide;
-
-	@FXML
-	private MenuItem sauvegarder;
-
-	@FXML
-	private MenuItem managed_structures;
-
-	@FXML
-	private AnchorPane anch_top;
 
 	SubScene subscene;
 
@@ -674,7 +659,7 @@ public class Controller_3D_Environnement {
 			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Coulscrollpane.getStyleClass().add("scroll-bar");
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			container.getStyleClass().add("background");
+			container.getStyleClass().add("Gridpane");
 		} else {
 			this.Coulscrollpane.getStylesheets().clear();
 
@@ -685,8 +670,9 @@ public class Controller_3D_Environnement {
 	public void ajout_texture(boolean dark) {
 
 		GridPane container = new GridPane();
-		container.getColumnConstraints().add(new ColumnConstraints(45));
+		
 		for (int i = 0; i < tab_matiere.length; i++) {
+			container.getColumnConstraints().add(new ColumnConstraints(45));
 			Button bt1 = new Button();
 			bt1.setPrefSize(25, 25);
 			Image img = new Image(getClass().getResourceAsStream("../Models/"+tab_matiere[i]));
@@ -732,8 +718,21 @@ public class Controller_3D_Environnement {
 			container.add(bt1, i, 0);
 
 		}
+		
 
 		this.Textscrollpane.setContent(container);
+		if (dark) {
+			//this.Textscrollpane.getStylesheets().clear();
+			//container.getStylesheets().clear();
+			//this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			//this.Textscrollpane.getStyleClass().add("scroll-bar");
+			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			container.getStyleClass().add("Gridpane");
+		} else {
+			this.Textscrollpane.getStylesheets().clear();
+
+		}
+		
 	}
 
 	public void remplir_dico() {
@@ -843,6 +842,7 @@ public class Controller_3D_Environnement {
 				System.out.println("hello");
 				ajout_categorie(true);
 				ajout_couleur(true);
+				ajout_texture(true);
 				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 				anch.getStyleClass().add("anchor-pane");
 				menu_bar.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -859,6 +859,7 @@ public class Controller_3D_Environnement {
 				System.out.println("helloooooo");
 				ajout_categorie(false);
 				ajout_couleur(false);
+				ajout_texture(false);
 				anch.getStylesheets().clear();
 				menu_bar.getStylesheets().clear();
 
@@ -886,22 +887,30 @@ public class Controller_3D_Environnement {
 
 			}
 		});
-
+		
+		
 		aide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 
 				Stage stage = new Stage();
 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
-
-				Parent root;
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml")); 
+				
+				ScrollPane root;
 				try {
 					root = loader.load();
 					Scene scene = new Scene(root);
-					scene.getStylesheets().add(getClass().getResource("../Views/help.css").toExternalForm());
 					stage.setResizable(false);
-
+					if (toggle.select().getValue()) {
+						root.getStylesheets().clear();
+						root.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+						root.getContent().getStyleClass().add("vbox");
+						
+					}
+					else {
+						root.getStylesheets().clear();
+					}
 					stage.setScene(scene);
 					stage.show();
 				} catch (IOException e1) {
@@ -909,8 +918,10 @@ public class Controller_3D_Environnement {
 					e1.printStackTrace();
 				}
 
+
 			}
 		});
+
 
 		sauvegarder.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -984,8 +995,16 @@ public class Controller_3D_Environnement {
 						}
 					}
 					Scene scene = new Scene(root);
-					scene.getStylesheets()
-							.add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
+					if (toggle.select().getValue()) {
+						v.getStylesheets().clear();
+						v.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+						v.getStyleClass().add("vbox");
+					}
+					else {
+						scene.getStylesheets().clear();
+						scene.getStylesheets().add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
+					}
+					
 					stage.setResizable(false);
 
 					stage.setScene(scene);
@@ -1179,16 +1198,23 @@ public class Controller_3D_Environnement {
 	public void setCssScene(Scene sc) {
 		this.cssScene = sc;
 	}
+	public void set_dark_dialogue(ChoiceDialog dialog) {
+		this.cd = dialog;
+		
+	}
 
 	public void dark() {
 		this.cssScene.getStylesheets().clear();
 		this.cssScene.getStylesheets().add(getClass().getResource("../Views/dark_tab_pane.css").toExternalForm());
+		this.cd.getDialogPane().getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+		this.cd.getDialogPane().getStyleClass().add("choice-dialog");
 	}
 
 	public void ligth() {
 		this.cssScene.getStylesheets().clear();
-		this.cssScene.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+		this.cd.getDialogPane().getStylesheets().clear();
 
 	}
+
 
 }

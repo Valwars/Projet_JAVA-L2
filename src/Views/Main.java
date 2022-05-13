@@ -83,7 +83,14 @@ public class Main extends Application{
 			
 			ArrayList<String> t = new ArrayList<>();
 			t.contains(root);
+			
+			
+
+			
+			
+
 			new_tab.setOnSelectionChanged(new EventHandler<Event>(){
+
 
 	            public void handle(Event e) {
 	            	
@@ -104,32 +111,34 @@ public class Main extends Application{
 					            	create_newTab(tp, legos_collection,primaryStage,null);
 					            	
 					            }else {
-					            
-					            	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
-				                	
-				                	selectionModel2.select(tp.getTabs().get(0)); //select by object
-				            	
-				                	String[] dos = new String[file.list().length];
-				                	
-				                	String[] verif = file.list();
-				                	
-				                	dos[0] = "Nouvelle structure";
-				                	
-				                	for(int i = 1;i<file.list().length;i++) {
-					                	dos[i]=verif[i].substring(0,verif[i].length()-4);
-				                	}
-				                	
-					            	ChoiceDialog dialog = new ChoiceDialog("Nouvelle structure",dos);
 					            	
-					            	dialog.getDialogPane().setPrefWidth(500);
-
-
-					            	dialog.setTitle("Nouvelle/charger structure");
-	                                dialog.setHeaderText("Choix en cours...");
-
-	                                Optional<String> result = dialog.showAndWait();
-	                             
-	                                
+					            	
+									SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+						        	
+						        	selectionModel2.select(tp.getTabs().get(0)); //select by object
+						    	
+						        	String[] dos = new String[file.list().length];
+						        	
+						        	String[] verif = file.list();
+						        	
+						        	dos[0] = "Nouvelle structure";
+						        	
+						        	for(int i = 1;i<file.list().length;i++) {
+						            	dos[i]=verif[i].substring(0,verif[i].length()-4);
+						        	}
+									
+									ChoiceDialog dialog = new ChoiceDialog("Nouvelle structure",dos);
+									environnement_Controller.set_dark_dialogue(dialog);
+									
+						        	dialog.getDialogPane().setPrefWidth(500);
+						        	
+						        	
+						        	dialog.setTitle("Nouvelle/charger structure");
+						            dialog.setHeaderText("Choix en cours...");
+						            Optional<String> result = dialog.showAndWait();
+						            
+						            
+				                	
 					            	if (result.get()=="Nouvelle structure") {
 					            	
 						            	create_newTab(tp, legos_collection,primaryStage,null);

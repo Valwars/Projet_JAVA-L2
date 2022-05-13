@@ -8,7 +8,7 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="411.0" prefWidth="335.0">
+      <VBox prefHeight="443.0" prefWidth="339.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="339.0" text="Vos structures" textAlignment="CENTER">
                <VBox.margin>
