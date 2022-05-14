@@ -14,8 +14,8 @@
    <left>
       <AnchorPane fx:id="anch" prefHeight="616.0" prefWidth="301.0">
          <children>
-            <ScrollPane fx:id="Imagescrollpane" hbarPolicy="NEVER" layoutX="2.0" layoutY="285.0" prefHeight="260.0" prefWidth="299.0" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="285.0" />
-            <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="1.0" layoutY="228.0" prefHeight="57.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0" />
+            <ScrollPane fx:id="Imagescrollpane" hbarPolicy="NEVER" layoutX="2.0" layoutY="274.0" prefHeight="271.0" prefWidth="299.0" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="274.0" />
+            <ScrollPane fx:id="Coulscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutX="1.0" layoutY="228.0" prefHeight="47.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0" />
             <ScrollPane fx:id="cat" fitToHeight="true" fitToWidth="true" layoutX="1.0" layoutY="28.0" prefHeight="179.0" prefWidth="301.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <ScrollPane fx:id="Textscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutY="179.0" prefHeight="51.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Separator layoutX="2.0" layoutY="589.0" prefHeight="2.0" prefWidth="300.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -23,8 +23,8 @@
             <Button fx:id="btn_moins" layoutX="32.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="24.0" text="-" AnchorPane.bottomAnchor="33.0" />
             <Label fx:id="l" layoutX="18.0" layoutY="594.0" />
             <Label fx:id="lbl_clr_txtr" layoutX="44.0" layoutY="594.0" />
-            <Label fx:id="lbl_taille2" layoutX="88.0" layoutY="594.0"  />
-            <Label fx:id="lbl_taille" layoutX="56.0" layoutY="556.0" prefHeight="27.0" prefWidth="28.0"  AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="217.0" />
+            <Label fx:id="lbl_taille2" layoutX="88.0" layoutY="594.0" />
+            <Label fx:id="lbl_taille" layoutX="56.0" layoutY="556.0" prefHeight="27.0" prefWidth="28.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="217.0" />
          </children>
       </AnchorPane>
    </left>

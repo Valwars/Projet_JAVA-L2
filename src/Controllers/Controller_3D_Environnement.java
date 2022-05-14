@@ -723,7 +723,7 @@ public class Controller_3D_Environnement {
 			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Coulscrollpane.getStyleClass().add("scroll-bar");
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			container.getStyleClass().add("Gridpane");
+			container.getStyleClass().add("grid-pane");
 		} else {
 			this.Coulscrollpane.getStylesheets().clear();
 
@@ -791,7 +791,7 @@ public class Controller_3D_Environnement {
 			//this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			//this.Textscrollpane.getStyleClass().add("scroll-bar");
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			container.getStyleClass().add("Gridpane");
+			container.getStyleClass().add("grid-pane");
 		} else {
 			this.Textscrollpane.getStylesheets().clear();
 
@@ -1147,8 +1147,8 @@ public class Controller_3D_Environnement {
 
 			this.Imagescrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Imagescrollpane.getStyleClass().add("scroll-bar");
-			panneau.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
-			panneau.getStyleClass().add("pic");
+			panneau.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			panneau.getStyleClass().add("grid-pane");
 
 		} else {
 
@@ -1286,13 +1286,13 @@ public class Controller_3D_Environnement {
 	public void dark() {
 		this.cssScene.getStylesheets().clear();
 		this.cssScene.getStylesheets().add(getClass().getResource("../Views/dark_tab_pane.css").toExternalForm());
-		this.cd.getDialogPane().getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-		this.cd.getDialogPane().getStyleClass().add("choice-dialog");
+		//this.cd.getDialogPane().getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+		//this.cd.getDialogPane().getStyleClass().add("choice-dialog");
 	}
 
 	public void ligth() {
 		this.cssScene.getStylesheets().clear();
-		this.cd.getDialogPane().getStylesheets().clear();
+		//this.cd.getDialogPane().getStylesheets().clear();
 
 	}
 
