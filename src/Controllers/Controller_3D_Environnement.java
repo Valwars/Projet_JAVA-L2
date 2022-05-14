@@ -450,13 +450,10 @@ public class Controller_3D_Environnement {
 			structure.setTaille(0);
 
 			structure.setSelected_bloc("TAPIS");
-			anch.getChildren().remove(l);
 
-			l = new Label("TAPIS");
+			l.setText("TAPIS");
 
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
+		
 
 			break;
 		case U:
@@ -464,13 +461,10 @@ public class Controller_3D_Environnement {
 
 			structure.setSelected_bloc("CUBE");
 
-			anch.getChildren().remove(l);
 
-			l = new Label("CUBE");
+			l.setText("CUBE");
 
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
+		
 
 			break;
 		case I:
@@ -478,44 +472,29 @@ public class Controller_3D_Environnement {
 
 			String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 
-			anch.getChildren().remove(l);
 
-			l = new Label("RECTANGLE");
-
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
-
+			l.setText("RECTANGLE");
+			
 			System.out.println(rota);
 			structure.setSelected_bloc(bloc);
 			break;
 		case O:
 			structure.setTaille(0);
 
-			anch.getChildren().remove(l);
-
 			String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
 
-			l = new Label("RECTANGLE");
-
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
+			l.setText("RECTANGLE");
 
 			structure.setSelected_bloc(bloc2);
 			break;
 		case P:
 
 			structure.setTaille(0);
-			anch.getChildren().remove(l);
 
 			String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
 
-			l = new Label("RECTANGLE");
+			l.setText("RECTANGLE");
 
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
 
 			structure.setSelected_bloc(bloc3);
 			break;
@@ -523,15 +502,10 @@ public class Controller_3D_Environnement {
 		case K:
 
 			structure.setTaille(0);
-			anch.getChildren().remove(l);
 
 			String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
 
-			l = new Label("RECTANGLE");
-
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
+			l.setText("RECTANGLE");
 
 			structure.setSelected_bloc(bloc5);
 			break;
@@ -550,13 +524,7 @@ public class Controller_3D_Environnement {
 			String bloc6 = "ANGLE_" + this.rotations[this.rota];
 			structure.setSelected_bloc(bloc6);
 
-			anch.getChildren().remove(l);
-
-			l = new Label("ANGLE");
-
-			anch.getChildren().add(l);
-			anch.setBottomAnchor(l, 5.0);
-			anch.setLeftAnchor(l, 7.0);
+			l.setText("ANGLE");
 
 			break;
 		case B:
@@ -1239,38 +1207,29 @@ public class Controller_3D_Environnement {
 		imageViewWrapper.getStyleClass().add("pic");
 
 		pic.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-			anch.getChildren().remove(l);
-			anch.getChildren().remove(lbl_clr_txtr);
+			
 			System.out.println(f);
 
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
-				l = new Label(f.substring(0, f.length() - 1));
+				l.setText(f.substring(0, f.length() - 1));
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
-				anch.getChildren().add(l);
-				anch.setBottomAnchor(l, 5.0);
-				anch.setLeftAnchor(l, 7.0);
+				
 			} else {
-				l = new Label(f);
+				l.setText(f);
 				structure.setSelected_bloc(f);
-				anch.getChildren().add(l);
-				anch.setBottomAnchor(l, 5.0);
-				anch.setLeftAnchor(l, 7.0);
+			
 
 			}
 			if (this.couleurs_correspond.get(c) != null) {
-				lbl_clr_txtr = new Label(c);
+				lbl_clr_txtr.setText(c);
 				structure.setSelected_matiere(null);
 				structure.setSelected_color(this.couleurs_correspond.get(c));
-				anch.getChildren().add(lbl_clr_txtr);
-				anch.setBottomAnchor(lbl_clr_txtr, 5.0);
-				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
+				
 
 			} else {
-				lbl_clr_txtr = new Label(c);
+				lbl_clr_txtr.setText(c);
 				structure.setSelected_matiere(this.textures_correspond.get(c));
-				anch.getChildren().add(lbl_clr_txtr);
-				anch.setBottomAnchor(lbl_clr_txtr, 5.0);
-				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
+				
 			}
 
 		});
