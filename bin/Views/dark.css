@@ -18,6 +18,9 @@
 	
 }
 
+.btn_text{
+-fx-background-color :  #1b1e2b;
+}
 .vbox{
 	-fx-background-color: #1b1e2b;
 }

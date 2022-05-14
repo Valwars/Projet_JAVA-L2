@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="vbx" prefHeight="1877.0" prefWidth="450.0">
          <children>
@@ -342,6 +342,9 @@
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets left="50.0" right="30.0" top="40.0" />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="660.0">
                <children>

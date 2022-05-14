@@ -727,6 +727,7 @@ public class Controller_3D_Environnement {
 		for (int i = 0; i < tab_couleur1.length; i++) {
 			container.getColumnConstraints().add(new ColumnConstraints(30));
 			Button bt1 = new Button();
+			bt1.setTranslateY(8);
 			bt1.setPrefSize(25, 25);
 			bt1.setStyle(tab_couleur1[i]);
 			bt1.setId(LC[i]);
@@ -788,6 +789,7 @@ public class Controller_3D_Environnement {
 		for (int i = 0; i < tab_matiere.length; i++) {
 			container.getColumnConstraints().add(new ColumnConstraints(45));
 			Button bt1 = new Button();
+			bt1.getStyleClass().add("btn_text");
 			bt1.setPrefSize(25, 25);
 			Image img = new Image(getClass().getResourceAsStream("../Models/" + tab_matiere[i]));
 			ImageView view = new ImageView(img);
