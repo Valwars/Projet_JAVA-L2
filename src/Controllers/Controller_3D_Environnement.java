@@ -87,37 +87,34 @@ public class Controller_3D_Environnement {
 	private int i = 0;
 	private Scene cssScene;
 	private ChoiceDialog cd;
-	
+
 	private VBox vbx;
 
 	@FXML
 	private MenuBar menu_bar;
-	
-	@FXML
-	private Button boutton_onglet,mute_sound,light_dark,btn_plus,btn_moins;
 
 	@FXML
-	private AnchorPane anch,anch_top;
+	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins;
+
+	@FXML
+	private AnchorPane anch, anch_top;
 
 	@FXML
 	private BorderPane root;
 
 	@FXML
-	private ScrollPane Coulscrollpane,cat,Textscrollpane,Imagescrollpane;
-	
+	private ScrollPane Coulscrollpane, cat, Textscrollpane, Imagescrollpane;
+
 	@FXML
-	private MenuItem sauvegarder,managed_structures,aide;
-	
+	private MenuItem sauvegarder, managed_structures, aide;
+
 	@FXML
-	private Label l,lbl_clr_txtr,lbl_taille2;
-	
+	private Label l, lbl_clr_txtr, lbl_taille2;
+
 	@FXML
 	private Label lbl_taille = new Label("0");
 
-
 	private int BLOC_SIZE = 50;
-
-
 
 	SubScene subscene;
 
@@ -127,6 +124,9 @@ public class Controller_3D_Environnement {
 
 	public HashMap<String, Color> couleurs_correspond = new HashMap<String, Color>();
 	public HashMap<String, String> textures_correspond = new HashMap<String, String>();
+
+	public HashMap<Color, String> couleurs_correspond_reversed = new HashMap<Color, String>();
+	public HashMap<String, String> textures_correspond_reversed = new HashMap<String, String>();
 
 	String[] tab_couleur1 = { "-fx-base: royalblue;", "-fx-Base: green", "-fx-Base: khaki", "-fx-Base: snow",
 			"-fx-Base: turquoise", "-fx-Base: darkgray", "-fx-Base: saddlebrown", "-fx-Base: black",
@@ -153,9 +153,9 @@ public class Controller_3D_Environnement {
 			Color.SADDLEBROWN, new Color(0.1, 0.1, 0.1, 1), Color.DARKORANGE, Color.BROWN, Color.RED,
 			new Color(0.6, 0.6, 0.6, 0.6) };
 
-	String[] tab_matiere = {"verre.png", "dirt.png","wood.jpeg" , "lave.jpeg", "feuille.png", "cobble.jpeg", "wood2.png" };
+	String[] tab_matiere = { "verre.png", "dirt.png", "wood.jpeg", "lave.jpeg", "feuille.png", "cobble.jpeg",
+			"wood2.png" };
 
-	
 	int rota = 0;
 
 	boolean r = false;
@@ -265,6 +265,20 @@ public class Controller_3D_Environnement {
 			structure.createBase();
 		}
 
+		anch.getChildren().remove(l);
+
+		l = new Label("CUBE");
+		anch.setBottomAnchor(l, 5.0);
+		anch.setLeftAnchor(l, 7.0);
+		anch.getChildren().add(l);
+
+		anch.getChildren().remove(lbl_clr_txtr);
+
+		lbl_clr_txtr = new Label("BLEU");
+		anch.setBottomAnchor(lbl_clr_txtr, 5.0);
+		anch.setLeftAnchor(lbl_clr_txtr, 100.0);
+		anch.getChildren().add(lbl_clr_txtr);
+
 		camera = new PerspectiveCamera();
 
 		subscene.setCamera(camera);
@@ -310,9 +324,9 @@ public class Controller_3D_Environnement {
 	private void listenerKeyboard(KeyEvent event) {
 
 		switch (event.getCode()) {
-		
+
 		case ESCAPE:
-			
+
 			Iterator<Lego> it2 = structure.getLego_selected().iterator();
 
 			while (it2.hasNext()) {
@@ -321,42 +335,37 @@ public class Controller_3D_Environnement {
 
 				PhongMaterial m = (PhongMaterial) l.getMaterial();
 
-				
 				if (l.getCoul() != null) {
 					String color = "#" + l.getCoul().split("x")[1];
 
 					Color c = Color.valueOf(color);
 					m.setDiffuseColor(c);
-					
+
 					if (!l.getType().equals("BASE")) {
-						l.searsh_cylinder(c,null);
+						l.searsh_cylinder(c, null);
 
 					}
-					
-					
+
 				} else {
-					m.setDiffuseColor(new Color(1,1,1,1));
+					m.setDiffuseColor(new Color(1, 1, 1, 1));
 
 					String texture = l.getTexture();
 
 					m.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
-					
+
 					if (!l.getType().equals("BASE")) {
-						l.searsh_cylinder(null,texture);
+						l.searsh_cylinder(null, texture);
 
 					}
 				}
-				
-				
-
 
 			}
-			
+
 			structure.setLast_lego_selected(null);
 			structure.getLego_selected().clear();
-			
+
 			break;
-			
+
 		case J:
 
 			Iterator<Lego> it = structure.getLego_selected().iterator();
@@ -367,26 +376,24 @@ public class Controller_3D_Environnement {
 
 				PhongMaterial m = (PhongMaterial) l.getMaterial();
 
-				
-				if(structure.getSelected_matiere() == null) {
-					
+				if (structure.getSelected_matiere() == null) {
+
 					m.setDiffuseColor(this.tab_couleur[this.couleur]);
 					l.setCoul(this.tab_couleur[this.couleur].toString());
 
-				}else {
-					m.setDiffuseColor(new Color(1,1,1,1));
+				} else {
+					m.setDiffuseColor(new Color(1, 1, 1, 1));
 
-					m.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/"+structure.getSelected_matiere())));
+					m.setDiffuseMap(
+							new Image(getClass().getResourceAsStream("../Models/" + structure.getSelected_matiere())));
 					l.setTexture(structure.getSelected_matiere());
 
 				}
-				
 
 				if (!l.getType().equals("BASE")) {
-					l.searsh_cylinder(this.tab_couleur[this.couleur],structure.getSelected_matiere());
+					l.searsh_cylinder(this.tab_couleur[this.couleur], structure.getSelected_matiere());
 
 				}
-
 
 			}
 
@@ -443,38 +450,89 @@ public class Controller_3D_Environnement {
 			structure.setTaille(0);
 
 			structure.setSelected_bloc("TAPIS");
+			anch.getChildren().remove(l);
+
+			l = new Label("TAPIS");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			break;
 		case U:
 			structure.setTaille(0);
 
 			structure.setSelected_bloc("CUBE");
+
+			anch.getChildren().remove(l);
+
+			l = new Label("CUBE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			break;
 		case I:
 			structure.setTaille(0);
 
 			String bloc = "RECTANGLE2_" + this.rotations[this.rota];
+
+			anch.getChildren().remove(l);
+
+			l = new Label("RECTANGLE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			System.out.println(rota);
 			structure.setSelected_bloc(bloc);
 			break;
 		case O:
 			structure.setTaille(0);
 
+			anch.getChildren().remove(l);
+
 			String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
+
+			l = new Label("RECTANGLE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			structure.setSelected_bloc(bloc2);
 			break;
 		case P:
 
 			structure.setTaille(0);
+			anch.getChildren().remove(l);
 
 			String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
+
+			l = new Label("RECTANGLE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			structure.setSelected_bloc(bloc3);
 			break;
 
 		case K:
 
 			structure.setTaille(0);
+			anch.getChildren().remove(l);
 
 			String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
+
+			l = new Label("RECTANGLE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			structure.setSelected_bloc(bloc5);
 			break;
 
@@ -491,6 +549,15 @@ public class Controller_3D_Environnement {
 		case F:
 			String bloc6 = "ANGLE_" + this.rotations[this.rota];
 			structure.setSelected_bloc(bloc6);
+
+			anch.getChildren().remove(l);
+
+			l = new Label("ANGLE");
+
+			anch.getChildren().add(l);
+			anch.setBottomAnchor(l, 5.0);
+			anch.setLeftAnchor(l, 7.0);
+
 			break;
 		case B:
 			structure.deleteLastBloc();
@@ -510,6 +577,12 @@ public class Controller_3D_Environnement {
 
 			}
 			structure.setSelected_matiere(this.tab_matiere[this.matiere]);
+			anch.getChildren().remove(lbl_clr_txtr);
+
+			lbl_clr_txtr = new Label(this.textures_correspond_reversed.get(this.tab_matiere[this.matiere]));
+			anch.setBottomAnchor(lbl_clr_txtr, 5.0);
+			anch.setLeftAnchor(lbl_clr_txtr, 100.0);
+			anch.getChildren().add(lbl_clr_txtr);
 			break;
 
 		case C:
@@ -524,6 +597,12 @@ public class Controller_3D_Environnement {
 			}
 
 			structure.setSelected_color(this.tab_couleur[this.couleur]);
+			anch.getChildren().remove(lbl_clr_txtr);
+
+			lbl_clr_txtr = new Label(this.couleurs_correspond_reversed.get(this.tab_couleur[this.couleur]));
+			anch.setBottomAnchor(lbl_clr_txtr, 5.0);
+			anch.setLeftAnchor(lbl_clr_txtr, 100.0);
+			anch.getChildren().add(lbl_clr_txtr);
 			break;
 
 		case V:
@@ -538,7 +617,7 @@ public class Controller_3D_Environnement {
 				String[] blocs = structure.getSelected_bloc().split("_");
 
 				structure.setSelected_bloc(blocs[0] + "_" + this.rotations[rota]);
-				
+
 			}
 
 			break;
@@ -551,13 +630,16 @@ public class Controller_3D_Environnement {
 		subscene.setCursor(Cursor.WAIT);
 		BorderPane parent = (BorderPane) structure.getScene().getRoot();
 		System.out.println(parent.getChildren());
-		
+
 		TabPane pane = (TabPane) parent.getChildren().get(2);
 		if (structure.getChildren().size() > 1065) {
 
 			if (structure.getNom_structure() == null) {
 
 				TextInputDialog td = new TextInputDialog("Structure0");
+				Stage stageAlert1 = (Stage) td.getDialogPane().getScene().getWindow();
+				stageAlert1.setAlwaysOnTop(true);
+				stageAlert1.toFront();
 				td.setTitle("Sauvegarde");
 				td.setContentText("Choisir un nom : ");
 
@@ -730,22 +812,22 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-	
+
 	public void ajout_texture(boolean dark) {
 
 		GridPane container = new GridPane();
-		
+
 		for (int i = 0; i < tab_matiere.length; i++) {
 			container.getColumnConstraints().add(new ColumnConstraints(45));
 			Button bt1 = new Button();
 			bt1.setPrefSize(25, 25);
-			Image img = new Image(getClass().getResourceAsStream("../Models/"+tab_matiere[i]));
+			Image img = new Image(getClass().getResourceAsStream("../Models/" + tab_matiere[i]));
 			ImageView view = new ImageView(img);
-		    view.setPreserveRatio(true);
-		    view.setFitHeight(25);
-		    view.setFitWidth(25);
-		    bt1.setGraphic(view);
-			bt1.setId(LC[i+11]);
+			view.setPreserveRatio(true);
+			view.setFitHeight(25);
+			view.setFitWidth(25);
+			bt1.setGraphic(view);
+			bt1.setId(LC[i + 11]);
 			int j = i;
 			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
@@ -782,50 +864,44 @@ public class Controller_3D_Environnement {
 			container.add(bt1, i, 0);
 
 		}
-		
 
 		this.Textscrollpane.setContent(container);
 		if (dark) {
-			//this.Textscrollpane.getStylesheets().clear();
-			//container.getStylesheets().clear();
-			//this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			//this.Textscrollpane.getStyleClass().add("scroll-bar");
+			// this.Textscrollpane.getStylesheets().clear();
+			// container.getStylesheets().clear();
+			// this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			// this.Textscrollpane.getStyleClass().add("scroll-bar");
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("grid-pane");
 		} else {
 			this.Textscrollpane.getStylesheets().clear();
 
 		}
-		
+
 	}
 
 	public void remplir_dico() {
-		couleurs_correspond.put("BLEU", Color.ROYALBLUE);
-		couleurs_correspond.put("VERT", Color.GREEN);
-		couleurs_correspond.put("SABLE", Color.KHAKI);
-		couleurs_correspond.put("NEIGE", Color.SNOW);
-		couleurs_correspond.put("CYAN", Color.TURQUOISE);
-		couleurs_correspond.put("GRIS", Color.DARKGRAY);
-		couleurs_correspond.put("MARRON", Color.SADDLEBROWN);
-		couleurs_correspond.put("NOIR", new Color(0.1, 0.1, 0.1, 1));
-		couleurs_correspond.put("ORANGE", Color.DARKORANGE);
-		couleurs_correspond.put("ROUGE1", Color.BROWN);
+		String[] name = { "BLEU", "VERT", "SABLE", "NEIGE", "CYAN", "GRIS", "MARRON", "NOIR", "ORANGE", "ROUGE1",
+				"ROUGE2", "TRANSPARENT" };
 
-		couleurs_correspond.put("ROUGE2", Color.RED);
-		couleurs_correspond.put("TRANSPARENT", new Color(0.6, 0.6, 0.6, 0.6));
+		for (int i = 0; i < name.length; i++) {
+			this.couleurs_correspond.put(name[i], this.tab_couleur[i]);
+			this.couleurs_correspond_reversed.put(this.tab_couleur[i], name[i]);
+
+		}
 
 	}
 
 	public void remplir_dico2() {
 
+		String[] name = {"VERRE", "TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
+		
 
-		textures_correspond.put("PIERRE", "cobble.jpeg");
-		textures_correspond.put("TERRE", "dirt.png");
-		textures_correspond.put("LAVE", "lave.jpeg");
-		textures_correspond.put("FEUILLE",  "feuille.png");
+		for (int i = 1; i < name.length; i++) {
+			this.textures_correspond.put(name[i], this.tab_matiere[i]);
+			this.textures_correspond_reversed.put(this.tab_matiere[i], name[i]);
 
-		textures_correspond.put("PLANCHE",  "wood2.png");
-		textures_correspond.put("BOIS",  "wood.jpeg");
+		}
 
 	}
 
@@ -951,16 +1027,15 @@ public class Controller_3D_Environnement {
 
 			}
 		});
-		
-		
+
 		aide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 
 				Stage stage = new Stage();
 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml")); 
-				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
+
 				ScrollPane root;
 				try {
 					root = loader.load();
@@ -970,9 +1045,8 @@ public class Controller_3D_Environnement {
 						root.getStylesheets().clear();
 						root.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 						root.getContent().getStyleClass().add("vbox");
-						
-					}
-					else {
+
+					} else {
 						root.getStylesheets().clear();
 					}
 					stage.setScene(scene);
@@ -982,10 +1056,8 @@ public class Controller_3D_Environnement {
 					e1.printStackTrace();
 				}
 
-
 			}
 		});
-
 
 		sauvegarder.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -1063,12 +1135,12 @@ public class Controller_3D_Environnement {
 						v.getStylesheets().clear();
 						v.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 						v.getStyleClass().add("vbox");
-					}
-					else {
+					} else {
 						scene.getStylesheets().clear();
-						scene.getStylesheets().add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
+						scene.getStylesheets()
+								.add(getClass().getResource("../Views/structures_gestion.css").toExternalForm());
 					}
-					
+
 					stage.setResizable(false);
 
 					stage.setScene(scene);
@@ -1084,10 +1156,10 @@ public class Controller_3D_Environnement {
 	}
 
 	public String[] LC = { "BLEU", "VERT", "SABLE", "NEIGE", "CYAN", "GRIS", "MARRON", "NOIR", "ORANGE", "ROUGE1",
-			"ROUGE2", "TRANSPARENT","TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
+			"ROUGE2", "TRANSPARENT", "TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
 
 	public Boolean[] bt_active = { true, true, true, true, true, true, true, true, true, true, true };
-	
+
 	public Boolean[] bt_active2 = { true, true, true, true, true, true, true };
 
 	public ArrayList<String> LFO = new ArrayList<String>();
@@ -1170,33 +1242,34 @@ public class Controller_3D_Environnement {
 			anch.getChildren().remove(l);
 			anch.getChildren().remove(lbl_clr_txtr);
 			System.out.println(f);
+
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
-				l = new Label(f.substring(0,f.length()-1));
+				l = new Label(f.substring(0, f.length() - 1));
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
 				anch.getChildren().add(l);
-				anch.setBottomAnchor(l,5.0);
+				anch.setBottomAnchor(l, 5.0);
 				anch.setLeftAnchor(l, 7.0);
 			} else {
 				l = new Label(f);
 				structure.setSelected_bloc(f);
 				anch.getChildren().add(l);
-				anch.setBottomAnchor(l,5.0);
+				anch.setBottomAnchor(l, 5.0);
 				anch.setLeftAnchor(l, 7.0);
 
 			}
-			if(this.couleurs_correspond.get(c) != null) {
+			if (this.couleurs_correspond.get(c) != null) {
 				lbl_clr_txtr = new Label(c);
 				structure.setSelected_matiere(null);
 				structure.setSelected_color(this.couleurs_correspond.get(c));
 				anch.getChildren().add(lbl_clr_txtr);
-				anch.setBottomAnchor(lbl_clr_txtr,5.0);
+				anch.setBottomAnchor(lbl_clr_txtr, 5.0);
 				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
 
-			}else {
+			} else {
 				lbl_clr_txtr = new Label(c);
 				structure.setSelected_matiere(this.textures_correspond.get(c));
 				anch.getChildren().add(lbl_clr_txtr);
-				anch.setBottomAnchor(lbl_clr_txtr,5.0);
+				anch.setBottomAnchor(lbl_clr_txtr, 5.0);
 				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
 			}
 
@@ -1278,23 +1351,23 @@ public class Controller_3D_Environnement {
 	public void setCssScene(Scene sc) {
 		this.cssScene = sc;
 	}
+
 	public void set_dark_dialogue(ChoiceDialog dialog) {
 		this.cd = dialog;
-		
+
 	}
 
 	public void dark() {
 		this.cssScene.getStylesheets().clear();
 		this.cssScene.getStylesheets().add(getClass().getResource("../Views/dark_tab_pane.css").toExternalForm());
-		//this.cd.getDialogPane().getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-		//this.cd.getDialogPane().getStyleClass().add("choice-dialog");
+		// this.cd.getDialogPane().getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+		// this.cd.getDialogPane().getStyleClass().add("choice-dialog");
 	}
 
 	public void ligth() {
 		this.cssScene.getStylesheets().clear();
-		//this.cd.getDialogPane().getStylesheets().clear();
+		// this.cd.getDialogPane().getStylesheets().clear();
 
 	}
-
 
 }

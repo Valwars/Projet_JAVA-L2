@@ -27,26 +27,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application{
-	
+public class Main extends Application {
 
 	private FXMLLoader loader;
 	private Controller_3D_Environnement environnement_Controller;
 	private int BLOC_SIZE = 50;
-	
-	
-	
+
 	private ArrayList<Structure_3D> structures = new ArrayList<Structure_3D>();
+
 	@Override
 	public void start(Stage primaryStage) {
-		
+
 		try {
-			
+
 			Structure_3D structure = new Structure_3D(BLOC_SIZE);
 			primaryStage.getIcons().add(new Image("icon.png"));
-			
-			Legos_collection legos_collection = new Legos_collection(structure,BLOC_SIZE);
-			
+
+			Legos_collection legos_collection = new Legos_collection(structure, BLOC_SIZE);
+
 			structure.setCollec(legos_collection);
 			structures.add(structure);
 
@@ -55,133 +53,117 @@ public class Main extends Application{
 			environnement_Controller = new Controller_3D_Environnement();
 			environnement_Controller.setEvent(primaryStage);
 			loader.setController(environnement_Controller);
-			
-			
+
 			BorderPane root = (BorderPane) loader.load();
-			
-			
-			SubScene subscene = new SubScene(structure, 800,1000 , true, SceneAntialiasing.BALANCED);
-			environnement_Controller.start(primaryStage,structure, subscene,null);
+
+			SubScene subscene = new SubScene(structure, 800, 1000, true, SceneAntialiasing.BALANCED);
+			environnement_Controller.start(primaryStage, structure, subscene, null);
 			subscene.setFill(Color.valueOf("#2C2D32"));
-		
+
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 			TabPane tp = new TabPane();
-			
-			Tab tb1;
-			if(structure.getNom_structure() != null) {
-				 tb1 = new Tab(structure.getNom_structure());
 
-			}else {
-	             tb1 = new Tab("Structure1");
+			Tab tb1;
+			if (structure.getNom_structure() != null) {
+				tb1 = new Tab(structure.getNom_structure());
+
+			} else {
+				tb1 = new Tab("Structure1");
 
 			}
-			
-			Tab new_tab =new Tab("+");
+
+			Tab new_tab = new Tab("+");
 			new_tab.setClosable(false);
-			
+
 			ArrayList<String> t = new ArrayList<>();
 			t.contains(root);
-			
-			
 
-			
-			
+			new_tab.setOnSelectionChanged(new EventHandler<Event>() {
 
-			new_tab.setOnSelectionChanged(new EventHandler<Event>(){
+				public void handle(Event e) {
 
+					if (new_tab.isSelected()) {
 
-	            public void handle(Event e) {
-	            	
-	            	
-	                if (new_tab.isSelected()) {
-	                	
-	                	File file = new File("sauvegardes");
-	                	
-				        if(file.isDirectory()){
-				        	
-				            if(file.list().length==0){
-				            	
-				            	create_newTab(tp, legos_collection,primaryStage,null);
-			                
-				            }else {
-				            	
-				            	if(tp.getTabs().size() <= 1) {
-					            	create_newTab(tp, legos_collection,primaryStage,null);
-					            	
-					            }else {
-					            	
-					            	
+						File file = new File("sauvegardes");
+
+						if (file.isDirectory()) {
+
+							if (file.list().length == 0) {
+
+								create_newTab(tp, legos_collection, primaryStage, null);
+
+							} else {
+
+								if (tp.getTabs().size() <= 1) {
+									create_newTab(tp, legos_collection, primaryStage, null);
+
+								} else {
+
 									SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
-						        	
-						        	selectionModel2.select(tp.getTabs().get(0)); //select by object
-						    	
-						        	String[] dos = new String[file.list().length];
-						        	
-						        	String[] verif = file.list();
-						        	
-						        	dos[0] = "Nouvelle structure";
-						        	
-						        	for(int i = 1;i<file.list().length;i++) {
-						        		System.out.println(verif[i]);
-						            	dos[i]=verif[i].substring(0,verif[i].length()-4);
-						        	}
-									
-									ChoiceDialog dialog = new ChoiceDialog("Nouvelle structure",dos);
+
+									selectionModel2.select(tp.getTabs().get(0)); // select by object
+
+									String[] dos = new String[file.list().length];
+
+									String[] verif = file.list();
+
+									dos[0] = "Nouvelle structure";
+
+									for (int i = 1; i < file.list().length; i++) {
+										System.out.println(verif[i]);
+										dos[i] = verif[i].substring(0, verif[i].length() - 4);
+									}
+
+									ChoiceDialog dialog = new ChoiceDialog("Nouvelle structure", dos);
 									environnement_Controller.set_dark_dialogue(dialog);
-									
-						        	dialog.getDialogPane().setPrefWidth(500);
-						        	
-						        	
-						        	dialog.setTitle("Nouvelle/charger structure");
-						            dialog.setHeaderText("Choix en cours...");
-						            Optional<String> result = dialog.showAndWait();
-						            
-						            
-				                	
-					            	if (result.get()=="Nouvelle structure") {
-					            	
-						            	create_newTab(tp, legos_collection,primaryStage,null);
 
-					            		
-					            	}else{
-					            		
-						            	create_newTab(tp, legos_collection,primaryStage,result.get());
+									Stage stageAlert1 = (Stage) dialog.getDialogPane().getScene().getWindow();
+									stageAlert1.setAlwaysOnTop(true);
+									stageAlert1.toFront();
+									dialog.getDialogPane().setPrefWidth(500);
 
-					            	}
-					            }
-				            	
-				            	
-				            }
-				        }
+									dialog.setTitle("Nouvelle/charger structure");
+									dialog.setHeaderText("Choix en cours...");
+									Optional<String> result = dialog.showAndWait();
 
-	                	
-	            }
-	                
-	            
-	            }
-	            });
-	       
-			
-        	
-            tb1.setContent(subscene);
+									if (result.get() == "Nouvelle structure") {
 
-            subscene.widthProperty().bind(tp.widthProperty());
-            subscene.heightProperty().bind(tp.heightProperty());
+										create_newTab(tp, legos_collection, primaryStage, null);
 
-            tp.getTabs().add(tb1);
-            
-            tp.getTabs().add(new_tab);
-            
+									} else {
+
+										create_newTab(tp, legos_collection, primaryStage, result.get());
+
+									}
+								}
+
+							}
+						}
+
+					}
+
+				}
+			});
+
+			tb1.setContent(subscene);
+
+			subscene.widthProperty().bind(tp.widthProperty());
+			subscene.heightProperty().bind(tp.heightProperty());
+
+			tp.getTabs().add(tb1);
+
+			tp.getTabs().add(new_tab);
+
 			root.setCenter(tp);
-			
+
 			environnement_Controller.setCssScene(scene);
 
 			primaryStage.setTitle("Lego Builder");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 			tb1.setOnSelectionChanged(new EventHandler<Event>() {
 
 				@Override
@@ -189,84 +171,77 @@ public class Main extends Application{
 					environnement_Controller.structure = structures.get(0);
 
 				}
-				
-			});
-				
 
-	    	tb1.setOnClosed(new EventHandler<Event>() {
-	    	    @Override
-	    	    public void handle(Event t) {
-	    	    	
-	    	    	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
-                	
-                	
-	    	        structures.remove(structure);
-	    	        
-	    	        selectionModel2.select(tp.getTabs().get(0)); 
+			});
+
+			tb1.setOnClosed(new EventHandler<Event>() {
+				@Override
+				public void handle(Event t) {
+
+					SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+
+					structures.remove(structure);
+
+					selectionModel2.select(tp.getTabs().get(0));
 					environnement_Controller.structure = structures.get(0);
 
-	    	       
-	    	    }
-	    	});
+				}
+			});
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	
 	public void create_newTab(TabPane tp, Legos_collection legos_collection, Stage primaryStage, String fileName) {
-		
+
 		Tab tb;
-		if(fileName != null) {
+		if (fileName != null) {
 			tb = new Tab(fileName);
-		}else {
-			tb = new Tab("Structure"+ tp.getTabs().size());
+		} else {
+			tb = new Tab("Structure" + tp.getTabs().size());
 
 		}
-		
-    	
-    	Structure_3D structure2 = new Structure_3D(BLOC_SIZE);
-    	
+
+		Structure_3D structure2 = new Structure_3D(BLOC_SIZE);
+
 		structure2.setCollec(legos_collection);
 		structures.add(structure2);
-		
 
-    	tb.setOnSelectionChanged(new EventHandler<Event>() {
+		tb.setOnSelectionChanged(new EventHandler<Event>() {
 
 			@Override
 			public void handle(Event arg0) {
 				SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-		    	
-		    	environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
+
+				environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
 			}
-			
+
 		});
-    	
-    	tb.setOnClosed(new EventHandler<Event>() {
-    	    @Override
-    	    public void handle(Event t) {
-    	    	SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
-            	
-    	        structures.remove(structure2);
-    	        
-    	        selectionModel2.select(tp.getTabs().get(0)); 
-    	        environnement_Controller.structure = structures.get(0);
-    	    }
-    	});
+
+		tb.setOnClosed(new EventHandler<Event>() {
+			@Override
+			public void handle(Event t) {
+				SingleSelectionModel<Tab> selectionModel2 = tp.getSelectionModel();
+
+				structures.remove(structure2);
+
+				selectionModel2.select(tp.getTabs().get(0));
+				environnement_Controller.structure = structures.get(0);
+			}
+		});
 
 		SubScene subscene2 = new SubScene(structure2, 800, 600, true, SceneAntialiasing.BALANCED);
-		
+
 		subscene2.widthProperty().bind(tp.widthProperty());
 		subscene2.heightProperty().bind(tp.heightProperty());
-		
+
 		try {
 
-			environnement_Controller.start(primaryStage,structure2, subscene2,fileName);
-			structure2.translateXProperty().set(subscene2.getWidth()/1.5);
-			structure2.translateYProperty().set(subscene2.getHeight()/1.5);
+			environnement_Controller.start(primaryStage, structure2, subscene2, fileName);
+			structure2.translateXProperty().set(subscene2.getWidth() / 1.5);
+			structure2.translateYProperty().set(subscene2.getHeight() / 1.5);
 			structure2.translateZProperty().set(0);
-
 
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -274,19 +249,17 @@ public class Main extends Application{
 		}
 
 		subscene2.setFill(Color.valueOf("#2C2D32"));
-	
+
 		tb.setContent(subscene2);
-    	
-    	tp.getTabs().add(tp.getTabs().size() - 1, tb);
-    	
-    	SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-    	
-    	selectionModel.select(tb); //select by object
-    	
-    	environnement_Controller.structure = structure2;
+
+		tp.getTabs().add(tp.getTabs().size() - 1, tb);
+
+		SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+
+		selectionModel.select(tb); // select by object
+
+		environnement_Controller.structure = structure2;
 	}
-	
-	
 
 	public static void main(String[] args) {
 		launch(args);
