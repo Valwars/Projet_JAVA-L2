@@ -107,6 +107,12 @@ public class Controller_3D_Environnement {
 	
 	@FXML
 	private MenuItem sauvegarder,managed_structures,aide;
+	
+	@FXML
+	private Label l,lbl_clr_txtr,lbl_taille2;
+	
+	@FXML
+	private Label lbl_taille = new Label("0");
 
 
 	private int BLOC_SIZE = 50;
@@ -1161,21 +1167,37 @@ public class Controller_3D_Environnement {
 		imageViewWrapper.getStyleClass().add("pic");
 
 		pic.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+			anch.getChildren().remove(l);
+			anch.getChildren().remove(lbl_clr_txtr);
 			System.out.println(f);
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
-
+				l = new Label(f.substring(0,f.length()-1));
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
-
+				anch.getChildren().add(l);
+				anch.setBottomAnchor(l,5.0);
+				anch.setLeftAnchor(l, 7.0);
 			} else {
+				l = new Label(f);
 				structure.setSelected_bloc(f);
+				anch.getChildren().add(l);
+				anch.setBottomAnchor(l,5.0);
+				anch.setLeftAnchor(l, 7.0);
 
 			}
 			if(this.couleurs_correspond.get(c) != null) {
+				lbl_clr_txtr = new Label(c);
 				structure.setSelected_matiere(null);
 				structure.setSelected_color(this.couleurs_correspond.get(c));
+				anch.getChildren().add(lbl_clr_txtr);
+				anch.setBottomAnchor(lbl_clr_txtr,5.0);
+				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
 
 			}else {
+				lbl_clr_txtr = new Label(c);
 				structure.setSelected_matiere(this.textures_correspond.get(c));
+				anch.getChildren().add(lbl_clr_txtr);
+				anch.setBottomAnchor(lbl_clr_txtr,5.0);
+				anch.setLeftAnchor(lbl_clr_txtr, 100.0);
 			}
 
 		});
