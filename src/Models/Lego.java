@@ -225,6 +225,7 @@ public class Lego extends Box implements Serializable{
 							new_lego.childs.add(child);
 
 						}
+					
 
 					} 
 					
@@ -254,7 +255,7 @@ public class Lego extends Box implements Serializable{
 						}
 					}
 					
-					for(int i = 0; i < new_lego.childs.size() - 1;i ++) {
+					for(int i = 0; i < new_lego.childs.size();i ++) {
 						
 						Lego c = new_lego.childs.get(i);
 						
@@ -325,14 +326,11 @@ public class Lego extends Box implements Serializable{
 						
 
 						}
-						
-						
-						
-						
+							
 
 					}
 					
-					for(int i = 0; i < new_lego.childs.size() - 1;i ++) {
+					for(int i = 0; i < new_lego.childs.size();i ++) {
 						
 						Lego c = new_lego.childs.get(i);
 						
@@ -382,9 +380,7 @@ public class Lego extends Box implements Serializable{
 						}
 					}
 					
-					
-					
-					
+			
 					create3DAsset(group, model, new_lego);
 
 					structure.getChildren().add(new_lego);

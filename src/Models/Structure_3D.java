@@ -27,7 +27,6 @@ import javafx.scene.transform.Translate;
 
 public class Structure_3D extends Group implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	private Legos_collection legos_collections;
@@ -39,9 +38,9 @@ public class Structure_3D extends Group implements Serializable {
 	private Color selected_color = Color.ROYALBLUE;
 
 	private String selected_matiere = null;
-	
+
 	private Set<Lego> lego_selected = new HashSet<Lego>();
-	
+
 	private Lego last_lego_selected;
 
 	public Lego getLast_lego_selected() {
@@ -58,7 +57,7 @@ public class Structure_3D extends Group implements Serializable {
 		return pressedKeys;
 	}
 
-	public Set<Lego>  getLego_selected() {
+	public Set<Lego> getLego_selected() {
 		return lego_selected;
 	}
 
@@ -76,9 +75,9 @@ public class Structure_3D extends Group implements Serializable {
 
 	private PointLight pointLight;
 	private Sphere sphere;
-	
+
 	private String nom_structure;
-	
+
 	public String getNom_structure() {
 		return nom_structure;
 	}
@@ -188,43 +187,40 @@ public class Structure_3D extends Group implements Serializable {
 	}
 
 	public void enregistrer() {
-		
-		
-		
+
 		File fichier;
-		
-		if(this.nom_structure != null ) {
+
+		if (this.nom_structure != null) {
 			System.out.println("le fichier existe déjà, on l'écrase");
 			fichier = new File(this.nom_structure);
-		}else {
+		} else {
 			System.out.println("Aucune sauvergarde de cette structure, on en créer une");
 
 			fichier = new File("sauvegardes/sauvegarde0.xml");
-			
+
 			int j = 0;
-			
+
 			while (fichier.exists()) {
-				fichier = new File("sauvegardes/sauvegarde"+j+".xml");
+				fichier = new File("sauvegardes/sauvegarde" + j + ".xml");
 				j += 1;
 			}
-			
-			this.nom_structure = "sauvegardes/sauvegarde"+j+".xml";
 
+			this.nom_structure = "sauvegardes/sauvegarde" + j + ".xml";
 
 		}
-		
+
 		this.getChildren().remove(1600);
 		this.getChildren().remove(1600);
 
 		ArrayList<Shape3D> array = new ArrayList<Shape3D>();
 
 		for (int i = 0; i < this.getChildren().size(); i++) {
-			
-			if(this.getChildren().get(i).getClass() == Lego.class) {
-				 Lego l = (Lego) this.getChildren().get(i);
-				 l.setParent_name(this.nom_structure);
+
+			if (this.getChildren().get(i).getClass() == Lego.class) {
+				Lego l = (Lego) this.getChildren().get(i);
+				l.setParent_name(this.nom_structure);
 			}
-			
+
 			array.add((Shape3D) this.getChildren().get(i));
 		}
 
@@ -274,8 +270,6 @@ public class Structure_3D extends Group implements Serializable {
 			pointLight.setRotate(pointLight.getRotate() - 2);
 		}
 	};
-	
-
 
 	public Structure_3D(int bs) {
 		this.BLOC_SIZE = bs;
@@ -304,7 +298,7 @@ public class Structure_3D extends Group implements Serializable {
 					Lego model = this.getLegos_collections().getLegos().get(l.getType());
 
 					if (Math.abs(model.getWidth()) > this.BLOC_SIZE && Math.abs(model.getDepth()) > this.BLOC_SIZE) {
-						
+
 						for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
 								/ this.getBLOC_SIZE()) * 2 - 1; i++) {
 
@@ -323,14 +317,13 @@ public class Structure_3D extends Group implements Serializable {
 							deleted_blocs.push(child);
 
 						}
-						
-						for(int i = 0; i < l.getChilds().size(); i ++) {
-							l.getChilds().get(i).setEnfant(null);
+
+						for (int i = 0; i < l.getChilds().size(); i++) {
+							l.getLegoParent().getChilds().get(i).setEnfant(null);
+							System.out.println(l.getLegoParent().getChilds().get(i).getEnfant());
 						}
-						
-						
-						
-					}else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
+
+					} else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
 
 						for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
 								/ this.getBLOC_SIZE()); i++) {
@@ -349,10 +342,30 @@ public class Structure_3D extends Group implements Serializable {
 
 							deleted_blocs.push(child);
 
-						}	for(int i = 0; i < l.getChilds().size(); i ++) {
-							l.getChilds().get(i).setEnfant(null);
 						}
-						
+						if (l.getDirection() != null) {
+
+							if (l.getLegoParent().getDirection().equals(l.getDirection())) {
+								System.out.println("MEME DIRECTION");
+
+								if (l.getLegoParent().getChilds().size() >= l.getChilds().size()) {
+									for (int i = 0; i < l.getChilds().size(); i++) {
+
+										System.out.println("BLOC ENFANT");
+										l.getLegoParent().getChilds().get(i).setEnfant(null);
+										System.out.println(l.getLegoParent().getChilds().get(i).getEnfant());
+
+									}
+								} else {
+									for (int i = 0; i < l.getLegoParent().getChilds().size(); i++) {
+										l.getLegoParent().getChilds().get(i).setEnfant(null);
+										System.out.println(l.getChilds().get(i).getEnfant());
+
+									}
+
+								}
+							}
+						}
 
 					} else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
 
@@ -374,11 +387,30 @@ public class Structure_3D extends Group implements Serializable {
 							deleted_blocs.push(child);
 
 						}
-						
-						for(int i = 0; i < l.getChilds().size(); i ++) {
-							l.getChilds().get(i).setEnfant(null);
+
+						if (l.getDirection() != null) {
+
+							if (l.getLegoParent().getDirection().equals(l.getDirection())) {
+								System.out.println("MEME DIRECTION");
+
+								if (l.getLegoParent().getChilds().size() >= l.getChilds().size()) {
+									for (int i = 0; i < l.getChilds().size(); i++) {
+
+										System.out.println("BLOC ENFANT");
+										l.getLegoParent().getChilds().get(i).setEnfant(null);
+										System.out.println(l.getLegoParent().getChilds().get(i).getEnfant());
+
+									}
+								} else {
+									for (int i = 0; i < l.getLegoParent().getChilds().size(); i++) {
+										l.getLegoParent().getChilds().get(i).setEnfant(null);
+										System.out.println(l.getChilds().get(i).getEnfant());
+
+									}
+
+								}
+							}
 						}
-						
 
 					} else {
 
@@ -406,22 +438,20 @@ public class Structure_3D extends Group implements Serializable {
 	}
 
 	public void move_sun2() {
-	      this.pointLight.setRotationAxis(new Point3D(200,0,0));
+		this.pointLight.setRotationAxis(new Point3D(200, 0, 0));
 
-	      this.pointLight.setRotate(pointLight.getRotate() - 25);
+		this.pointLight.setRotate(pointLight.getRotate() - 25);
 
 	}
-	
-	
+
 	public void move_sun() {
-	
-	      //Setting pivot points for the rotation
-	      this.pointLight.setRotationAxis(new Point3D(0,200,0));
 
-		  this.pointLight.setRotate(pointLight.getRotate() - 25);
+		// Setting pivot points for the rotation
+		this.pointLight.setRotationAxis(new Point3D(0, 200, 0));
+
+		this.pointLight.setRotate(pointLight.getRotate() - 25);
 
 	}
-
 
 	public void time_laps() {
 
@@ -441,7 +471,7 @@ public class Structure_3D extends Group implements Serializable {
 			Lego model = this.getLegos_collections().getLegos().get(l.getType());
 
 			if (Math.abs(model.getWidth()) > this.BLOC_SIZE && Math.abs(model.getDepth()) > this.BLOC_SIZE) {
-				
+
 				for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
 						/ this.getBLOC_SIZE()) * 2 - 1; i++) {
 
@@ -455,10 +485,9 @@ public class Structure_3D extends Group implements Serializable {
 
 					this.getChildren().add(lego);
 
-
 				}
-				
-			}else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
+
+			} else if (Math.abs(model.getWidth()) > this.BLOC_SIZE) {
 
 				for (int i = 0; i < ((Math.abs(model.getWidth()) + (this.getBLOC_SIZE() * l.getTaille()))
 						/ this.getBLOC_SIZE()); i++) {
@@ -476,13 +505,12 @@ public class Structure_3D extends Group implements Serializable {
 
 				}
 
-			}else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
+			} else if (Math.abs(model.getDepth()) > this.BLOC_SIZE) {
 
 				for (int i = 0; i < ((Math.abs(model.getDepth()) + (this.getBLOC_SIZE() * l.getTaille()))
 						/ this.getBLOC_SIZE()); i++) {
 					Lego lego = (Lego) deleted_blocs.pop();
 					lego.setEnfant(null);
-
 
 					for (int j = 0; j < 4; j++) {
 
@@ -494,10 +522,9 @@ public class Structure_3D extends Group implements Serializable {
 
 				}
 
-			}else if (Math.abs(model.getDepth()) <= this.BLOC_SIZE && Math.abs(model.getWidth()) <= this.BLOC_SIZE) {
+			} else if (Math.abs(model.getDepth()) <= this.BLOC_SIZE && Math.abs(model.getWidth()) <= this.BLOC_SIZE) {
 				Lego lego = (Lego) deleted_blocs.pop();
 				lego.setEnfant(null);
-
 
 				for (int j = 0; j < 4; j++) {
 

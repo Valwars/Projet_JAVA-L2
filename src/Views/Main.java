@@ -124,6 +124,7 @@ public class Main extends Application{
 						        	dos[0] = "Nouvelle structure";
 						        	
 						        	for(int i = 1;i<file.list().length;i++) {
+						        		System.out.println(verif[i]);
 						            	dos[i]=verif[i].substring(0,verif[i].length()-4);
 						        	}
 									
