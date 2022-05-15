@@ -1,6 +1,12 @@
 .background {
     -fx-background-color: #1b1e2b;
 }
+
+.btn_coul{
+-fx-border-color :#FF00FF ;
+}
+
+
 .grid-pane{
 	-fx-background-color: #1b1e2b;
 	-fx-border-color: #1b1e2b;

@@ -453,18 +453,13 @@ public class Controller_3D_Environnement {
 
 			l.setText("TAPIS");
 
-		
-
 			break;
 		case U:
 			structure.setTaille(0);
 
 			structure.setSelected_bloc("CUBE");
 
-
 			l.setText("CUBE");
-
-		
 
 			break;
 		case I:
@@ -472,9 +467,8 @@ public class Controller_3D_Environnement {
 
 			String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 
-
 			l.setText("RECTANGLE");
-			
+
 			System.out.println(rota);
 			structure.setSelected_bloc(bloc);
 			break;
@@ -494,7 +488,6 @@ public class Controller_3D_Environnement {
 			String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
 
 			l.setText("RECTANGLE");
-
 
 			structure.setSelected_bloc(bloc3);
 			break;
@@ -737,6 +730,14 @@ public class Controller_3D_Environnement {
 				@Override
 				public void handle(ActionEvent evt) {
 
+					if (bt1.getStyleClass().contains("btn_coul")) {
+
+						bt1.getStyleClass().remove("btn_coul");
+					} else {
+						bt1.getStyleClass().add("btn_coul");
+
+					}
+
 					String c = bt1.getId();
 					if (bt_active[j] == true && x == 0) {
 						LCO.clear();
@@ -803,7 +804,13 @@ public class Controller_3D_Environnement {
 
 				@Override
 				public void handle(ActionEvent evt) {
+					if (bt1.getStyleClass().contains("btn_coul")) {
 
+						bt1.getStyleClass().remove("btn_coul");
+					} else {
+						bt1.getStyleClass().add("btn_coul");
+
+					}
 					String t = bt1.getId();
 					if (bt_active2[j] == true && x == 0) {
 						LCO.clear();
@@ -864,8 +871,7 @@ public class Controller_3D_Environnement {
 
 	public void remplir_dico2() {
 
-		String[] name = {"VERRE", "TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
-		
+		String[] name = { "VERRE", "TERRE", "BOIS", "LAVE", "FEUILLE", "PIERRE", "PLANCHE" };
 
 		for (int i = 1; i < name.length; i++) {
 			this.textures_correspond.put(name[i], this.tab_matiere[i]);
@@ -1165,13 +1171,14 @@ public class Controller_3D_Environnement {
 	}
 
 	public void panneau_block(boolean dark) throws FileNotFoundException {
-		this.Imagescrollpane.setContent(panneau);
 
 		int x = 0;
 		int y = 0;
 
 		panneau.getStylesheets().clear();
 		panneau.getChildren().clear();
+
+		this.Imagescrollpane.setContent(panneau);
 
 		for (int i = 0; i < LFO.size(); i++) {
 			for (int j = 0; j < LCO.size(); j++) {
@@ -1203,35 +1210,35 @@ public class Controller_3D_Environnement {
 	}
 
 	public BorderPane afficher_block(String f, String c) throws FileNotFoundException {
+
 		Image img = new Image("File:images/" + f + "_" + c + ".png");
 		ImageView pic = new ImageView(img);
 		BorderPane imageViewWrapper = new BorderPane(pic);
+
 		imageViewWrapper.getStyleClass().add("pic");
 
 		pic.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-			
+
 			System.out.println(f);
 
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
 				l.setText(f.substring(0, f.length() - 1));
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
-				
+
 			} else {
 				l.setText(f);
 				structure.setSelected_bloc(f);
-			
 
 			}
 			if (this.couleurs_correspond.get(c) != null) {
 				lbl_clr_txtr.setText(c);
 				structure.setSelected_matiere(null);
 				structure.setSelected_color(this.couleurs_correspond.get(c));
-				
 
 			} else {
 				lbl_clr_txtr.setText(c);
 				structure.setSelected_matiere(this.textures_correspond.get(c));
-				
+
 			}
 
 		});
@@ -1327,6 +1334,8 @@ public class Controller_3D_Environnement {
 
 	public void ligth() {
 		this.cssScene.getStylesheets().clear();
+		this.cssScene.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+
 		// this.cd.getDialogPane().getStylesheets().clear();
 
 	}
