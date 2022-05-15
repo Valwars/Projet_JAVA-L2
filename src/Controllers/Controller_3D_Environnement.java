@@ -601,16 +601,22 @@ public class Controller_3D_Environnement {
 			Iterator<Lego> it3 = structure.getLego_selected().iterator();
 
 			while (it3.hasNext()) {
-
+				
+				
 				Lego l = it3.next();
-				l.getLegoParent().setEnfant(null);
+				
 				int index = structure.getChildren().indexOf(l);
 				structure.getChildren().remove(l);
 				
-				for (int i = 0; i < 4; i++) {
-					structure.getChildren().remove(index - (i +1));
+				if(!l.getType().equals("BASE")) {
+					for (int i = 0; i < 4; i++) {
+						structure.getChildren().remove(index - (i +1));
+
+					}
+					l.getLegoParent().setEnfant(null);
 
 				}
+			
 
 
 			}
