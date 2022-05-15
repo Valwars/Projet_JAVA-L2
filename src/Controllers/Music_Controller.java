@@ -55,7 +55,12 @@ public class Music_Controller implements Initializable {
 	private boolean running;
 	public boolean sp = false;
 	public boolean start = false;
+	public Controller_3D_Environnement controller;
+	
+	public Music_Controller(Controller_3D_Environnement contr) {
+		this.controller = contr;
 
+	}
 	public void start() {
 		start = true;
 		songs = new ArrayList<File>();
@@ -166,6 +171,9 @@ public class Music_Controller implements Initializable {
 		pause.setFitHeight(35);
 		pause.setFitWidth(40);
 		pauseButton.setGraphic(pause);
+		pause.setFitHeight(15);
+		pause.setFitWidth(15);
+		controller.getPause_button().setGraphic(pause);
 	}
 
 	public void pauseMedia() {

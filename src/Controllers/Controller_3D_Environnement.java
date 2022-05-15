@@ -68,6 +68,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -94,13 +95,21 @@ public class Controller_3D_Environnement {
 	private Scene cssScene;
 	private ChoiceDialog cd;
 
+	public Button getPause_button() {
+		return pause_button;
+	}
+
+	public void setPause_button(Button pause_button) {
+		this.pause_button = pause_button;
+	}
+
 	private VBox vbx;
 
 	@FXML
 	private MenuBar menu_bar;
 
 	@FXML
-	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins;
+	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins, previous_button, pause_button, next_button;
 
 	@FXML
 	private AnchorPane anch, anch_top, anch_cat;
@@ -181,7 +190,7 @@ public class Controller_3D_Environnement {
 
 	public Controller_3D_Environnement() {
 
-		mc = new Music_Controller();
+		mc = new Music_Controller(this);
 
 	}
 
@@ -884,6 +893,8 @@ public class Controller_3D_Environnement {
 			container.getRowConstraints().add(new RowConstraints(24));
 			Label lbl = tab_categorie[i];
 			CheckBox cbx = new CheckBox();
+			lbl.setMinWidth(Region.USE_PREF_SIZE);
+
 			cbx.setSelected(true);
 			lbl.setTextFill(Color.GREY);
 
@@ -951,7 +962,7 @@ public class Controller_3D_Environnement {
 		panneau_block(false);
 		ToggleSwitch toggle = new ToggleSwitch();
 		anch_top.getChildren().add(toggle);
-		anch_top.setRightAnchor(toggle, 70.0);
+		anch_top.setRightAnchor(toggle, 200.0);
 		anch_top.setBottomAnchor(toggle, 2.0);
 
 		toggle.setOnMousePressed(event -> {
@@ -1118,6 +1129,62 @@ public class Controller_3D_Environnement {
 
 			}
 		});
+		
+		ImageView next = new ImageView(new Image(getClass().getResourceAsStream("next.png")));
+		next.setPreserveRatio(true);
+		next.setFitHeight(15);
+		next.setFitWidth(15);
+		next_button.setGraphic(next);
+		
+		ImageView previous = new ImageView(new Image(getClass().getResourceAsStream("previous.png")));
+		previous.setPreserveRatio(true);
+		previous.setFitHeight(15);
+		previous.setFitWidth(15);
+		previous_button.setGraphic(previous);
+		
+		ImageView start = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+		start.setPreserveRatio(true);
+		start.setFitHeight(15);
+		start.setFitWidth(15);
+		
+		pause_button.setGraphic(start);
+		
+		pause_button.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+	
+				ImageView pause;
+				if (mc.sp) {
+					pause = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+					mc.sp = true;
+
+				} else {
+					pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+					mc.sp = false;
+				}
+				
+				pause.setPreserveRatio(true);
+				pause.setFitHeight(15);
+				pause.setFitWidth(15);
+				pause_button.setGraphic(pause);
+				mc.playMedia();
+			}
+		});
+		
+		next_button.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				mc.nextMedia();
+			}
+		});
+		
+		previous_button.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				mc.previousMedia();
+			}
+		});
+		
 
 		sauvegarder.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -1388,32 +1455,37 @@ public class Controller_3D_Environnement {
 						Shape3D shape2 = l.get(i - j);
 						shape2.setMaterial(material);
 						shape2.setOnMousePressed(event -> {
-							System.out.println("JE CLIQUE SUR CE PTN DE CYLINDRE");
-							Group g = (Group) shape2.getParent();
+							if (event.isSecondaryButtonDown() && ((Lego) shape).getEnfant() == null) {
+								
+								System.out.println("JE CLIQUE SUR CE PTN DE CYLINDRE");
+								Group g = (Group) shape2.getParent();
 
-							if (g.getChildren().size() > 5) {
+								if (g.getChildren().size() > 5) {
 
-								for (int k = 0; k < g.getChildren().size() - 1; k++) {
+									for (int k = 0; k < g.getChildren().size() - 1; k++) {
 
-									if (g.getChildren().get(k).equals(shape2)) {
-										boolean drap = false;
-										for (int o = k; o < g.getChildren().size(); o++) {
+										if (g.getChildren().get(k).equals(shape2)) {
+											boolean drap = false;
+											for (int o = k; o < g.getChildren().size(); o++) {
 
-											if (g.getChildren().get(o).toString().contains("Lego")
-													&& drap == false) {
-												Lego le = (Lego) g.getChildren().get(o);
-												le.create_blocs();
-												drap = true;
+												if (g.getChildren().get(o).toString().contains("Lego")
+														&& drap == false) {
+													Lego le = (Lego) g.getChildren().get(o);
+													le.create_blocs();
+													drap = true;
+												}
 											}
 										}
+
 									}
 
+								} else {
+									Lego lz = (Lego) g.getChildren().get(4);
+									lz.create_blocs();
 								}
-
-							} else {
-								Lego lz = (Lego) g.getChildren().get(4);
-								lz.create_blocs();
+								
 							}
+							
 						});
 
 					}
