@@ -22,6 +22,8 @@ import Models.Structure_3D;
 import Models.ToggleSwitch;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -47,6 +49,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -62,6 +65,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -106,13 +110,14 @@ public class Controller_3D_Environnement {
 	private ScrollPane Coulscrollpane, cat, Textscrollpane, Imagescrollpane;
 
 	@FXML
-	private MenuItem sauvegarder, managed_structures, aide;
+	private MenuItem sauvegarder, managed_structures, aide,reglages;
 
 	@FXML
 	private Label l, lbl_clr_txtr, lbl_taille2;
 
 	@FXML
 	private Label lbl_taille = new Label("0");
+
 
 	private int BLOC_SIZE = 50;
 
@@ -178,6 +183,7 @@ public class Controller_3D_Environnement {
 
 		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
 		player = new MediaPlayer(buzzer);
+		player.setVolume(0.5);
 		player.setOnEndOfMedia(new Runnable() {
 			public void run() {
 				player.seek(Duration.ZERO);
@@ -1021,6 +1027,50 @@ public class Controller_3D_Environnement {
 						root.getStylesheets().clear();
 						root.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 						root.getContent().getStyleClass().add("vbox");
+
+					} else {
+						root.getStylesheets().clear();
+					}
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
+		reglages.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+
+				Stage stage = new Stage();
+
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/reglages.fxml"));
+
+				Pane root;
+				try {
+					root = loader.load();
+					System.out.println(root.getChildren());
+					Slider slider = (Slider) root.getChildren().get(2);
+					slider.setValue(50);
+					slider.valueProperty().addListener(new ChangeListener<Number>() {
+			       
+
+						@Override
+						public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+							System.out.println(arg2);
+							player.setVolume((double) arg2/100);
+							
+						}
+			        });
+					Scene scene = new Scene(root);
+					stage.setResizable(false);
+					
+					if (toggle.select().getValue()) {
+						root.getStylesheets().clear();
+						root.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 
 					} else {
 						root.getStylesheets().clear();
