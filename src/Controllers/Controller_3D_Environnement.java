@@ -32,6 +32,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
@@ -162,7 +163,7 @@ public class Controller_3D_Environnement {
 			"wood2.png" };
 
 	int rota = 0;
-
+	public int musiques = 0;
 	boolean r = false;
 	String[] rotations = { "DROITE", "GAUCHE", "AVANT", "ARRIERE" };
 
@@ -178,18 +179,10 @@ public class Controller_3D_Environnement {
 
 		}
 	};
-
+	private Music_Controller mc;
 	public Controller_3D_Environnement() {
-
-		Media buzzer = new Media(getClass().getResource("back_music.mp3").toExternalForm());
-		player = new MediaPlayer(buzzer);
-		player.setVolume(0.5);
-		player.setOnEndOfMedia(new Runnable() {
-			public void run() {
-				player.seek(Duration.ZERO);
-			}
-		});
-		player.play();
+		
+		mc = new Music_Controller(); 
 
 	}
 
@@ -588,6 +581,31 @@ public class Controller_3D_Environnement {
 			}
 
 			break;
+			
+		case ENTER:
+
+
+			Iterator<Lego> it3 = structure.getLego_selected().iterator();
+
+			while (it3.hasNext()) {
+
+				Lego l = it3.next();
+				l.getLegoParent().setEnfant(null);
+				int index = structure.getChildren().indexOf(l);
+				structure.getChildren().remove(l);
+				
+				for (int i = 0; i < 4; i++) {
+					structure.getChildren().remove(index - (i +1));
+
+				}
+
+
+			}
+
+			structure.getLego_selected().clear();
+
+			break;
+
 
 		}
 	}
@@ -1057,10 +1075,10 @@ public class Controller_3D_Environnement {
 			@Override
 			public void handle(ActionEvent e) {
 				if (mute_sound.getText().equals("Mute")) {
-					player.setMute(true);
+					mc.mute();
 					mute_sound.setText("Unmute");
 				} else {
-					player.setMute(false);
+					mc.demute();
 					mute_sound.setText("Mute");
 				}
 
@@ -1074,7 +1092,7 @@ public class Controller_3D_Environnement {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
-
+				loader.setController(mc);
 				ScrollPane root;
 				try {
 					root = loader.load();
@@ -1105,23 +1123,13 @@ public class Controller_3D_Environnement {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/reglages.fxml"));
-
+				
+				loader.setController(mc);
+				
 				Pane root;
 				try {
 					root = loader.load();
-					System.out.println(root.getChildren());
-					Slider slider = (Slider) root.getChildren().get(2);
-					slider.setValue(player.getVolume()*100);
-					slider.valueProperty().addListener(new ChangeListener<Number>() {
-			       
-
-						@Override
-						public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-							System.out.println(arg2);
-							player.setVolume((double) arg2/100);
-							
-						}
-			        });
+					
 					Scene scene = new Scene(root);
 					stage.setResizable(false);
 					
@@ -1134,6 +1142,14 @@ public class Controller_3D_Environnement {
 					}
 					stage.setScene(scene);
 					stage.show();
+					
+					if(!mc.start) {
+						mc.start();
+					}else {
+						mc.setImg();
+
+					}
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -1414,11 +1430,11 @@ public class Controller_3D_Environnement {
 						for (int j = 1; j < 5; j++) {
 							Shape3D shape2 = l.get(i - j);
 							shape2.setMaterial(material);
-
+							
+							
 						}
 
 					}
-
 				}
 
 				shape.setMaterial(material);
