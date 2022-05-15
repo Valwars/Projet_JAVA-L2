@@ -175,7 +175,7 @@ public class Main extends Application {
 				@Override
 				public void handle(Event arg0) {
 					environnement_Controller.structure = structures.get(0);
-
+					environnement_Controller.setScene(subscene);
 				}
 
 			});
@@ -190,7 +190,7 @@ public class Main extends Application {
 
 					selectionModel2.select(tp.getTabs().get(0));
 					environnement_Controller.structure = structures.get(0);
-
+					
 				}
 			});
 
@@ -214,16 +214,6 @@ public class Main extends Application {
 		structure2.setCollec(legos_collection);
 		structures.add(structure2);
 
-		tb.setOnSelectionChanged(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
-
-				environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
-			}
-
-		});
 
 		tb.setOnClosed(new EventHandler<Event>() {
 			@Override
@@ -242,6 +232,20 @@ public class Main extends Application {
 		subscene2.widthProperty().bind(tp.widthProperty());
 		subscene2.heightProperty().bind(tp.heightProperty());
 
+
+		tb.setOnSelectionChanged(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				SingleSelectionModel<Tab> selectionModel = tp.getSelectionModel();
+
+				environnement_Controller.structure = structures.get(selectionModel.getSelectedIndex());
+				environnement_Controller.setScene(subscene2);
+
+			}
+
+		});
+		
 		try {
 
 			environnement_Controller.start(primaryStage, structure2, subscene2, fileName);

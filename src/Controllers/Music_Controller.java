@@ -229,6 +229,7 @@ public class Music_Controller implements Initializable {
 			playMedia();
 		}
 	}
+	
 
 	public void nextMedia() {
 

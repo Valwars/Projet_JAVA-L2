@@ -185,6 +185,17 @@ public class Controller_3D_Environnement {
 		mc = new Music_Controller(); 
 
 	}
+	
+	public void setScene(SubScene subscene) {
+		
+		this.subscene = subscene;
+
+		camera = new PerspectiveCamera();
+
+		subscene.setCamera(camera);
+		camera.translateZProperty().set(-2000);
+
+	}
 
 	public void start(Stage primaryStage, Structure_3D st, SubScene subscene, String fileName)
 			throws FileNotFoundException {
@@ -405,10 +416,12 @@ public class Controller_3D_Environnement {
 			break;
 
 		case Z:
+			
 			System.out.println("AVANT");
 			camera.setTranslateY(camera.getTranslateY() - 5);
 
 			break;
+			
 		case S:
 			System.out.println("arriere");
 			camera.setTranslateY(camera.getTranslateY() + 5);
