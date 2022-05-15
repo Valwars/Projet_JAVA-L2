@@ -113,10 +113,8 @@ public class Controller_3D_Environnement {
 	private MenuItem sauvegarder, managed_structures, aide,reglages;
 
 	@FXML
-	private Label l, lbl_clr_txtr, lbl_taille2;
+	private Label l, lbl_clr_txtr,lbl_taille,lbl_taille2;
 
-	@FXML
-	private Label lbl_taille = new Label("0");
 
 
 	private int BLOC_SIZE = 50;
@@ -949,6 +947,8 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
+		lbl_taille.setText("1");
+		lbl_taille2.setText("1");
 		ajout_couleur(false);
 		ajout_categorie(false);
 		ajout_texture(false);
@@ -994,6 +994,20 @@ public class Controller_3D_Environnement {
 				}
 			}
 
+		});
+		btn_plus.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println(l.getText());
+				if (l.getText().equals("RECTANGLE") || l.getText().equals("ANGLE") ) {
+					System.out.println("hello");
+					structure.setTaille(structure.getTaille() + 1);
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())+1));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					
+				}
+
+			}
 		});
 
 		mute_sound.setOnAction(new EventHandler<ActionEvent>() {

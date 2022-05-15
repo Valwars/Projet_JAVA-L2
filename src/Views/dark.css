@@ -88,7 +88,7 @@
 .choice-dialog .combo-box{
 	-fx-background-color: derive(#1b1e2b,90.0%);
 	-fx-text-fill: white;
-	-fx-border-color : derive(#1b1e2b,90.0%);;
+	-fx-border-color : derive(#1b1e2b,90.0%);
 }
 
 .choice-dialog .combo-box .list-cell{
