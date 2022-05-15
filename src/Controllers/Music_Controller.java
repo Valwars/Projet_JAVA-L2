@@ -153,6 +153,8 @@ public class Music_Controller implements Initializable {
 	public void playMedia() {
 		
 		ImageView pause;
+		ImageView pause2;
+
 		if (!sp) {
 
 			beginTimer();
@@ -160,20 +162,27 @@ public class Music_Controller implements Initializable {
 			mediaPlayer.play();
 			
 			pause = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+			pause2 = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+
 			sp = true;
 
 		} else {
 			this.pauseMedia();
 			pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+			pause2 = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+
 			sp = false;
 		}
+		
 		pause.setPreserveRatio(true);
 		pause.setFitHeight(35);
 		pause.setFitWidth(40);
 		pauseButton.setGraphic(pause);
-		pause.setFitHeight(15);
-		pause.setFitWidth(15);
-		controller.getPause_button().setGraphic(pause);
+		
+		pause2.setPreserveRatio(true);
+		pause2.setFitHeight(15);
+		pause2.setFitWidth(15);
+		controller.getPause_button().setGraphic(pause2);
 	}
 
 	public void pauseMedia() {

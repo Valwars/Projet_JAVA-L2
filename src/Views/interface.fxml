@@ -24,13 +24,14 @@
                   <AnchorPane fx:id="anch_cat" prefHeight="200.0" prefWidth="200.0" />
                </content></ScrollPane>
             <ScrollPane fx:id="Textscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutY="179.0" prefHeight="51.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Button fx:id="btn_plus" layoutX="138.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="25.0" text="+" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="138.0" />
-            <Button fx:id="btn_moins" layoutX="114.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="24.0" text="-" AnchorPane.bottomAnchor="33.0" />
-            <Label fx:id="l" layoutX="18.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
-            <Label fx:id="lbl_clr_txtr" layoutX="44.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
-            <Label fx:id="lbl_taille2" layoutX="207.0" layoutY="594.0" prefHeight="17.0" prefWidth="7.0" AnchorPane.bottomAnchor="2.0" />
-            <Label fx:id="lbl_taille" layoutX="172.0" layoutY="556.0" prefHeight="27.0" prefWidth="28.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="101.0" />
-            <Label layoutX="14.0" layoutY="561.0" text="Taille du block" AnchorPane.bottomAnchor="38.0" />
+            <Button fx:id="btn_plus" alignment="CENTER" layoutX="139.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="25.0" text="+" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="139.0" />
+            <Button fx:id="btn_moins" contentDisplay="CENTER" layoutX="112.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="24.0" text="-" AnchorPane.bottomAnchor="33.0" />
+            <Label fx:id="l" layoutX="50.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
+            <Label fx:id="orientation_label" layoutX="170.0" layoutY="594.0" AnchorPane.bottomAnchor="5.0" />
+            <Label fx:id="lbl_clr_txtr" layoutX="220.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
+            <Label fx:id="lbl_taille2" layoutX="250.0" layoutY="599.0" AnchorPane.bottomAnchor="5.0" />
+            <Label fx:id="lbl_taille" layoutX="183.0" layoutY="556.0" prefHeight="27.0" prefWidth="28.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="90.0" />
+            <Label layoutX="14.0" layoutY="561.0" text="Blocs en plus :" AnchorPane.bottomAnchor="38.0" />
             <Separator layoutX="13.0" layoutY="593.0" prefWidth="200.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>

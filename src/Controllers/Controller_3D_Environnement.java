@@ -124,7 +124,7 @@ public class Controller_3D_Environnement {
 	private MenuItem sauvegarder, managed_structures, aide, reglages;
 
 	@FXML
-	private Label l, lbl_clr_txtr, lbl_taille, lbl_taille2;
+	private Label l, lbl_clr_txtr, lbl_taille, lbl_taille2,orientation_label;
 
 	private int BLOC_SIZE = 50;
 
@@ -412,10 +412,11 @@ public class Controller_3D_Environnement {
 			}
 			break;
 		case Y:
-			// structure.move_sun();
+		
 
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(1+"");
 			structure.setSelected_bloc("TAPIS");
 
 			l.setText("TAPIS");
@@ -423,7 +424,8 @@ public class Controller_3D_Environnement {
 			break;
 		case U:
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(1+"");
 			structure.setSelected_bloc("CUBE");
 
 			l.setText("CUBE");
@@ -431,7 +433,8 @@ public class Controller_3D_Environnement {
 			break;
 		case I:
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(2+"");
 			String bloc = "RECTANGLE2_" + this.rotations[this.rota];
 
 			l.setText("RECTANGLE");
@@ -441,7 +444,8 @@ public class Controller_3D_Environnement {
 			break;
 		case O:
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(3+"");
 			String bloc2 = "RECTANGLE3_" + this.rotations[this.rota];
 
 			l.setText("RECTANGLE");
@@ -451,7 +455,8 @@ public class Controller_3D_Environnement {
 		case P:
 
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(4+"");
 			String bloc3 = "RECTANGLE4_" + this.rotations[this.rota];
 
 			l.setText("RECTANGLE");
@@ -462,7 +467,8 @@ public class Controller_3D_Environnement {
 		case K:
 
 			structure.setTaille(0);
-
+			lbl_taille.setText(0+"");
+			lbl_taille2.setText(5+"");
 			String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
 
 			l.setText("RECTANGLE");
@@ -472,13 +478,28 @@ public class Controller_3D_Environnement {
 
 		case H:
 
-			structure.setTaille(structure.getTaille() + 1);
+
+			if ((l.getText().equals("RECTANGLE") || l.getText().equals("ANGLE")) ) {
+				
+				structure.setTaille(structure.getTaille() + 1);
+				lbl_taille.setText(String.valueOf(Integer.valueOf(structure.getTaille())));
+				lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille2.getText()) +1 ));
+
+			}
+			
 			break;
 
 		case G:
 
 			if (structure.getTaille() > 0) {
-				structure.setTaille(structure.getTaille() - 1);
+				
+				if ((l.getText().equals("RECTANGLE") || l.getText().equals("ANGLE")) ) {
+					
+					structure.setTaille(structure.getTaille() - 1);
+					lbl_taille.setText(String.valueOf(Integer.valueOf(structure.getTaille())));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille2.getText()) - 1 ));
+
+				}
 
 			}
 			break;
@@ -548,7 +569,7 @@ public class Controller_3D_Environnement {
 				String[] blocs = structure.getSelected_bloc().split("_");
 
 				structure.setSelected_bloc(blocs[0] + "_" + this.rotations[rota]);
-
+				orientation_label.setText(this.rotations[rota]);
 			}
 
 			break;
@@ -953,8 +974,10 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
-		lbl_taille.setText("1");
+		lbl_taille.setText("0");
 		lbl_taille2.setText("1");
+		orientation_label.setText(this.rotations[rota]);
+
 		ajout_couleur(false);
 		ajout_categorie(false);
 		ajout_texture(false);
@@ -1005,19 +1028,12 @@ public class Controller_3D_Environnement {
 		btn_plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (l.getText().equals("RECTANGLE")) {
-					System.out.println(a);
+				
+				if ((l.getText().equals("RECTANGLE")||l.getText().equals("ANGLE")) ) {
 					structure.setTaille(structure.getTaille() + 1);
+		
 					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) + 1));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-
-				}
-				if (l.getText().equals("ANGLE")) {
-					System.out.println(a);
-					System.out.println("hello");
-					structure.setTaille(structure.getTaille() + 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) + 1));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille2.getText()) + 1));
 
 				}
 
@@ -1026,19 +1042,13 @@ public class Controller_3D_Environnement {
 		btn_moins.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (l.getText().equals("RECTANGLE") && Integer.valueOf(lbl_taille.getText()) > 2) {
+				if ((l.getText().equals("RECTANGLE")||l.getText().equals("ANGLE")) && structure.getTaille() >1) {
 					structure.setTaille(structure.getTaille() - 1);
 					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) - 1));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille2.getText()) - 1));
 
 				}
-				if (l.getText().equals("ANGLE") && Integer.valueOf(lbl_taille.getText()) > 1) {
-					System.out.println(Integer.valueOf(lbl_taille.getText()) - 1);
-					structure.setTaille(structure.getTaille() - 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) - 1));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-
-				}
+				
 
 			}
 		});
@@ -1371,26 +1381,30 @@ public class Controller_3D_Environnement {
 		pic.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
 
 			System.out.println(f);
-
+			String size = f.substring(f.length() - 1, f.length());
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
 				if (f.substring(0, f.length() - 1).equals("RECTANGLE")) {
 					structure.setTaille(0);
-
-					lbl_taille.setText(String.valueOf(Integer.valueOf(f.substring(f.length() - 1))));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(f.substring(f.length() - 1))));
+					lbl_taille.setText(0+"");
+					lbl_taille2.setText(size);
 					l.setText(f.substring(0, f.length() - 1));
 
 				} else {
 					structure.setTaille(0);
-					lbl_taille.setText(String.valueOf(structure.getTaille() + 1));
-					lbl_taille2.setText(String.valueOf(structure.getTaille() + 1));
+					lbl_taille.setText(0+"");
+					lbl_taille2.setText(size);
 					l.setText(f);
 				}
+				orientation_label.setText(this.rotations[rota]);
+
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
 
 			} else {
-				l.setText(f);
+				structure.setTaille(0);
+				lbl_taille.setText(0+"");
+				lbl_taille2.setText(1+"");
 				structure.setSelected_bloc(f);
+				l.setText(f);
 
 			}
 			if (this.couleurs_correspond.get(c) != null) {

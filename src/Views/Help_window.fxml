@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="vbx" prefHeight="1877.0" prefWidth="450.0">
          <children>
@@ -374,6 +374,26 @@
                      </font>
                   </Label>
                   <Label alignment="CENTER" prefHeight="28.0" prefWidth="279.0" text="J" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="50.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="38.0" prefWidth="660.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="479.0" text="Supprimer la sélection :">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="279.0" text="ENTRER" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
