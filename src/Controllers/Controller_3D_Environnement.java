@@ -100,7 +100,7 @@ public class Controller_3D_Environnement {
 	private MenuBar menu_bar;
 
 	@FXML
-	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins;
+	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins,pause_button,next_button,previous_button;
 
 	@FXML
 	private AnchorPane anch, anch_top, anch_cat;
@@ -116,6 +116,7 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private Label l, lbl_clr_txtr,lbl_taille,lbl_taille2;
+	
 
 
 
@@ -1000,6 +1001,31 @@ public class Controller_3D_Environnement {
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
+		
+		
+		
+		
+		
+		ImageView pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+		pause.setPreserveRatio(true);
+		pause.setFitHeight(20);
+		pause.setFitWidth(20);
+		pause_button.setGraphic(pause);
+
+		ImageView next = new ImageView(new Image(getClass().getResourceAsStream("next.png")));
+		next.setPreserveRatio(true);
+		next.setFitHeight(20);
+		next.setFitWidth(20);
+		next_button.setGraphic(next);
+
+		ImageView previous = new ImageView(new Image(getClass().getResourceAsStream("previous.png")));
+		previous.setPreserveRatio(true);
+		previous.setFitHeight(20);
+		previous.setFitWidth(20);
+		previous_button.setGraphic(previous);
+		
+		
+		
 		lbl_taille.setText("1");
 		lbl_taille2.setText("1");
 		ajout_couleur(false);
@@ -1009,7 +1035,7 @@ public class Controller_3D_Environnement {
 		panneau_block(false);
 		ToggleSwitch toggle = new ToggleSwitch();
 		anch_top.getChildren().add(toggle);
-		anch_top.setRightAnchor(toggle, 70.0);
+		anch_top.setRightAnchor(toggle, 190.0);
 		anch_top.setBottomAnchor(toggle, 2.0);
 
 		toggle.setOnMousePressed(event -> {

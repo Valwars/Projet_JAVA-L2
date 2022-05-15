@@ -26,9 +26,9 @@
             <ScrollPane fx:id="Textscrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" layoutY="179.0" prefHeight="51.0" prefWidth="301.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Button fx:id="btn_plus" layoutX="138.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="25.0" text="+" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="138.0" />
             <Button fx:id="btn_moins" layoutX="114.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="24.0" text="-" AnchorPane.bottomAnchor="33.0" />
-            <Label fx:id="l" layoutX="18.0" layoutY="594.0" />
-            <Label fx:id="lbl_clr_txtr" layoutX="44.0" layoutY="594.0" />
-            <Label fx:id="lbl_taille2" layoutX="207.0" layoutY="594.0" prefHeight="17.0" prefWidth="7.0" />
+            <Label fx:id="l" layoutX="18.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
+            <Label fx:id="lbl_clr_txtr" layoutX="44.0" layoutY="594.0" AnchorPane.bottomAnchor="2.0" />
+            <Label fx:id="lbl_taille2" layoutX="207.0" layoutY="594.0" prefHeight="17.0" prefWidth="7.0" AnchorPane.bottomAnchor="2.0" />
             <Label fx:id="lbl_taille" layoutX="172.0" layoutY="556.0" prefHeight="27.0" prefWidth="28.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="101.0" />
             <Label layoutX="14.0" layoutY="561.0" text="Taille du block" AnchorPane.bottomAnchor="38.0" />
             <Separator layoutX="13.0" layoutY="593.0" prefWidth="200.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -40,7 +40,7 @@
    <top>
       <AnchorPane fx:id="anch_top" prefHeight="32.0" prefWidth="1325.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar fx:id="menu_bar" prefHeight="33.0" prefWidth="1263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <MenuBar fx:id="menu_bar" prefHeight="32.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                   <Menu fx:id="fic1" mnemonicParsing="false" text="Application">
                      <items>
@@ -61,6 +61,9 @@
               </menus>
             </MenuBar>
             <Button fx:id="mute_sound" layoutX="1264.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="62.0" text="Mute" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="next_button" layoutX="1211.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0" AnchorPane.rightAnchor="75.0" />
+            <Button fx:id="pause_button" layoutX="1167.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0" AnchorPane.rightAnchor="110.0" />
+            <Button fx:id="previous_button" layoutX="1122.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="28.0" AnchorPane.rightAnchor="145.0" />
          </children></AnchorPane>
    </top>
 </BorderPane>
