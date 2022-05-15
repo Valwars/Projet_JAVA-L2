@@ -149,6 +149,7 @@ public class Controller_3D_Environnement {
 
 	int couleur = 0;
 	int matiere = 0;
+	int a = 0;
 
 	public String type;
 
@@ -995,14 +996,41 @@ public class Controller_3D_Environnement {
 			}
 
 		});
+		
 		btn_plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println(l.getText());
-				if (l.getText().equals("RECTANGLE") || l.getText().equals("ANGLE") ) {
+				if (l.getText().equals("RECTANGLE") ) {
+					System.out.println(a);
+					structure.setTaille(structure.getTaille() + 1);
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())+1));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					
+				}
+				if(l.getText().equals("ANGLE")) {
+					System.out.println(a);
 					System.out.println("hello");
 					structure.setTaille(structure.getTaille() + 1);
 					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())+1));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					
+				}
+
+			}
+		});
+		btn_moins.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if (l.getText().equals("RECTANGLE") && Integer.valueOf(lbl_taille.getText())>2) {
+					structure.setTaille(structure.getTaille() - 1);
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())-1));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
+					
+				}
+				if(l.getText().equals("ANGLE") && Integer.valueOf(lbl_taille.getText())>1) {
+					System.out.println(Integer.valueOf(lbl_taille.getText())-1);
+					structure.setTaille(structure.getTaille() - 1);
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())-1));
 					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
 					
 				}
@@ -1272,7 +1300,7 @@ public class Controller_3D_Environnement {
 
 		}
 	}
-
+	
 	public BorderPane afficher_block(String f, String c) throws FileNotFoundException {
 
 		Image img = new Image("File:images/" + f + "_" + c + ".png");
@@ -1286,7 +1314,20 @@ public class Controller_3D_Environnement {
 			System.out.println(f);
 
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
-				l.setText(f.substring(0, f.length() - 1));
+				if(f.substring(0, f.length()-1).equals("RECTANGLE")) {
+					structure.setTaille(0);
+					
+					lbl_taille.setText(String.valueOf(Integer.valueOf(f.substring(f.length()-1))));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(f.substring(f.length()-1))));
+					l.setText(f.substring(0, f.length() - 1));
+					
+				}
+				else {
+					structure.setTaille(0);
+					lbl_taille.setText(String.valueOf(structure.getTaille()+1));
+					lbl_taille2.setText(String.valueOf(structure.getTaille()+1));
+					l.setText(f);
+				}
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
 
 			} else {
