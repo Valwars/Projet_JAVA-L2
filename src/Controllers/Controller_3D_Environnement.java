@@ -28,6 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
@@ -101,7 +102,7 @@ public class Controller_3D_Environnement {
 	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins;
 
 	@FXML
-	private AnchorPane anch, anch_top;
+	private AnchorPane anch, anch_top, anch_cat;
 
 	@FXML
 	private BorderPane root;
@@ -846,7 +847,7 @@ public class Controller_3D_Environnement {
 			container.add(bt1, i, 0);
 
 		}
-
+		
 		this.Textscrollpane.setContent(container);
 		if (dark) {
 			// this.Textscrollpane.getStylesheets().clear();
@@ -889,15 +890,18 @@ public class Controller_3D_Environnement {
 	public void ajout_categorie(boolean dark) {
 
 		GridPane container = new GridPane();
-		ColumnConstraints col1 = new ColumnConstraints();
-		col1.setPercentWidth(50);
-		container.getColumnConstraints().add(col1);
+		container.setTranslateX(25);
+		container.setTranslateY(25);
 		Label lbl1 = new Label("Categorie :");
-		container.add(lbl1, 0, 0);
+		anch_cat.getChildren().add(lbl1);
+		anch_cat.setLeftAnchor(lbl1, 6.0);
+		anch_cat.setTopAnchor(lbl1, 4.0);
+		
 
 		for (int i = 0; i < tab_categorie.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(20));
-			container.getRowConstraints().add(new RowConstraints(20));
+
+			container.getColumnConstraints().add(new ColumnConstraints(60));
+			container.getRowConstraints().add(new RowConstraints(24));
 			Label lbl = tab_categorie[i];
 			CheckBox cbx = new CheckBox();
 			cbx.setSelected(true);
@@ -931,17 +935,28 @@ public class Controller_3D_Environnement {
 				}
 			};
 			cbx.setOnAction(event);
-			container.add(lbl, 0, i + 1);
-			container.add(cbx, 1, i + 1);
+			container.add(lbl, 0, i );
+			container.add(cbx, 3, i );
 
 		}
-
-		this.cat.setContent(container);
+		anch_cat.getChildren().add(container);
 
 		if (dark) {
 			container.getStylesheets().clear();
+			anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
+			anch_cat.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			anch_cat.getStyleClass().add("background");
+		}
+		else {
+			container.getStylesheets().clear();
+			anch_cat.getStylesheets().clear();
+			container.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+			container.getStyleClass().add("grid-pane-ligth");
+			anch_cat.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
+			anch_cat.getStyleClass().add("grid-pane-ligth");
+			
 		}
 
 	}
@@ -1263,7 +1278,7 @@ public class Controller_3D_Environnement {
 	}
 
 	public void panneau_block(boolean dark) throws FileNotFoundException {
-
+		
 		int x = 0;
 		int y = 0;
 

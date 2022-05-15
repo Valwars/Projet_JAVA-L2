@@ -12,4 +12,8 @@
 .btn_text{
 	-fx-background-color: white;
 }
-
+.grid-pane-ligth{
+	-fx-background-color: white;
+	-fx-text-fill : black;
+	
+}
