@@ -3,18 +3,16 @@ package Views;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 import Controllers.Controller_3D_Environnement;
 import Models.Legos_collection;
 import Models.Structure_3D;
-import Models.ToggleSwitch;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
@@ -26,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -73,6 +72,13 @@ public class Main extends Application {
 				tb1 = new Tab("Structure1");
 
 			}
+			
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			    @Override
+			    public void handle(WindowEvent event) {
+			        Platform.exit();
+			    }
+			});
 
 			Tab new_tab = new Tab("+");
 			new_tab.setClosable(false);
