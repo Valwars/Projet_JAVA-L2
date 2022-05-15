@@ -1,6 +1,11 @@
 .background {
-    -fx-background-color: #1b1e2b;
+    -fx-background-color:#1b1e2b;
 }
+.background-toggle {
+    -fx-background-color: derive(#1b1e2b,90.0%);
+	-fx-border-color: #1b1e2b;
+}
+
 
 .btn_coul{
 -fx-border-color :#FF00FF ;
