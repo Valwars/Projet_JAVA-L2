@@ -100,7 +100,7 @@ public class Controller_3D_Environnement {
 	private MenuBar menu_bar;
 
 	@FXML
-	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins,pause_button,next_button,previous_button;
+	private Button boutton_onglet, mute_sound, light_dark, btn_plus, btn_moins;
 
 	@FXML
 	private AnchorPane anch, anch_top, anch_cat;
@@ -112,13 +112,10 @@ public class Controller_3D_Environnement {
 	private ScrollPane Coulscrollpane, cat, Textscrollpane, Imagescrollpane;
 
 	@FXML
-	private MenuItem sauvegarder, managed_structures, aide,reglages;
+	private MenuItem sauvegarder, managed_structures, aide, reglages;
 
 	@FXML
-	private Label l, lbl_clr_txtr,lbl_taille,lbl_taille2;
-	
-
-
+	private Label l, lbl_clr_txtr, lbl_taille, lbl_taille2;
 
 	private int BLOC_SIZE = 50;
 
@@ -181,14 +178,15 @@ public class Controller_3D_Environnement {
 		}
 	};
 	private Music_Controller mc;
+
 	public Controller_3D_Environnement() {
-		
-		mc = new Music_Controller(); 
+
+		mc = new Music_Controller();
 
 	}
-	
+
 	public void setScene(SubScene subscene) {
-		
+
 		this.subscene = subscene;
 
 		camera = new PerspectiveCamera();
@@ -216,61 +214,8 @@ public class Controller_3D_Environnement {
 		File f = new File("sauvegardes/" + fileName + ".xml");
 
 		if (f.exists() && !f.isDirectory()) {
-			XMLDecoder decoder = null;
-
-			FileInputStream fis = new FileInputStream(new File("sauvegardes/" + fileName + ".xml"));
-			BufferedInputStream bos = new BufferedInputStream(fis);
-
-			decoder = new XMLDecoder(bos);
-
-			ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
-
-			for (int i = 0; i < l.size(); i++) {
-
-				Shape3D shape = l.get(i);
-
-				PhongMaterial material = new PhongMaterial();
-
-				if (i < 1602 && shape.getClass() != Cylinder.class) {
-					((Lego) shape).setStructure(structure);
-
-					material.setDiffuseColor(Color.GREY);
-				} else {
-					if (shape.getClass() == Lego.class) {
-
-						((Lego) shape).setStructure(structure);
-
-						if (((Lego) shape).getCoul() != null) {
-							String color = "#" + ((Lego) shape).getCoul().split("x")[1];
-
-							Color c = Color.valueOf(color);
-							material.setDiffuseColor(c);
-						} else {
-							String texture = ((Lego) shape).getTexture();
-
-							material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
-						}
-
-						for (int j = 1; j < 5; j++) {
-							Shape3D shape2 = l.get(i - j);
-							shape2.setMaterial(material);
-
-						}
-
-					}
-
-				}
-
-				shape.setMaterial(material);
-
-				structure.getChildren().add(l.get(i));
-
-			}
-
-			structure.setSelected_bloc("CUBE");
-			structure.prepareLight();
-			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
-
+			
+			loadStructure(fileName);
 		} else {
 
 			structure.createBase();
@@ -417,12 +362,12 @@ public class Controller_3D_Environnement {
 			break;
 
 		case Z:
-			
+
 			System.out.println("AVANT");
 			camera.setTranslateY(camera.getTranslateY() - 5);
 
 			break;
-			
+
 		case S:
 			System.out.println("arriere");
 			camera.setTranslateY(camera.getTranslateY() + 5);
@@ -517,9 +462,12 @@ public class Controller_3D_Environnement {
 			break;
 
 		case H:
+
 			structure.setTaille(structure.getTaille() + 1);
 			break;
+
 		case G:
+
 			if (structure.getTaille() > 0) {
 				structure.setTaille(structure.getTaille() - 1);
 
@@ -595,37 +543,32 @@ public class Controller_3D_Environnement {
 			}
 
 			break;
-			
-		case ENTER:
 
+		case ENTER:
 
 			Iterator<Lego> it3 = structure.getLego_selected().iterator();
 
 			while (it3.hasNext()) {
-				
-				
+
 				Lego l = it3.next();
-				
+
 				int index = structure.getChildren().indexOf(l);
 				structure.getChildren().remove(l);
-				
-				if(!l.getType().equals("BASE")) {
+
+				if (!l.getType().equals("BASE")) {
 					for (int i = 0; i < 4; i++) {
-						structure.getChildren().remove(index - (i +1));
+						structure.getChildren().remove(index - (i + 1));
 
 					}
 					l.getLegoParent().setEnfant(null);
 
 				}
-			
-
 
 			}
 
 			structure.getLego_selected().clear();
 
 			break;
-
 
 		}
 	}
@@ -885,7 +828,7 @@ public class Controller_3D_Environnement {
 			container.add(bt1, i, 0);
 
 		}
-		
+
 		this.Textscrollpane.setContent(container);
 		if (dark) {
 			// this.Textscrollpane.getStylesheets().clear();
@@ -934,7 +877,6 @@ public class Controller_3D_Environnement {
 		anch_cat.getChildren().add(lbl1);
 		anch_cat.setLeftAnchor(lbl1, 6.0);
 		anch_cat.setTopAnchor(lbl1, 4.0);
-		
 
 		for (int i = 0; i < tab_categorie.length; i++) {
 
@@ -973,8 +915,8 @@ public class Controller_3D_Environnement {
 				}
 			};
 			cbx.setOnAction(event);
-			container.add(lbl, 0, i );
-			container.add(cbx, 3, i );
+			container.add(lbl, 0, i);
+			container.add(cbx, 3, i);
 
 		}
 		anch_cat.getChildren().add(container);
@@ -986,46 +928,20 @@ public class Controller_3D_Environnement {
 			container.getStyleClass().add("background");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			anch_cat.getStyleClass().add("background");
-		}
-		else {
+		} else {
 			container.getStylesheets().clear();
 			anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			container.getStyleClass().add("grid-pane-ligth");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			anch_cat.getStyleClass().add("grid-pane-ligth");
-			
+
 		}
 
 	}
 
 	@FXML
 	private void initialize() throws FileNotFoundException {
-		
-		
-		
-		
-		
-		ImageView pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
-		pause.setPreserveRatio(true);
-		pause.setFitHeight(20);
-		pause.setFitWidth(20);
-		pause_button.setGraphic(pause);
-
-		ImageView next = new ImageView(new Image(getClass().getResourceAsStream("next.png")));
-		next.setPreserveRatio(true);
-		next.setFitHeight(20);
-		next.setFitWidth(20);
-		next_button.setGraphic(next);
-
-		ImageView previous = new ImageView(new Image(getClass().getResourceAsStream("previous.png")));
-		previous.setPreserveRatio(true);
-		previous.setFitHeight(20);
-		previous.setFitWidth(20);
-		previous_button.setGraphic(previous);
-		
-		
-		
 		lbl_taille.setText("1");
 		lbl_taille2.setText("1");
 		ajout_couleur(false);
@@ -1035,7 +951,7 @@ public class Controller_3D_Environnement {
 		panneau_block(false);
 		ToggleSwitch toggle = new ToggleSwitch();
 		anch_top.getChildren().add(toggle);
-		anch_top.setRightAnchor(toggle, 190.0);
+		anch_top.setRightAnchor(toggle, 70.0);
 		anch_top.setBottomAnchor(toggle, 2.0);
 
 		toggle.setOnMousePressed(event -> {
@@ -1074,24 +990,24 @@ public class Controller_3D_Environnement {
 			}
 
 		});
-		
+
 		btn_plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (l.getText().equals("RECTANGLE") ) {
+				if (l.getText().equals("RECTANGLE")) {
 					System.out.println(a);
 					structure.setTaille(structure.getTaille() + 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())+1));
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) + 1));
 					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-					
+
 				}
-				if(l.getText().equals("ANGLE")) {
+				if (l.getText().equals("ANGLE")) {
 					System.out.println(a);
 					System.out.println("hello");
 					structure.setTaille(structure.getTaille() + 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())+1));
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) + 1));
 					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-					
+
 				}
 
 			}
@@ -1099,18 +1015,18 @@ public class Controller_3D_Environnement {
 		btn_moins.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (l.getText().equals("RECTANGLE") && Integer.valueOf(lbl_taille.getText())>2) {
+				if (l.getText().equals("RECTANGLE") && Integer.valueOf(lbl_taille.getText()) > 2) {
 					structure.setTaille(structure.getTaille() - 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())-1));
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) - 1));
 					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-					
+
 				}
-				if(l.getText().equals("ANGLE") && Integer.valueOf(lbl_taille.getText())>1) {
-					System.out.println(Integer.valueOf(lbl_taille.getText())-1);
+				if (l.getText().equals("ANGLE") && Integer.valueOf(lbl_taille.getText()) > 1) {
+					System.out.println(Integer.valueOf(lbl_taille.getText()) - 1);
 					structure.setTaille(structure.getTaille() - 1);
-					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())-1));
+					lbl_taille.setText(String.valueOf(Integer.valueOf(lbl_taille.getText()) - 1));
 					lbl_taille2.setText(String.valueOf(Integer.valueOf(lbl_taille.getText())));
-					
+
 				}
 
 			}
@@ -1160,7 +1076,7 @@ public class Controller_3D_Environnement {
 
 			}
 		});
-		
+
 		reglages.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -1168,16 +1084,16 @@ public class Controller_3D_Environnement {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/reglages.fxml"));
-				
+
 				loader.setController(mc);
-				
+
 				Pane root;
 				try {
 					root = loader.load();
-					
+
 					Scene scene = new Scene(root);
 					stage.setResizable(false);
-					
+
 					if (toggle.select().getValue()) {
 						root.getStylesheets().clear();
 						root.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -1187,14 +1103,14 @@ public class Controller_3D_Environnement {
 					}
 					stage.setScene(scene);
 					stage.show();
-					
-					if(!mc.start) {
+
+					if (!mc.start) {
 						mc.start();
-					}else {
+					} else {
 						mc.setImg();
 
 					}
-					
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -1339,7 +1255,7 @@ public class Controller_3D_Environnement {
 	}
 
 	public void panneau_block(boolean dark) throws FileNotFoundException {
-		
+
 		int x = 0;
 		int y = 0;
 
@@ -1376,7 +1292,7 @@ public class Controller_3D_Environnement {
 
 		}
 	}
-	
+
 	public BorderPane afficher_block(String f, String c) throws FileNotFoundException {
 
 		Image img = new Image("File:images/" + f + "_" + c + ".png");
@@ -1390,18 +1306,17 @@ public class Controller_3D_Environnement {
 			System.out.println(f);
 
 			if (!f.equals("CUBE") && !f.equals("TAPIS")) {
-				if(f.substring(0, f.length()-1).equals("RECTANGLE")) {
+				if (f.substring(0, f.length() - 1).equals("RECTANGLE")) {
 					structure.setTaille(0);
-					
-					lbl_taille.setText(String.valueOf(Integer.valueOf(f.substring(f.length()-1))));
-					lbl_taille2.setText(String.valueOf(Integer.valueOf(f.substring(f.length()-1))));
+
+					lbl_taille.setText(String.valueOf(Integer.valueOf(f.substring(f.length() - 1))));
+					lbl_taille2.setText(String.valueOf(Integer.valueOf(f.substring(f.length() - 1))));
 					l.setText(f.substring(0, f.length() - 1));
-					
-				}
-				else {
+
+				} else {
 					structure.setTaille(0);
-					lbl_taille.setText(String.valueOf(structure.getTaille()+1));
-					lbl_taille2.setText(String.valueOf(structure.getTaille()+1));
+					lbl_taille.setText(String.valueOf(structure.getTaille() + 1));
+					lbl_taille2.setText(String.valueOf(structure.getTaille() + 1));
 					l.setText(f);
 				}
 				structure.setSelected_bloc(f + "_" + rotations[rota]);
@@ -1432,69 +1347,90 @@ public class Controller_3D_Environnement {
 		return imageViewWrapper;
 
 	}
+	
+	public void loadStructure(String fileName) throws FileNotFoundException {
+		XMLDecoder decoder = null;
 
-	private void loadStructure(String name) throws FileNotFoundException {
+		FileInputStream fis = new FileInputStream(new File("sauvegardes/" + fileName + ".xml"));
+		BufferedInputStream bos = new BufferedInputStream(fis);
 
-		File f = new File(name);
+		decoder = new XMLDecoder(bos);
 
-		if (f.exists() && !f.isDirectory()) {
+		ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
 
-			XMLDecoder decoder = null;
+		for (int i = 0; i < l.size(); i++) {
 
-			FileInputStream fis = new FileInputStream(name);
-			BufferedInputStream bos = new BufferedInputStream(fis);
+			Shape3D shape = l.get(i);
 
-			ArrayList<Shape3D> l = (ArrayList<Shape3D>) decoder.readObject();
+			PhongMaterial material = new PhongMaterial();
 
-			for (int i = 0; i < l.size(); i++) {
+			if (i < 1602 && shape.getClass() != Cylinder.class) {
+				((Lego) shape).setStructure(structure);
 
-				Shape3D shape = l.get(i);
+				material.setDiffuseColor(Color.GREY);
+			} else {
+				if (shape.getClass() == Lego.class) {
 
-				PhongMaterial material = new PhongMaterial();
-
-				if (i < 1602 && shape.getClass() != Cylinder.class) {
 					((Lego) shape).setStructure(structure);
 
-					material.setDiffuseColor(Color.GREY);
-				} else {
-					if (shape.getClass() == Lego.class) {
+					if (((Lego) shape).getCoul() != null) {
+						String color = "#" + ((Lego) shape).getCoul().split("x")[1];
 
-						((Lego) shape).setStructure(structure);
+						Color c = Color.valueOf(color);
+						material.setDiffuseColor(c);
+					} else {
+						String texture = ((Lego) shape).getTexture();
 
-						if (((Lego) shape).getCoul() != null) {
-							String color = "#" + ((Lego) shape).getCoul().split("x")[1];
+						material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
+					}
 
-							Color c = Color.valueOf(color);
-							material.setDiffuseColor(c);
-						} else {
-							String texture = ((Lego) shape).getTexture();
+					for (int j = 1; j < 5; j++) {
+						Shape3D shape2 = l.get(i - j);
+						shape2.setMaterial(material);
+						shape2.setOnMousePressed(event -> {
+							System.out.println("JE CLIQUE SUR CE PTN DE CYLINDRE");
+							Group g = (Group) shape2.getParent();
 
-							material.setDiffuseMap(new Image(getClass().getResourceAsStream("../Models/" + texture)));
-						}
+							if (g.getChildren().size() > 5) {
 
-						for (int j = 1; j < 5; j++) {
-							Shape3D shape2 = l.get(i - j);
-							shape2.setMaterial(material);
-							
-							
-						}
+								for (int k = 0; k < g.getChildren().size() - 1; k++) {
+
+									if (g.getChildren().get(k).equals(shape2)) {
+										boolean drap = false;
+										for (int o = k; o < g.getChildren().size(); o++) {
+
+											if (g.getChildren().get(o).toString().contains("Lego")
+													&& drap == false) {
+												Lego le = (Lego) g.getChildren().get(o);
+												le.create_blocs();
+												drap = true;
+											}
+										}
+									}
+
+								}
+
+							} else {
+								Lego lz = (Lego) g.getChildren().get(4);
+								lz.create_blocs();
+							}
+						});
 
 					}
+
 				}
 
-				shape.setMaterial(material);
-
-				structure.getChildren().add(l.get(i));
-
 			}
-			structure.setSelected_bloc("CUBE");
-			structure.prepareLight();
-			structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
 
-		} else {
-			System.out.println("Cette sauvegarde n'existe pas");
+			shape.setMaterial(material);
+
+			structure.getChildren().add(l.get(i));
+
 		}
 
+		structure.setSelected_bloc("CUBE");
+		structure.prepareLight();
+		structure.setNom_structure(((Lego) structure.getChildren().get(0)).getParent_name());
 	}
 
 	public void setCssScene(Scene sc) {

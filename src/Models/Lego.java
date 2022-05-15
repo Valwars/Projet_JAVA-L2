@@ -70,7 +70,6 @@ public class Lego extends Box implements Serializable{
 
 	public Lego() {
 		
-
 		this.setOnMousePressed(event -> {
 			
 			if (event.isSecondaryButtonDown() &&  this.getEnfant() == null) {
@@ -105,6 +104,7 @@ public class Lego extends Box implements Serializable{
 	}
 
 	public Lego(double width, double height, double depth, String type, Lego parent, Structure_3D structure) {
+		
 		childs = new ArrayList<Lego>();
 		this.legoParent = parent;
 		this.structure = structure;
@@ -192,7 +192,9 @@ public class Lego extends Box implements Serializable{
 		Group group = new Group();
 		
 		Lego model = structure.getLegos_collections().getLegos().get(structure.getSelected_bloc());
+		
 		System.out.println(this.enfant);
+		
 		if (this.enfant == null) {
 			if (!this.type.equals("TAPIS")) {
 
