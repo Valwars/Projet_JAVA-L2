@@ -1054,7 +1054,7 @@ public class Controller_3D_Environnement {
 					root = loader.load();
 					System.out.println(root.getChildren());
 					Slider slider = (Slider) root.getChildren().get(2);
-					slider.setValue(50);
+					slider.setValue(player.getVolume()*100);
 					slider.valueProperty().addListener(new ChangeListener<Number>() {
 			       
 
