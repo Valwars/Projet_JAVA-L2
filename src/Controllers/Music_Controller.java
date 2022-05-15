@@ -45,7 +45,7 @@ public class Music_Controller implements Initializable {
 	private File[] files;
 
 	private ArrayList<File> songs;
-
+	private double volume = 0.5;
 	private int songNumber;
 	private int[] speeds = { 25, 50, 75, 100, 125, 150, 175, 200 };
 
@@ -76,6 +76,7 @@ public class Music_Controller implements Initializable {
 		}
 
 		media = new Media(songs.get(songNumber).toURI().toString());
+		
 		mediaPlayer = new MediaPlayer(media);
 
 		songLabel.setText(songs.get(songNumber).getName());
@@ -86,6 +87,7 @@ public class Music_Controller implements Initializable {
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 
 				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+				volume = volumeSlider.getValue() * 0.01;
 			}
 		});
 		songProgressBar.setStyle("-fx-accent: #c62727;");
@@ -93,17 +95,37 @@ public class Music_Controller implements Initializable {
 	}
 	
 	public void setImg() {
-		ImageView pause = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+		
+		ImageView pause ;
+		
+		if(sp) {
+			 pause = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+
+		}else {
+			 pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
+
+		}
 		pause.setPreserveRatio(true);
 		pause.setFitHeight(35);
 		pause.setFitWidth(40);
 		pauseButton.setGraphic(pause);
 		songLabel.setText(songs.get(songNumber).getName());
+		
+		volumeSlider.setValue(volume * 100);
 
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+
+				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+				volume = volumeSlider.getValue() * 0.01;
+
+			}
+		});
 		ImageView pause = new ImageView(new Image(getClass().getResourceAsStream("start.png")));
 		pause.setPreserveRatio(true);
 		pause.setFitHeight(35);
@@ -227,6 +249,7 @@ public class Music_Controller implements Initializable {
 			songLabel.setText(songs.get(songNumber).getName());
 			sp = false;
 			playMedia();
+			
 		} else {
 
 			songNumber = 0;
