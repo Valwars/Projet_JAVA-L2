@@ -9,9 +9,9 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="675.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="songLabel" alignment="CENTER" layoutX="-1.0" prefHeight="99.0" prefWidth="654.0" text="MP3 Player" textFill="#c62727">
+      <Label fx:id="songLabel" alignment="CENTER" layoutX="76.0" prefHeight="99.0" prefWidth="516.0" text="MP3 Player" textAlignment="CENTER" textFill="#c62727" textOverrun="WORD_ELLIPSIS">
          <font>
-            <Font size="35.0" />
+            <Font size="32.0" />
          </font>
       </Label>
       <ProgressBar fx:id="songProgressBar" layoutX="96.0" layoutY="162.0" prefHeight="18.0" prefWidth="483.0" progress="0.0" />
