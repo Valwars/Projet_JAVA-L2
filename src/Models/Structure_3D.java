@@ -209,6 +209,7 @@ public class Structure_3D extends Group implements Serializable {
 
 		}
 
+		
 		this.getChildren().remove(1600);
 		this.getChildren().remove(1600);
 

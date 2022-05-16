@@ -102,7 +102,7 @@ public class Controller_3D_Environnement {
 	public void setPause_button(Button pause_button) {
 		this.pause_button = pause_button;
 	}
-	
+
 	private boolean first_init = false;
 
 	private VBox vbx;
@@ -582,17 +582,22 @@ public class Controller_3D_Environnement {
 			while (it3.hasNext()) {
 
 				Lego l = it3.next();
-
-				int index = structure.getChildren().indexOf(l);
-				structure.getChildren().remove(l);
+				PhongMaterial m = (PhongMaterial) l.getMaterial();
 
 				if (!l.getType().equals("BASE")) {
+					int index = structure.getChildren().indexOf(l);
+					structure.getChildren().remove(l);
+
 					for (int i = 0; i < 4; i++) {
 						structure.getChildren().remove(index - (i + 1));
 
 					}
 					l.getLegoParent().setEnfant(null);
 
+				} else {
+					System.out.println("");
+					m.setDiffuseColor(Color.GREY);
+					l.setCoul(Color.GREY.toString());
 				}
 
 			}
@@ -731,12 +736,12 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-	
+
 	public GridPane container3 = new GridPane();
+
 	public void ajout_couleur(boolean dark) {
 
-		
-		if(!this.first_init) {
+		if (!this.first_init) {
 
 			for (int i = 0; i < tab_couleur1.length; i++) {
 				container3.getColumnConstraints().add(new ColumnConstraints(30));
@@ -793,8 +798,7 @@ public class Controller_3D_Environnement {
 			this.Coulscrollpane.setContent(container3);
 
 		}
-		
-		
+
 		if (dark) {
 			this.Coulscrollpane.getStylesheets().clear();
 
@@ -808,12 +812,12 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-	
+
 	GridPane container2 = new GridPane();
 
 	public void ajout_texture(boolean dark) {
 
-		if(!this.first_init) {
+		if (!this.first_init) {
 			for (int i = 0; i < tab_matiere.length; i++) {
 				container2.getColumnConstraints().add(new ColumnConstraints(45));
 				Button bt1 = new Button();
@@ -870,11 +874,11 @@ public class Controller_3D_Environnement {
 			}
 
 			this.Textscrollpane.setContent(container2);
-			
+
 		}
-		
+
 		if (dark) {
-			 this.Textscrollpane.getStylesheets().clear();
+			this.Textscrollpane.getStylesheets().clear();
 			container.getStylesheets().clear();
 			this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			this.Textscrollpane.getStyleClass().add("scroll-bar");
@@ -911,11 +915,12 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-	public GridPane container = new GridPane();
-;
+
+	public GridPane container = new GridPane();;
+
 	public void ajout_categorie(boolean dark) {
 
-		if(!this.first_init) {
+		if (!this.first_init) {
 
 			container.setTranslateX(25);
 			container.setTranslateY(25);
@@ -968,8 +973,6 @@ public class Controller_3D_Environnement {
 			}
 			anch_cat.getChildren().add(container);
 		}
-		
-		
 
 		if (dark) {
 			container.getStylesheets().clear();
@@ -1010,7 +1013,7 @@ public class Controller_3D_Environnement {
 			if (!toggle.select().getValue()) {
 				System.out.println("hello");
 				ajout_categorie(true);
-				
+
 				ajout_couleur(true);
 				ajout_texture(true);
 				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -1278,7 +1281,7 @@ public class Controller_3D_Environnement {
 
 									}
 								});
-								
+
 								Insets margin = new Insets(0, 0, 0, 100);
 								b.setMargin(inp, margin);
 								b.getChildren().add(l);
@@ -1452,7 +1455,7 @@ public class Controller_3D_Environnement {
 	}
 
 	public void loadStructure(String fileName) throws FileNotFoundException {
-		
+
 		XMLDecoder decoder = null;
 
 		FileInputStream fis = new FileInputStream(new File("sauvegardes/" + fileName + ".xml"));
@@ -1469,6 +1472,7 @@ public class Controller_3D_Environnement {
 			PhongMaterial material = new PhongMaterial();
 
 			if (i < 1602 && shape.getClass() != Cylinder.class) {
+
 				((Lego) shape).setStructure(structure);
 
 				material.setDiffuseColor(Color.GREY);
