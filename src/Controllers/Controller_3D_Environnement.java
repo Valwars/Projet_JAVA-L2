@@ -704,7 +704,7 @@ public class Controller_3D_Environnement {
 
 		});
 
-		stage.addEventHandler(ScrollEvent.SCROLL, event -> {
+		scene.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double delta = event.getDeltaY();
 			group.translateZProperty().set(group.getTranslateZ() + delta);
 		});
@@ -1431,6 +1431,7 @@ public class Controller_3D_Environnement {
 	}
 
 	public void loadStructure(String fileName) throws FileNotFoundException {
+		
 		XMLDecoder decoder = null;
 
 		FileInputStream fis = new FileInputStream(new File("sauvegardes/" + fileName + ".xml"));
