@@ -6,7 +6,7 @@ Participants : Jean-David Cross, Amaury Audouard et Valentin Merault.
 
 Languages utilisés :
 
-- CSS Java.
+- CSS.
 - JAVA et sa librairie JAVA FX.
 
 IDE utilisé : Eclipse.
