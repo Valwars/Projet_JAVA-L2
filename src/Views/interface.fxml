@@ -45,7 +45,7 @@
               <menus>
                   <Menu fx:id="fic1" mnemonicParsing="false" text="Application">
                      <items>
-                        <MenuItem fx:id="reglages" mnemonicParsing="false" text="Réglages" />
+                        <MenuItem fx:id="reglages" mnemonicParsing="false" text="Musique" />
                      </items>
                   </Menu>
                 <Menu fx:id="fic" mnemonicParsing="false" text="Fichiers">
