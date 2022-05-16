@@ -288,13 +288,17 @@ public class Structure_3D extends Group implements Serializable {
 		if (this.getChildren().size() > (PLATEAU_TAILLE * 4 + 1)) {
 
 			try {
+				
 
 				System.out.println(this.getChildren());
 
 				if (this.getChildren().get(this.getChildren().size() - 1).getClass() == Lego.class) {
 
 					Lego l = (Lego) this.getChildren().get(this.getChildren().size() - 1);
-
+					
+					if(this.lego_selected.contains(l)) {
+						this.lego_selected.remove(l);
+					}
 					Lego model = this.getLegos_collections().getLegos().get(l.getType());
 
 					if (Math.abs(model.getWidth()) > this.BLOC_SIZE && Math.abs(model.getDepth()) > this.BLOC_SIZE) {

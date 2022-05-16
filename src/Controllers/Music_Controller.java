@@ -61,6 +61,7 @@ public class Music_Controller implements Initializable {
 		this.controller = contr;
 
 	}
+	
 	public void start() {
 		start = true;
 		songs = new ArrayList<File>();

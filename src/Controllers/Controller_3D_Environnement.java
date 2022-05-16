@@ -102,6 +102,8 @@ public class Controller_3D_Environnement {
 	public void setPause_button(Button pause_button) {
 		this.pause_button = pause_button;
 	}
+	
+	private boolean first_init = false;
 
 	private VBox vbx;
 
@@ -729,145 +731,158 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-
+	
+	public GridPane container3 = new GridPane();
 	public void ajout_couleur(boolean dark) {
 
-		GridPane container = new GridPane();
-		for (int i = 0; i < tab_couleur1.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(30));
-			Button bt1 = new Button();
-			bt1.setTranslateY(8);
-			bt1.setPrefSize(25, 25);
-			bt1.setStyle(tab_couleur1[i]);
-			bt1.setId(LC[i]);
-			int j = i;
-			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+		
+		if(!this.first_init) {
 
-				@Override
-				public void handle(ActionEvent evt) {
+			for (int i = 0; i < tab_couleur1.length; i++) {
+				container3.getColumnConstraints().add(new ColumnConstraints(30));
+				Button bt1 = new Button();
+				bt1.setTranslateY(8);
+				bt1.setPrefSize(25, 25);
+				bt1.setStyle(tab_couleur1[i]);
+				bt1.setId(LC[i]);
+				int j = i;
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-					if (bt1.getStyleClass().contains("btn_coul")) {
+					@Override
+					public void handle(ActionEvent evt) {
 
-						bt1.getStyleClass().remove("btn_coul");
-					} else {
-						bt1.getStyleClass().add("btn_coul");
+						if (bt1.getStyleClass().contains("btn_coul")) {
 
-					}
+							bt1.getStyleClass().remove("btn_coul");
+						} else {
+							bt1.getStyleClass().add("btn_coul");
 
-					String c = bt1.getId();
-					if (bt_active[j] == true && x == 0) {
-						LCO.clear();
-						for (int h = 0; h < bt_active.length; h++) {
-							bt_active[h] = false;
 						}
-						LCO.add(c);
-						bt_active[j] = true;
-						x = 1;
-					} else if (bt_active[j] == true) {
-						LCO.remove(c);
-						bt_active[j] = false;
-					} else {
-						LCO.add(c);
-						bt_active[j] = true;
-					}
-					try {
-						panneau_block(dark);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
-				}
-			};
+						String c = bt1.getId();
+						if (bt_active[j] == true && x == 0) {
+							LCO.clear();
+							for (int h = 0; h < bt_active.length; h++) {
+								bt_active[h] = false;
+							}
+							LCO.add(c);
+							bt_active[j] = true;
+							x = 1;
+						} else if (bt_active[j] == true) {
+							LCO.remove(c);
+							bt_active[j] = false;
+						} else {
+							LCO.add(c);
+							bt_active[j] = true;
+						}
+						try {
+							panneau_block(dark);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
-			bt1.setOnAction(event);
-			container.add(bt1, i, 0);
+					}
+				};
+
+				bt1.setOnAction(event);
+				container3.add(bt1, i, 0);
+
+			}
+
+			this.Coulscrollpane.setContent(container3);
 
 		}
-
-		this.Coulscrollpane.setContent(container);
-
+		
+		
 		if (dark) {
-			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			this.Coulscrollpane.getStyleClass().add("scroll-bar");
-			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			container.getStyleClass().add("grid-pane");
-		} else {
 			this.Coulscrollpane.getStylesheets().clear();
 
+			this.Coulscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			this.Coulscrollpane.getStyleClass().add("scroll-bar");
+			container3.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			container3.getStyleClass().add("grid-pane");
+		} else {
+			this.Coulscrollpane.getStylesheets().clear();
+			this.container3.getStylesheets().clear();
 		}
 
 	}
+	
+	GridPane container2 = new GridPane();
 
 	public void ajout_texture(boolean dark) {
 
-		GridPane container = new GridPane();
+		if(!this.first_init) {
+			for (int i = 0; i < tab_matiere.length; i++) {
+				container2.getColumnConstraints().add(new ColumnConstraints(45));
+				Button bt1 = new Button();
+				bt1.getStyleClass().add("btn_text");
+				bt1.setPrefSize(25, 25);
+				Image img = new Image(getClass().getResourceAsStream("../Models/" + tab_matiere[i]));
+				ImageView view = new ImageView(img);
+				view.setPreserveRatio(true);
+				view.setFitHeight(25);
+				view.setFitWidth(25);
+				bt1.setGraphic(view);
+				bt1.setId(LC[i + 11]);
+				int j = i;
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-		for (int i = 0; i < tab_matiere.length; i++) {
-			container.getColumnConstraints().add(new ColumnConstraints(45));
-			Button bt1 = new Button();
-			bt1.getStyleClass().add("btn_text");
-			bt1.setPrefSize(25, 25);
-			Image img = new Image(getClass().getResourceAsStream("../Models/" + tab_matiere[i]));
-			ImageView view = new ImageView(img);
-			view.setPreserveRatio(true);
-			view.setFitHeight(25);
-			view.setFitWidth(25);
-			bt1.setGraphic(view);
-			bt1.setId(LC[i + 11]);
-			int j = i;
-			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent evt) {
+						if (bt1.getStyleClass().contains("btn_coul")) {
 
-				@Override
-				public void handle(ActionEvent evt) {
-					if (bt1.getStyleClass().contains("btn_coul")) {
+							bt1.getStyleClass().remove("btn_coul");
+						} else {
+							bt1.getStyleClass().add("btn_coul");
 
-						bt1.getStyleClass().remove("btn_coul");
-					} else {
-						bt1.getStyleClass().add("btn_coul");
-
-					}
-					String t = bt1.getId();
-					if (bt_active2[j] == true && x == 0) {
-						LCO.clear();
-						for (int h = 0; h < bt_active2.length; h++) {
-							bt_active2[h] = false;
 						}
-						LCO.add(t);
-						bt_active2[j] = true;
-						x = 1;
-					} else if (bt_active2[j] == true) {
-						LCO.remove(t);
-						bt_active2[j] = false;
-					} else {
-						LCO.add(t);
-						bt_active2[j] = true;
+						String t = bt1.getId();
+						if (bt_active2[j] == true && x == 0) {
+							LCO.clear();
+							for (int h = 0; h < bt_active2.length; h++) {
+								bt_active2[h] = false;
+							}
+							LCO.add(t);
+							bt_active2[j] = true;
+							x = 1;
+						} else if (bt_active2[j] == true) {
+							LCO.remove(t);
+							bt_active2[j] = false;
+						} else {
+							LCO.add(t);
+							bt_active2[j] = true;
+						}
+						try {
+							panneau_block(dark);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
 					}
-					try {
-						panneau_block(dark);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				};
 
-				}
-			};
+				bt1.setOnAction(event);
+				container2.add(bt1, i, 0);
 
-			bt1.setOnAction(event);
-			container.add(bt1, i, 0);
+			}
 
+			this.Textscrollpane.setContent(container2);
+			
 		}
-
-		this.Textscrollpane.setContent(container);
+		
 		if (dark) {
-			// this.Textscrollpane.getStylesheets().clear();
-			// container.getStylesheets().clear();
-			// this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			// this.Textscrollpane.getStyleClass().add("scroll-bar");
-			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
-			container.getStyleClass().add("grid-pane");
+			 this.Textscrollpane.getStylesheets().clear();
+			container.getStylesheets().clear();
+			this.Textscrollpane.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			this.Textscrollpane.getStyleClass().add("scroll-bar");
+			container2.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
+			container2.getStyleClass().add("grid-pane");
 		} else {
 			this.Textscrollpane.getStylesheets().clear();
+			this.container2.getStylesheets().clear();
 
 		}
 
@@ -896,72 +911,76 @@ public class Controller_3D_Environnement {
 		}
 
 	}
-
+	public GridPane container = new GridPane();
+;
 	public void ajout_categorie(boolean dark) {
 
-		GridPane container = new GridPane();
-		container.setTranslateX(25);
-		container.setTranslateY(25);
-		Label lbl1 = new Label("Categorie :");
-		anch_cat.getChildren().add(lbl1);
-		anch_cat.setLeftAnchor(lbl1, 6.0);
-		anch_cat.setTopAnchor(lbl1, 4.0);
+		if(!this.first_init) {
 
-		for (int i = 0; i < tab_categorie.length; i++) {
+			container.setTranslateX(25);
+			container.setTranslateY(25);
+			Label lbl1 = new Label("Categorie :");
+			anch_cat.getChildren().add(lbl1);
+			anch_cat.setLeftAnchor(lbl1, 6.0);
+			anch_cat.setTopAnchor(lbl1, 4.0);
+			for (int i = 0; i < tab_categorie.length; i++) {
 
-			container.getColumnConstraints().add(new ColumnConstraints(60));
-			container.getRowConstraints().add(new RowConstraints(24));
-			Label lbl = tab_categorie[i];
-			CheckBox cbx = new CheckBox();
-			lbl.setMinWidth(Region.USE_PREF_SIZE);
+				container.getColumnConstraints().add(new ColumnConstraints(60));
+				container.getRowConstraints().add(new RowConstraints(24));
+				Label lbl = tab_categorie[i];
+				CheckBox cbx = new CheckBox();
+				lbl.setMinWidth(Region.USE_PREF_SIZE);
 
-			cbx.setSelected(true);
-			lbl.setTextFill(Color.GREY);
+				cbx.setSelected(true);
+				lbl.setTextFill(Color.GREY);
 
-			EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+				EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent evt) {
-					String f = lbl.getText().toUpperCase();
+					@Override
+					public void handle(ActionEvent evt) {
+						String f = lbl.getText().toUpperCase();
 
-					if (cbx.isSelected()) {
-						LFO.add(f);
-						try {
-							panneau_block(dark);
-						} catch (FileNotFoundException e) {
-							System.out.print("Erreur mon reuf");
-							e.printStackTrace();
+						if (cbx.isSelected()) {
+							LFO.add(f);
+							try {
+								panneau_block(dark);
+							} catch (FileNotFoundException e) {
+								System.out.print("Erreur mon reuf");
+								e.printStackTrace();
+							}
+						} else {
+							LFO.remove(f);
+							try {
+
+								panneau_block(dark);
+							} catch (FileNotFoundException e) {
+								System.out.print("Erreur mon reuf");
+								e.printStackTrace();
+							}
 						}
-					} else {
-						LFO.remove(f);
-						try {
 
-							panneau_block(dark);
-						} catch (FileNotFoundException e) {
-							System.out.print("Erreur mon reuf");
-							e.printStackTrace();
-						}
 					}
+				};
+				cbx.setOnAction(event);
+				container.add(lbl, 0, i);
+				container.add(cbx, 3, i);
 
-				}
-			};
-			cbx.setOnAction(event);
-			container.add(lbl, 0, i);
-			container.add(cbx, 3, i);
-
+			}
+			anch_cat.getChildren().add(container);
 		}
-		anch_cat.getChildren().add(container);
+		
+		
 
 		if (dark) {
-			//container.getStylesheets().clear();
-			//anch_cat.getStylesheets().clear();
+			container.getStylesheets().clear();
+			anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			anch_cat.getStyleClass().add("background");
 		} else {
-			//container.getStylesheets().clear();
-			//anch_cat.getStylesheets().clear();
+			container.getStylesheets().clear();
+			anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			container.getStyleClass().add("grid-pane-ligth");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
@@ -981,6 +1000,7 @@ public class Controller_3D_Environnement {
 		ajout_texture(false);
 		remplissage_LFOLCO();
 		panneau_block(false);
+		this.first_init = true;
 		ToggleSwitch toggle = new ToggleSwitch();
 		anch_top.getChildren().add(toggle);
 		anch_top.setRightAnchor(toggle, 200.0);
@@ -990,6 +1010,7 @@ public class Controller_3D_Environnement {
 			if (!toggle.select().getValue()) {
 				System.out.println("hello");
 				ajout_categorie(true);
+				
 				ajout_couleur(true);
 				ajout_texture(true);
 				anch.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
@@ -1257,6 +1278,7 @@ public class Controller_3D_Environnement {
 
 									}
 								});
+								
 								Insets margin = new Insets(0, 0, 0, 100);
 								b.setMargin(inp, margin);
 								b.getChildren().add(l);

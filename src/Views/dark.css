@@ -15,7 +15,6 @@
 .grid-pane{
 	-fx-background-color: #1b1e2b;
 	-fx-border-color: #1b1e2b;
-	-fx-border-width: 1;
 }
 .scroll-pane .scroll-bar{
 	-fx-background-color: #1b1e2b;
