@@ -4,6 +4,8 @@ Logiciel développé dans le cadre d'un projet de fin d'année de L2 INFO en JAV
 
 Participants : Jean-David Cross, Amaury Audouard et Valentin Merault.
 
+Le cahier des charges est disponible dans les fichiers du jeu ci dessus.
+
 Languages utilisés :
 
 - CSS.
