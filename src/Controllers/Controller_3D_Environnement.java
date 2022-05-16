@@ -953,15 +953,15 @@ public class Controller_3D_Environnement {
 		anch_cat.getChildren().add(container);
 
 		if (dark) {
-			container.getStylesheets().clear();
-			anch_cat.getStylesheets().clear();
+			//container.getStylesheets().clear();
+			//anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			container.getStyleClass().add("background");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/dark.css").toExternalForm());
 			anch_cat.getStyleClass().add("background");
 		} else {
-			container.getStylesheets().clear();
-			anch_cat.getStylesheets().clear();
+			//container.getStylesheets().clear();
+			//anch_cat.getStylesheets().clear();
 			container.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
 			container.getStyleClass().add("grid-pane-ligth");
 			anch_cat.getStylesheets().add(getClass().getResource("../Views/application.css").toExternalForm());
@@ -976,7 +976,6 @@ public class Controller_3D_Environnement {
 		lbl_taille.setText("0");
 		lbl_taille2.setText("1");
 		orientation_label.setText(this.rotations[rota]);
-
 		ajout_couleur(false);
 		ajout_categorie(false);
 		ajout_texture(false);
