@@ -19,7 +19,7 @@ De ce fait, notre application contient donc les fonctonnalitées suivantes :
 
 - Les legos ont différentes caractéristiques modifiable en jeu : Couleur, Texture, Rotation, Taille...
 
-- Concernant la structure : Remise à 0, gestion complete de la camera avec les touches clavier + souris, rotation de la structure, rotation de la source de lumière sur deux axes (automatique ou manuelle).
+- Concernant la structure : Remise à 0, gestion complete de la camera avec les touches clavier + souris, rotation de la structure, rotation de la source de lumière sur deux axes (automatique ou manuelle), suppression du dernier bloc posé, remise du supprimé, suppression de la selection, changement couleur/texture de la selection.
 
 - Concernant l'appli : Lecteur de musique complet, sauvegarde des structures, chargement des structures, suppressions des structures sauvegarder, recherche dans la bibliothèque à partir des différentes propriétés des legos, un mode jour/nuit et enfin page de présentation des touches.
 
