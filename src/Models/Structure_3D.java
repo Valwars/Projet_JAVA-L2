@@ -280,6 +280,9 @@ public class Structure_3D extends Group implements Serializable {
 	public void resetStructure() {
 		this.selected_bloc = "BASE";
 		this.getChildren().clear();
+		this.deleted_blocs.clear();
+		this.last_lego_selected = null;
+		this.lego_selected.clear();
 		createBase();
 
 	}

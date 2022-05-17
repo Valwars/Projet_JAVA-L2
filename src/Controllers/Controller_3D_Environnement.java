@@ -605,8 +605,15 @@ public class Controller_3D_Environnement {
 			structure.getLego_selected().clear();
 
 			break;
+			
+		
+		case A:
+			structure.resetStructure();
+			break;
 
 		}
+		
+		
 	}
 
 	private void sauvegarder() {
