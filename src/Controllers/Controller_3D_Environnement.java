@@ -1095,7 +1095,6 @@ public class Controller_3D_Environnement {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/Help_window.fxml"));
-				loader.setController(mc);
 				ScrollPane root;
 				try {
 					root = loader.load();
