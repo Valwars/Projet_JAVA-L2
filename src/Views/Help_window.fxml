@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="vbx" prefHeight="1877.0" prefWidth="450.0">
          <children>
@@ -220,26 +220,6 @@
             </HBox>
             <HBox prefHeight="38.0" prefWidth="660.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="404.0" text="Rectangle taille 5 :">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="K" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="40.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" right="30.0" top="30.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="38.0" prefWidth="660.0">
-               <children>
                   <Label prefHeight="28.0" prefWidth="404.0" text="Angle :">
                      <font>
                         <Font size="15.0" />
@@ -328,7 +308,7 @@
             </HBox>
             <HBox prefHeight="38.0" prefWidth="660.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="404.0" text="Suprimer la sélection">
+                  <Label prefHeight="28.0" prefWidth="404.0" text="Déselectionner la selection">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -521,7 +501,27 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="A" textAlignment="CENTER">
+                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="K" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="50.0" right="30.0" top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="38.0" prefWidth="660.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="404.0" text="Sauvegarde de la structure :">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="240.0" text="L" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="40.0" />
                      </HBox.margin>

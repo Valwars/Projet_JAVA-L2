@@ -468,14 +468,8 @@ public class Controller_3D_Environnement {
 
 		case K:
 
-			structure.setTaille(0);
-			lbl_taille.setText(0 + "");
-			lbl_taille2.setText(5 + "");
-			String bloc5 = "RECTANGLE5_" + this.rotations[this.rota];
+			structure.resetStructure();
 
-			l.setText("RECTANGLE");
-
-			structure.setSelected_bloc(bloc5);
 			break;
 
 		case H:
@@ -607,9 +601,6 @@ public class Controller_3D_Environnement {
 			break;
 			
 		
-		case A:
-			structure.resetStructure();
-			break;
 
 		}
 		
